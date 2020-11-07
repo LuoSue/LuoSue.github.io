@@ -8,15 +8,428 @@ for(var s=a.css,u=a.type,l=a.enterClass,f=a.enterToClass,p=a.enterActiveClass,d=
 ;return e.split(/;(?![^(]*\))/g).forEach(function(e){if(e){var n=e.split(/:(.+)/);n.length>1&&(t[n[0].trim()]=n[1].trim())}}),t}),ka=/^--/,Aa=/\s*!important$/,Oa=function(e,t,n){if(ka.test(t))e.style.setProperty(t,n);else if(Aa.test(n))e.style.setProperty(t,n.replace(Aa,""),"important");else{var r=Ta(t);if(Array.isArray(n))for(var i=0,o=n.length;i<o;i++)e.style[r]=n[i];else e.style[r]=n}},Sa=["Webkit","Moz","ms"],Ta=p(function(e){if(Wo=Wo||document.createElement("div"),"filter"!==(e=Ti(e))&&e in Wo.style)return e;for(var t=e.charAt(0).toUpperCase()+e.slice(1),n=0;n<Sa.length;n++){var r=Sa[n]+t;if(r in Wo.style)return r}}),Ea={create:Mn,update:Mn},ja=p(function(e){return{enterClass:e+"-enter",enterToClass:e+"-enter-to",enterActiveClass:e+"-enter-active",leaveClass:e+"-leave",leaveToClass:e+"-leave-to",leaveActiveClass:e+"-leave-active"}}),Na=Ui&&!Ji,La="transition",Ia="animation",Da="transition",Ma="transitionend",Pa="animation",Ra="animationend";Na&&(void 0===window.ontransitionend&&void 0!==window.onwebkittransitionend&&(Da="WebkitTransition",Ma="webkitTransitionEnd"),void 0===window.onanimationend&&void 0!==window.onwebkitanimationend&&(Pa="WebkitAnimation",Ra="webkitAnimationEnd"));var Fa=Ui&&window.requestAnimationFrame?window.requestAnimationFrame.bind(window):setTimeout,Ba=/\b(transform|all)(,|$)/,Ha=Ui?{create:Yn,activate:Yn,remove:function(e,t){!0!==e.data.show?Wn(e,t):t()}}:{},Ua=[ga,ya,xa,wa,Ea,Ha],Va=Ua.concat(ma),za=function(i){function o(e){return new ho(E.tagName(e).toLowerCase(),{},[],void 0,e)}function a(e,t){function n(){0==--n.listeners&&s(e)}return n.listeners=t,n}function s(e){var n=E.parentNode(e);t(n)&&E.removeChild(n,e)}function c(e,r,i,o,a){if(e.isRootInsert=!a,!l(e,r,i,o)){var s=e.data,c=e.children,u=e.tag;t(u)?(e.elm=e.ns?E.createElementNS(e.ns,u):E.createElement(u,e),g(e),v(e,c,r),t(s)&&m(e,r),d(i,e.elm,o)):n(e.isComment)?(e.elm=E.createComment(e.text),d(i,e.elm,o)):(e.elm=E.createTextNode(e.text),d(i,e.elm,o))}}function l(e,r,i,o){var a=e.data;if(t(a)){var s=t(e.componentInstance)&&a.keepAlive;if(t(a=a.hook)&&t(a=a.init)&&a(e,!1,i,o),t(e.componentInstance))return f(e,r),n(s)&&p(e,r,i,o),!0}}function f(e,n){t(e.data.pendingInsert)&&n.push.apply(n,e.data.pendingInsert),e.elm=e.componentInstance.$el,h(e)?(m(e,n),g(e)):(Vt(e),n.push(e))}function p(e,n,r,i){for(var o,a=e;a.componentInstance;)if(a=a.componentInstance._vnode,t(o=a.data)&&t(o=o.transition)){for(o=0;o<S.activate.length;++o)S.activate[o](pa,a);n.push(a);break}d(r,e.elm,i)}function d(e,n,r){t(e)&&(t(r)?r.parentNode===e&&E.insertBefore(e,n,r):E.appendChild(e,n))}function v(e,t,n){if(Array.isArray(t))for(var i=0;i<t.length;++i)c(t[i],n,e.elm,null,!0);else r(e.text)&&E.appendChild(e.elm,E.createTextNode(e.text))}function h(e){for(;e.componentInstance;)e=e.componentInstance._vnode;return t(e.tag)}function m(e,n){for(var r=0;r<S.create.length;++r)S.create[r](pa,e);A=e.data.hook,t(A)&&(t(A.create)&&A.create(pa,e),t(A.insert)&&n.push(e))}function g(e){for(var n,r=e;r;)t(n=r.context)&&t(n=n.$options._scopeId)&&E.setAttribute(e.elm,n,""),r=r.parent;t(n=bo)&&n!==e.context&&t(n=n.$options._scopeId)&&E.setAttribute(e.elm,n,"")}function y(e,t,n,r,i,o){for(;r<=i;++r)c(n[r],o,e,t)}function _(e){var n,r,i=e.data;if(t(i))for(t(n=i.hook)&&t(n=n.destroy)&&n(e),n=0;n<S.destroy.length;++n)S.destroy[n](e);if(t(n=e.children))for(r=0;r<e.children.length;++r)_(e.children[r])}function b(e,n,r,i){for(;r<=i;++r){var o=n[r];t(o)&&(t(o.tag)?($(o),_(o)):s(o.elm))}}function $(e,n){if(t(n)||t(e.data)){var r,i=S.remove.length+1;for(t(n)?n.listeners+=i:n=a(e.elm,i),t(r=e.componentInstance)&&t(r=r._vnode)&&t(r.data)&&$(r,n),r=0;r<S.remove.length;++r)S.remove[r](e,n);t(r=e.data.hook)&&t(r=r.remove)?r(e,n):n()}else s(e.elm)}function x(n,r,i,o,a){for(var s,u,l,f,p=0,d=0,v=r.length-1,h=r[0],m=r[v],g=i.length-1,_=i[0],$=i[g],x=!a;p<=v&&d<=g;)e(h)?h=r[++p]:e(m)?m=r[--v]:zt(h,_)?(w(h,_,o),h=r[++p],_=i[++d]):zt(m,$)?(w(m,$,o),m=r[--v],$=i[--g]):zt(h,$)?(w(h,$,o),x&&E.insertBefore(n,h.elm,E.nextSibling(m.elm)),h=r[++p],$=i[--g]):zt(m,_)?(w(m,_,o),x&&E.insertBefore(n,m.elm,h.elm),m=r[--v],_=i[++d]):(e(s)&&(s=Kt(r,p,v)),u=t(_.key)?s[_.key]:null,e(u)?(c(_,o,n,h.elm),_=i[++d]):(l=r[u],zt(l,_)?(w(l,_,o),r[u]=void 0,x&&E.insertBefore(n,_.elm,h.elm),_=i[++d]):(c(_,o,n,h.elm),_=i[++d])));p>v?(f=e(i[g+1])?null:i[g+1].elm,y(n,f,i,d,g,o)):d>g&&b(n,r,p,v)}function w(r,i,o,a){if(r!==i){if(n(i.isStatic)&&n(r.isStatic)&&i.key===r.key&&(n(i.isCloned)||n(i.isOnce)))return i.elm=r.elm,void(i.componentInstance=r.componentInstance);var s,c=i.data;t(c)&&t(s=c.hook)&&t(s=s.prepatch)&&s(r,i);var u=i.elm=r.elm,l=r.children,f=i.children;if(t(c)&&h(i)){for(s=0;s<S.update.length;++s)S.update[s](r,i);t(s=c.hook)&&t(s=s.update)&&s(r,i)}e(i.text)?t(l)&&t(f)?l!==f&&x(u,l,f,o,a):t(f)?(t(r.text)&&E.setTextContent(u,""),y(u,null,f,0,f.length-1,o)):t(l)?b(u,l,0,l.length-1):t(r.text)&&E.setTextContent(u,""):r.text!==i.text&&E.setTextContent(u,i.text),t(c)&&t(s=c.hook)&&t(s=s.postpatch)&&s(r,i)}}function C(e,r,i){if(n(i)&&t(e.parent))e.parent.data.pendingInsert=r;else for(var o=0;o<r.length;++o)r[o].data.hook.insert(r[o])}function k(e,n,r){n.elm=e;var i=n.tag,o=n.data,a=n.children;if(t(o)&&(t(A=o.hook)&&t(A=A.init)&&A(n,!0),t(A=n.componentInstance)))return f(n,r),!0;if(t(i)){if(t(a))if(e.hasChildNodes()){for(var s=!0,c=e.firstChild,u=0;u<a.length;u++){if(!c||!k(c,a[u],r)){s=!1;break}c=c.nextSibling}if(!s||c)return!1}else v(n,a,r);if(t(o))for(var l in o)if(!j(l)){m(n,r);break}}else e.data!==n.text&&(e.data=n.text);return!0}var A,O,S={},T=i.modules,E=i.nodeOps;for(A=0;A<da.length;++A)for(S[da[A]]=[],O=0;O<T.length;++O)t(T[O][da[A]])&&S[da[A]].push(T[O][da[A]]);var j=u("attrs,style,class,staticClass,staticStyle,key");return function(r,i,a,s,u,l){if(e(i))return void(t(r)&&_(r));var f=!1,p=[];if(e(r))f=!0,c(i,p,u,l);else{var d=t(r.nodeType);if(!d&&zt(r,i))w(r,i,p,s);else{if(d){if(1===r.nodeType&&r.hasAttribute(Ii)&&(r.removeAttribute(Ii),a=!0),n(a)&&k(r,i,p))return C(i,p,!0),r;r=o(r)}var v=r.elm,m=E.parentNode(v);if(c(i,p,v._leaveCb?null:m,E.nextSibling(v)),t(i.parent)){for(var g=i.parent;g;)g.elm=i.elm,g=g.parent;if(h(i))for(var y=0;y<S.create.length;++y)S.create[y](pa,i.parent)}t(m)?b(m,[r],0,0):t(r.tag)&&_(r)}}return C(i,p,f),i.elm}}({nodeOps:la,modules:Va});Ji&&document.addEventListener("selectionchange",function(){var e=document.activeElement;e&&e.vmodel&&rr(e,"input")});var Ja={inserted:function(e,t,n){if("select"===n.tag){var r=function(){Qn(e,t,n.context)};r(),(zi||Ki)&&setTimeout(r,0)}else"textarea"!==n.tag&&"text"!==e.type&&"password"!==e.type||(e._vModifiers=t.modifiers,t.modifiers.lazy||(e.addEventListener("change",nr),qi||(e.addEventListener("compositionstart",tr),e.addEventListener("compositionend",nr)),Ji&&(e.vmodel=!0)))},componentUpdated:function(e,t,n){if("select"===n.tag){Qn(e,t,n.context);(e.multiple?t.value.some(function(t){return Xn(t,e.options)}):t.value!==t.oldValue&&Xn(t.value,e.options))&&rr(e,"change")}}},Ka={bind:function(e,t,n){var r=t.value;n=ir(n);var i=n.data&&n.data.transition,o=e.__vOriginalDisplay="none"===e.style.display?"":e.style.display;r&&i&&!Ji?(n.data.show=!0,qn(n,function(){e.style.display=o})):e.style.display=r?o:"none"},update:function(e,t,n){var r=t.value;r!==t.oldValue&&(n=ir(n),n.data&&n.data.transition&&!Ji?(n.data.show=!0,r?qn(n,function(){e.style.display=e.__vOriginalDisplay}):Wn(n,function(){e.style.display="none"})):e.style.display=r?e.__vOriginalDisplay:"none")},unbind:function(e,t,n,r,i){i||(e.style.display=e.__vOriginalDisplay)}},qa={model:Ja,show:Ka},Wa={name:String,appear:Boolean,css:Boolean,mode:String,type:String,enterClass:String,leaveClass:String,enterToClass:String,leaveToClass:String,enterActiveClass:String,leaveActiveClass:String,appearClass:String,appearActiveClass:String,appearToClass:String,duration:[Number,String,Object]},Za={name:"transition",props:Wa,abstract:!0,render:function(e){var t=this,n=this.$slots.default;if(n&&(n=n.filter(function(e){return e.tag}),n.length)){var i=this.mode,o=n[0];if(cr(this.$vnode))return o;var a=or(o);if(!a)return o;if(this._leaving)return sr(e,o);var s="__transition-"+this._uid+"-";a.key=null==a.key?s+a.tag:r(a.key)?0===String(a.key).indexOf(s)?a.key:s+a.key:a.key;var c=(a.data||(a.data={})).transition=ar(this),u=this._vnode,l=or(u);if(a.data.directives&&a.data.directives.some(function(e){return"show"===e.name})&&(a.data.show=!0),l&&l.data&&!ur(a,l)){var f=l&&(l.data.transition=h({},c));if("out-in"===i)return this._leaving=!0,Y(f,"afterLeave",function(){t._leaving=!1,t.$forceUpdate()}),sr(e,o);if("in-out"===i){var p,d=function(){p()};Y(c,"afterEnter",d),Y(c,"enterCancelled",d),Y(f,"delayLeave",function(e){p=e})}}return o}}},Ga=h({tag:String,moveClass:String},Wa);delete Ga.mode;var Ya={props:Ga,render:function(e){for(var t=this.tag||this.$vnode.data.tag||"span",n=Object.create(null),r=this.prevChildren=this.children,i=this.$slots.default||[],o=this.children=[],a=ar(this),s=0;s<i.length;s++){var c=i[s];c.tag&&null!=c.key&&0!==String(c.key).indexOf("__vlist")&&(o.push(c),n[c.key]=c,(c.data||(c.data={})).transition=a)}if(r){for(var u=[],l=[],f=0;f<r.length;f++){var p=r[f];p.data.transition=a,p.data.pos=p.elm.getBoundingClientRect(),n[p.key]?u.push(p):l.push(p)}this.kept=e(t,null,u),this.removed=l}return e(t,null,o)},beforeUpdate:function(){this.__patch__(this._vnode,this.kept,!1,!0),this._vnode=this.kept},updated:function(){var e=this.prevChildren,t=this.moveClass||(this.name||"v")+"-move";if(e.length&&this.hasMove(e[0].elm,t)){e.forEach(lr),e.forEach(fr),e.forEach(pr);var n=document.body;n.offsetHeight;e.forEach(function(e){if(e.data.moved){var n=e.elm,r=n.style;Hn(n,t),r.transform=r.WebkitTransform=r.transitionDuration="",n.addEventListener(Ma,n._moveCb=function e(r){r&&!/transform$/.test(r.propertyName)||(n.removeEventListener(Ma,e),n._moveCb=null,Un(n,t))})}})}},methods:{hasMove:function(e,t){if(!Na)return!1;if(null!=this._hasMove)return this._hasMove;var n=e.cloneNode();e._transitionClasses&&e._transitionClasses.forEach(function(e){Rn(n,e)}),Pn(n,t),n.style.display="none",this.$el.appendChild(n);var r=zn(n);return this.$el.removeChild(n),this._hasMove=r.hasTransform}}},Qa={Transition:Za,TransitionGroup:Ya};pt.config.mustUseProp=Yo,pt.config.isReservedTag=ca,pt.config.isReservedAttr=Zo,pt.config.getTagNamespace=St,pt.config.isUnknownElement=Tt,h(pt.options.directives,qa),h(pt.options.components,Qa),pt.prototype.__patch__=Ui?za:g,pt.prototype.$mount=function(e,t){return e=e&&Ui?Et(e):void 0,ve(this,e,t)},setTimeout(function(){Pi.devtools&&to&&to.emit("init",pt)},0);var Xa,es=!!Ui&&function(e,t){var n=document.createElement("div");return n.innerHTML='<div a="'+e+'">',n.innerHTML.indexOf(t)>0}("\n","&#10;"),ts=u("area,base,br,col,embed,frame,hr,img,input,isindex,keygen,link,meta,param,source,track,wbr"),ns=u("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source"),rs=u("address,article,aside,base,blockquote,body,caption,col,colgroup,dd,details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,title,tr,track"),is=[/"([^"]*)"+/.source,/'([^']*)'+/.source,/([^\s"'=<>`]+)/.source],os=new RegExp("^\\s*"+/([^\s"'<>\/=]+)/.source+"(?:\\s*("+/(?:=)/.source+")\\s*(?:"+is.join("|")+"))?"),as="[a-zA-Z_][\\w\\-\\.]*",ss=new RegExp("^<((?:"+as+"\\:)?"+as+")"),cs=/^\s*(\/?)>/,us=new RegExp("^<\\/((?:"+as+"\\:)?"+as+")[^>]*>"),ls=/^<!DOCTYPE [^>]+>/i,fs=/^<!--/,ps=/^<!\[/,ds=!1;"x".replace(/x(.)?/g,function(e,t){ds=""===t});var vs,hs,ms,gs,ys,_s,bs,$s,xs,ws,Cs,ks,As,Os,Ss,Ts,Es,js,Ns=u("script,style,textarea",!0),Ls={},Is={"&lt;":"<","&gt;":">","&quot;":'"',"&amp;":"&","&#10;":"\n"},Ds=/&(?:lt|gt|quot|amp);/g,Ms=/&(?:lt|gt|quot|amp|#10);/g,Ps=/\{\{((?:.|\n)+?)\}\}/g,Rs=p(function(e){var t=e[0].replace(/[-.*+?^${}()|[\]\/\\]/g,"\\$&"),n=e[1].replace(/[-.*+?^${}()|[\]\/\\]/g,"\\$&");return new RegExp(t+"((?:.|\\n)+?)"+n,"g")}),Fs=/^@|^v-on:/,Bs=/^v-|^@|^:/,Hs=/(.*?)\s+(?:in|of)\s+(.*)/,Us=/\((\{[^}]*\}|[^,]*),([^,]*)(?:,([^,]*))?\)/,Vs=/:(.*)$/,zs=/^:|^v-bind:/,Js=/\.[^.]+/g,Ks=p(dr),qs=/^xmlns:NS\d+/,Ws=/^NS\d+:/,Zs=p(Rr),Gs=/^\s*([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/,Ys=/^\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?']|\[".*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*\s*$/,Qs={esc:27,tab:9,enter:13,space:32,up:38,left:37,right:39,down:40,delete:[8,46]},Xs=function(e){return"if("+e+")return null;"},ec={stop:"$event.stopPropagation();",prevent:"$event.preventDefault();",self:Xs("$event.target !== $event.currentTarget"),ctrl:Xs("!$event.ctrlKey"),shift:Xs("!$event.shiftKey"),alt:Xs("!$event.altKey"),meta:Xs("!$event.metaKey"),left:Xs("'button' in $event && $event.button !== 0"),middle:Xs("'button' in $event && $event.button !== 1"),right:Xs("'button' in $event && $event.button !== 2")},tc={bind:Wr,cloak:g},nc={staticKeys:["staticClass"],transformNode:_i,genData:bi},rc={staticKeys:["staticStyle"],transformNode:$i,genData:xi},ic=[nc,rc],oc={model:bn,text:wi,html:Ci},ac={expectHTML:!0,modules:ic,directives:oc,isPreTag:sa,isUnaryTag:ts,mustUseProp:Yo,canBeLeftOpenTag:ns,isReservedTag:ca,getTagNamespace:St,staticKeys:function(e){return e.reduce(function(e,t){return e.concat(t.staticKeys||[])},[]).join(",")}(ic)},sc=function(e){function t(t,n){var r=Object.create(e),i=[],o=[];if(r.warn=function(e,t){(t?o:i).push(e)},n){n.modules&&(r.modules=(e.modules||[]).concat(n.modules)),n.directives&&(r.directives=h(Object.create(e.directives),n.directives));for(var a in n)"modules"!==a&&"directives"!==a&&(r[a]=n[a])}var s=gi(t,r);return s.errors=i,s.tips=o,s}function n(e,n,i){n=n||{};var o=n.delimiters?String(n.delimiters)+e:e;if(r[o])return r[o];var a=t(e,n),s={},c=[];s.render=yi(a.render,c);var u=a.staticRenderFns.length;s.staticRenderFns=new Array(u);for(var l=0;l<u;l++)s.staticRenderFns[l]=yi(a.staticRenderFns[l],c);return r[o]=s}var r=Object.create(null);return{compile:t,compileToFunctions:n}}(ac),cc=sc.compileToFunctions,uc=p(function(e){var t=Et(e);return t&&t.innerHTML}),lc=pt.prototype.$mount;return pt.prototype.$mount=function(e,t){if((e=e&&Et(e))===document.body||e===document.documentElement)return this;var n=this.$options;if(!n.render){var r=n.template;if(r)if("string"==typeof r)"#"===r.charAt(0)&&(r=uc(r));else{if(!r.nodeType)return this;r=r.innerHTML}else e&&(r=ki(e));if(r){var i=cc(r,{shouldDecodeNewlines:es,delimiters:n.delimiters},this),o=i.render,a=i.staticRenderFns;n.render=o,n.staticRenderFns=a}}return lc.call(this,e,t)},pt.compile=cc,pt});
 
 /*
- * botui 0.3.4
+ * botui 0.3.9
  * A JS library to build the UI for your bot
  * https://botui.org
  *
- * Copyright 2017, Moin Uddin
+ * Copyright 2020, Moin Uddin
  * Released under the MIT license.
 */
 
-!function(e,t){"use strict";"function"==typeof define&&define.amd?define([],function(){return e.BotUI=t(e)}):e.BotUI=t(e)}("undefined"!=typeof window?window:this,function(e,t){"use strict";return function(t,n){function o(e,t,n,o){return"<a class='botui-message-content-link' target='"+(o?"blank":"")+"' href='"+n+"'>"+t+"</a>"}function i(e){return e.replace(v.image,"<img class='botui-message-content-image' src='$2' alt='$1' />").replace(v.icon,"<i class='botui-icon botui-message-content-icon fa fa-$1'></i>").replace(v.link,o)}function r(e,t){var n=document.createElement("script");n.type="text/javascript",n.src=e,t&&(n.onload=t),document.body.appendChild(n)}function s(e){y.action.addMessage&&h.message.human({delay:100,content:e}),y.action.show=!y.action.autoHide}function a(e){if(!e.loading&&!e.content)throw Error('BotUI: "content" is required in a non-loading message object.');e.type=e.type||"text",e.visible=!e.delay&&!e.loading;var t=y.messages.push(e)-1;return new Promise(function(n,o){setTimeout(function(){e.delay&&(e.visible=!0,e.loading&&(e.loading=!1)),n(t)},e.delay||0)})}function u(e){return"string"==typeof e&&(e={content:e}),e||{}}function c(e,t){for(var n in e)t.hasOwnProperty(n)||(t[n]=e[n])}function d(e){if(!e.action)throw Error('BotUI: "action" property is required.')}function l(e){return d(e),c({type:"text",cssClass:"",autoHide:!0,addMessage:!0},e),y.action.type=e.type,y.action.cssClass=e.cssClass,y.action.autoHide=e.autoHide,y.action.addMessage=e.addMessage,new Promise(function(t,n){p=t,setTimeout(function(){y.action.show=!0},e.delay||0)})}if(n=n||{},!t)throw Error("BotUI: Container id is required as first argument.");if(!document.getElementById(t))throw Error("BotUI: Element with id #"+t+" does not exist.");if(!e.Vue&&!n.vue)throw Error("BotUI: Vue is required but not found.");var f,m,p,g={debug:!1,fontawesome:!0},h={},v={icon:/!\(([^\)]+)\)/gim,image:/!\[(.*?)\]\((.*?)\)/gim,link:/\[([^\[]+)\]\(([^\)]+)\)(\^?)/gim};e.Vue=e.Vue||n.vue;for(var b in g)n.hasOwnProperty(b)&&(g[b]=n[b]);e.Promise||Promise||options.promise||r("https://cdn.jsdelivr.net/es6-promise/4.1.0/es6-promise.min.js");var w={template:"<div class=\"botui botui-container\" v-botui-container><div class=\"botui-messages-container\"><div v-for=\"msg in messages\" class=\"botui-message\" :class=\"msg.cssClass\" v-botui-scroll><transition name=\"slide-fade\"><div v-if=\"msg.visible\" :class=\"[{human: msg.human, \'botui-message-content\': true}, msg.type]\"><span v-if=\"msg.type == \'text\'\" v-text=\"msg.content\" v-botui-markdown></span> <iframe v-if=\"msg.type == \'embed\'\" :src=\"msg.content\" frameborder=\"0\" allowfullscreen></iframe></div></transition><div v-if=\"msg.loading\" class=\"botui-message-content loading\"><i class=\"dot\"></i><i class=\"dot\"></i><i class=\"dot\"></i></div></div></div><div class=\"botui-actions-container\"><transition name=\"slide-fade\"><div v-if=\"action.show\" v-botui-scroll><form v-if=\"action.type == \'text\'\" class=\"botui-actions-text\" @submit.prevent=\"handle_action_text()\" :class=\"action.cssClass\"><i v-if=\"action.text.icon\" class=\"botui-icon botui-action-text-icon fa\" :class=\"\'fa-\' + action.text.icon\"></i> <input type=\"text\" ref=\"input\" :type=\"action.text.sub_type\" v-model=\"action.text.value\" class=\"botui-actions-text-input\" :placeholder=\"action.text.placeholder\" :size=\"action.text.size\" :value=\"action.text.value\" :class=\"action.text.cssClass\" required v-focus/> <button type=\"submit\" :class=\"{\'botui-actions-buttons-button\': !!action.text.button, \'botui-actions-text-submit\': !action.text.button}\"><i v-if=\"action.text.button && action.text.button.icon\" class=\"botui-icon botui-action-button-icon fa\" :class=\"\'fa-\' + action.text.button.icon\"></i> <span>{{(action.text.button && action.text.button.label) || \'Go\'}}</span></button></form><div v-if=\"action.type == \'button\'\" class=\"botui-actions-buttons\" :class=\"action.cssClass\"> <button type=\"button\" :class=\"button.cssClass\" class=\"botui-actions-buttons-button\" v-for=\"button in action.button.buttons\" @click=\"handle_action_button(button)\" autofocus><i v-if=\"button.icon\" class=\"botui-icon botui-action-button-icon fa\" :class=\"\'fa-\' + button.icon\"></i> {{button.text}}</button></div></div></transition></div></div>",data:function(){return{action:{text:{size:30,placeholder:"Write here .."},button:{},show:!1,type:"text",autoHide:!0,addMessage:!0},messages:[]}},computed:{isMobile:function(){return e.innerWidth&&e.innerWidth<=768}},methods:{handle_action_button:function(e){s(e.text);var t={type:"button",text:e.text,value:e.value};for(var n in e)e.hasOwnProperty(n)&&"type"!==n&&"text"!==n&&"value"!==n&&(t[n]=e[n]);p(t)},handle_action_text:function(){this.action.text.value&&(s(this.action.text.value),p({type:"text",value:this.action.text.value}),this.action.text.value="")}}};e.Vue.directive("botui-markdown",function(e,t){"false"!=t.value&&(e.innerHTML=i(e.textContent))}),e.Vue.directive("botui-scroll",{inserted:function(e){m.scrollTop=m.scrollHeight}}),e.Vue.directive("focus",{inserted:function(e){e.focus()}}),e.Vue.directive("botui-container",{inserted:function(e){m=e}}),f=new e.Vue({components:{"bot-ui":w}}).$mount("#"+t);var y=f.$children[0];return h.message={add:function(e){return a(u(e))},bot:function(e){return e=u(e),a(e)},human:function(e){return e=u(e),e.human=!0,a(e)},get:function(e){return Promise.resolve(y.messages[e])},remove:function(e){return y.messages.splice(e,1),Promise.resolve()},update:function(e,t){var n=y.messages[e];return n.content=t.content,n.visible=!t.loading,n.loading=!!t.loading,Promise.resolve(t.content)},removeAll:function(){return y.messages.splice(0,y.messages.length),Promise.resolve()}},h.action={show:l,hide:function(){return y.action.show=!1,Promise.resolve()},text:function(e){return d(e),y.action.text=e.action,l(e)},button:function(e){return d(e),e.type="button",y.action.button.buttons=e.action,l(e)}},g.fontawesome&&r("https://use.fontawesome.com/ea731dcb6f.js"),g.debug&&(h._botApp=f),h}});
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+      define([], function () {
+        return (root.BotUI = factory(root));
+      });
+    } else {
+      root.BotUI = factory(root);
+    }
+  }(typeof window !== 'undefined' ? window : this, function (root, undefined) {
+    "use strict";
+  
+    var BotUI = (function (id, opts) {
+  
+      opts = opts || {};
+  
+      if(!id) {
+        throw Error('BotUI: Container id is required as first argument.');
+      }
+  
+      if(!document.getElementById(id)) {
+        throw Error('BotUI: Element with id #' + id + ' does not exist.');
+      }
+  
+      if(!root.Vue && !opts.vue) {
+        throw Error('BotUI: Vue is required but not found.');
+      }
+  
+      var _botApp, // current vue instance.
+      _options = {
+        debug: false,
+        fontawesome: true,
+        searchselect: true
+      },
+      _container, // the outermost Element. Needed to scroll to bottom, for now.
+      _interface = {}, // methods returned by a BotUI() instance.
+      _actionResolve,
+      _markDownRegex = {
+        icon: /!\(([^\)]+)\)/igm, // !(icon)
+        image: /!\[(.*?)\]\((.*?)\)/igm, // ![aleternate text](src)
+        link: /\[([^\[]+)\]\(([^\)]+)\)(\^?)/igm // [text](link) ^ can be added at end to set the target as 'blank'
+      },
+      _fontAwesome = 'https://use.fontawesome.com/ea731dcb6f.js',
+      _esPromisePollyfill = 'https://cdn.jsdelivr.net/es6-promise/4.1.0/es6-promise.min.js', // mostly for IE
+      _searchselect =  "https://unpkg.com/vue-select@2.4.0/dist/vue-select.js";
+  
+      root.Vue = root.Vue || opts.vue;
+  
+      // merge opts passed to constructor with _options
+      for (var prop in _options) {
+        if (opts.hasOwnProperty(prop)) {
+          _options[prop] = opts[prop];
+        }
+      }
+  
+      if(!root.Promise && typeof Promise === "undefined" && !opts.promise) {
+        loadScript(_esPromisePollyfill);
+      }
+  
+      function _linkReplacer(match, $1, $2, $3) {
+        var _target = $3 ? 'blank' : ''; // check if '^' sign is present with link syntax
+        return "<a class='botui-message-content-link' target='" + _target + "' href='" + $2 +"'>" + $1 + "</a>";
+      }
+  
+      function _parseMarkDown(text) {
+        return text
+                   .replace(_markDownRegex.image, "<img class='botui-message-content-image' src='$2' alt='$1' />")
+                   .replace(_markDownRegex.icon, "<i class='botui-icon botui-message-content-icon fa fa-$1'></i>")
+                   .replace(_markDownRegex.link, _linkReplacer);
+      }
+  
+      function loadScript(src, cb) {
+        var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+  
+            if(cb) {
+              script.onload = cb;
+            }
+  
+        document.body.appendChild(script);
+      }
+  
+      function _handleAction(text) {
+        if(_instance.action.addMessage) {
+          _interface.message.human({
+            delay: 100,
+            content: text
+          });
+        }
+        _instance.action.show = !_instance.action.autoHide;
+      }
+  
+      var _botuiComponent = {
+        template: 'BOTUI_TEMPLATE', // replaced by HTML template during build. see Gulpfile.js
+        data: function () {
+          return {
+            action: {
+              text: {
+                size: 30,
+                placeholder: 'Write here ..'
+              },
+              button: {},
+              show: false,
+              type: 'text',
+              autoHide: true,
+              addMessage: true
+            },
+            messages: []
+          };
+        },
+        computed: {
+          isMobile: function () {
+            return root.innerWidth && root.innerWidth <= 768;
+          }
+        },
+          methods: {
+              handle_action_button: function (button) {
+            for (var i = 0; i < this.action.button.buttons.length; i++) {
+              if(this.action.button.buttons[i].value == button.value && typeof(this.action.button.buttons[i].event) == 'function') {
+                this.action.button.buttons[i].event(button);
+                if (this.action.button.buttons[i].actionStop) return false;
+                break;
+              }
+            }
+  
+            _handleAction(button.text);
+  
+            var defaultActionObj = {
+              type: 'button',
+              text: button.text,
+              value: button.value
+            };
+  
+            for (var eachProperty in button) {
+              if (button.hasOwnProperty(eachProperty)) {
+                if (eachProperty !== 'type' && eachProperty !== 'text' && eachProperty !== 'value') {
+                  defaultActionObj[eachProperty] = button[eachProperty];
+                }
+              }
+            }
+  
+            _actionResolve(defaultActionObj);
+              },
+              handle_action_text: function () {
+                  if(!this.action.text.value) return;
+            _handleAction(this.action.text.value);
+                  _actionResolve({
+              type: 'text',
+              value: this.action.text.value
+            });
+                  this.action.text.value = '';
+              },
+          handle_action_select: function () {
+            if(this.action.select.searchselect && !this.action.select.multipleselect) {
+              if(!this.action.select.value.value) return;
+              _handleAction(this.action.select.value[this.action.select.label]);
+              _actionResolve({
+                type: 'text',
+                value: this.action.select.value.value,
+                text: this.action.select.value.text,
+                obj: this.action.select.value
+              });
+            }
+            if(this.action.select.searchselect && this.action.select.multipleselect) {
+              if(!this.action.select.value) return;
+              var values = new Array();
+              var labels = new Array();
+              for (var i = 0; i < this.action.select.value.length; i++) {
+                values.push(this.action.select.value[i].value);
+                labels.push(this.action.select.value[i][this.action.select.label]);
+              }
+              _handleAction(labels.join(', '));
+              _actionResolve({
+                type: 'text',
+                value: values.join(', '),
+                text: labels.join(', '),
+                obj: this.action.select.value
+              });
+            }
+            else {
+              if(!this.action.select.value) return;
+              for (var i = 0; i < this.action.select.options.length; i++) { // Find select title
+                if (this.action.select.options[i].value == this.action.select.value) {
+                  _handleAction(this.action.select.options[i].text);
+                  _actionResolve({
+                    type: 'text',
+                    value: this.action.select.value,
+                    text: this.action.select.options[i].text
+                  });
+                }
+              }
+            }
+          }
+          }
+      };
+  
+      root.Vue.directive('botui-markdown', function (el, binding) {
+        if(binding.value == 'false') return; // v-botui-markdown="false"
+        el.innerHTML = _parseMarkDown(el.textContent);
+      });
+  
+      root.Vue.directive('botui-scroll', {
+        inserted: function (el) {
+          _container.scrollTop = _container.scrollHeight;
+      el.scrollIntoView(true);
+        }
+      });
+  
+      root.Vue.directive('focus', {
+        inserted: function (el) {
+          el.focus();
+        }
+      });
+  
+      root.Vue.directive('botui-container', {
+        inserted: function (el) {
+          _container = el;
+        }
+      });
+  
+      _botApp = new root.Vue({
+        components: {
+          'bot-ui': _botuiComponent
+        }
+      }).$mount('#' + id);
+  
+      var _instance = _botApp.$children[0]; // to access the component's data
+  
+      function _addMessage(_msg) {
+  
+        if(!_msg.loading && !_msg.content) {
+          throw Error('BotUI: "content" is required in a non-loading message object.');
+        }
+  
+        _msg.type = _msg.type || 'text';
+        _msg.visible = (_msg.delay || _msg.loading) ? false : true;
+        var _index = _instance.messages.push(_msg) - 1;
+  
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            if(_msg.delay) {
+              _msg.visible = true;
+  
+              if(_msg.loading) {
+                _msg.loading = false;
+              }
+            }
+            resolve(_index);
+          }, _msg.delay || 0);
+        });
+      }
+  
+      function _checkOpts(_opts) {
+        if(typeof _opts === 'string') {
+          _opts = {
+            content: _opts
+          };
+        }
+        return _opts || {};
+      }
+  
+      _interface.message =  {
+        add: function (addOpts) {
+          return _addMessage( _checkOpts(addOpts) );
+        },
+        bot: function (addOpts) {
+          addOpts = _checkOpts(addOpts);
+          return _addMessage(addOpts);
+        },
+        human: function (addOpts) {
+          addOpts = _checkOpts(addOpts);
+          addOpts.human = true;
+          return _addMessage(addOpts);
+        },
+        get: function (index) {
+          return Promise.resolve(_instance.messages[index]);
+        },
+        remove: function (index) {
+          _instance.messages.splice(index, 1);
+          return Promise.resolve();
+        },
+        update: function (index, msg) { // only content can be updated, not the message type.
+          var _msg = _instance.messages[index];
+          _msg.content = msg.content;
+          _msg.visible = !msg.loading;
+          _msg.loading = !!msg.loading;
+          return Promise.resolve(msg.content);
+        },
+        removeAll: function () {
+          _instance.messages.splice(0, _instance.messages.length);
+          return Promise.resolve();
+        }
+      };
+  
+      function mergeAtoB(objA, objB) {
+        for (var prop in objA) {
+          if (!objB.hasOwnProperty(prop)) {
+            objB[prop] = objA[prop];
+          }
+        }
+      }
+  
+      function _checkAction(_opts) {
+        if(!_opts.action && !_opts.actionButton  && !_opts.actionText) {
+          throw Error('BotUI: "action" property is required.');
+        }
+      }
+  
+      function _showActions(_opts) {
+  
+        _checkAction(_opts);
+  
+        mergeAtoB({
+          type: 'text',
+          cssClass: '',
+          attributes: {},
+          autoHide: true,
+          addMessage: true
+        }, _opts);
+  
+        _instance.action.type = _opts.type;
+        _instance.action.cssClass = _opts.cssClass;
+        _instance.action.attributes = _opts.attributes;
+        _instance.action.autoHide = _opts.autoHide;
+        _instance.action.addMessage = _opts.addMessage;
+  
+        return new Promise(function(resolve, reject) {
+          _actionResolve = resolve; // resolved when action is performed, i.e: button clicked, text submitted, etc.
+          setTimeout(function () {
+            _instance.action.show = true;
+          }, _opts.delay || 0);
+        });
+      };
+  
+      _interface.action = {
+        show: _showActions,
+        hide: function () {
+          _instance.action.show = false;
+          return Promise.resolve();
+        },
+        text: function (_opts) {
+          _checkAction(_opts);
+          _instance.action.text = _opts.action;
+          return _showActions(_opts);
+        },
+        button: function (_opts) {
+          _checkAction(_opts);
+          _opts.type = 'button';
+          _instance.action.button.buttons = _opts.action;
+          return _showActions(_opts);
+        },
+        select: function (_opts) {
+          _checkAction(_opts);
+          _opts.type = 'select';
+          _opts.action.label = _opts.action.label || 'text';
+          _opts.action.value = _opts.action.value || '';
+          _opts.action.searchselect = typeof _opts.action.searchselect !== 'undefined' ? _opts.action.searchselect : _options.searchselect;
+          _opts.action.multipleselect = _opts.action.multipleselect || false;
+          if (_opts.action.searchselect && typeof(_opts.action.value) == 'string') {
+            if (!_opts.action.multipleselect) {
+              for (var i = 0; i < _opts.action.options.length; i++) { // Find object
+                if (_opts.action.options[i].value == _opts.action.value) {
+                  _opts.action.value = _opts.action.options[i]
+                }
+              }
+            }
+            else {
+              var vals = _opts.action.value.split(',');
+              _opts.action.value = new Array();
+              for (var i = 0; i < _opts.action.options.length; i++) { // Find object
+                for (var j = 0; j < vals.length; j++) { // Search values
+                  if (_opts.action.options[i].value == vals[j]) {
+                    _opts.action.value.push(_opts.action.options[i]);
+                  }
+                }
+              }
+            }
+          }
+          if (!_opts.action.searchselect) { _opts.action.options.unshift({value:'',text : _opts.action.placeholder}); }
+          _instance.action.button = _opts.action.button;
+          _instance.action.select = _opts.action;
+          return _showActions(_opts);
+        },
+        buttontext: function (_opts) {
+          _checkAction(_opts);
+          _opts.type = 'buttontext';
+          _instance.action.button.buttons = _opts.actionButton;
+          _instance.action.text = _opts.actionText;
+          return _showActions(_opts);
+        }
+      };
+  
+      if(_options.fontawesome) {
+        loadScript(_fontAwesome);
+      }
+  
+      if(_options.searchselect) {
+        loadScript(_searchselect, function() {
+          Vue.component('v-select', VueSelect.VueSelect);
+        });
+      }
+  
+      if(_options.debug) {
+        _interface._botApp = _botApp; // current Vue instance
+      }
+  
+      return _interface;
+    });
+  
+    return BotUI;
+  
+  }));
+  
 
 function bot_ui_ini() {
     var botui = new BotUI("hello-LuoSue")
