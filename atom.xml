@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-11-10T12:43:22.043Z</updated>
+  <updated>2020-11-10T13:54:29.005Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>OS内存管理</title>
+    <link href="https://fallensue.cc/2020/11/10/OS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>https://fallensue.cc/2020/11/10/OS内存管理/</id>
+    <published>2020-11-10T13:55:01.000Z</published>
+    <updated>2020-11-10T13:54:29.005Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello Hexo</title>
     <link href="https://fallensue.cc/2020/11/06/Hello%20Hexo/"/>
     <id>https://fallensue.cc/2020/11/06/Hello Hexo/</id>
     <published>2020-11-06T14:16:01.000Z</published>
-    <updated>2020-11-10T12:43:22.043Z</updated>
+    <updated>2020-11-10T13:27:32.256Z</updated>
     
     <summary type="html">
     
