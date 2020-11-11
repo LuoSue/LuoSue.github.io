@@ -412,9 +412,9 @@
 <h3 id="基本硬件"><a href="#基本硬件" class="headerlink" title="基本硬件"></a>基本硬件</h3><p>CPU可以直接访问的通用存储只有内存和处理器内置的寄存器。因此，执行指令以及指令使用的数据，应该处在这些可以直接访问的存础设备上。如果数据不在内存中， 那么在CPU 使用它们之前应先把数据移到内存。</p>
 <p>CPU 内置寄存器通常可以在一个CPU 时钟周期内完成访问。完成内存的访问可能需要多个CPU 时钟周期。在这种情况下， 由于没有数据以便完成正在执行的指令， CPU 通常需要暂停(stall)。<strong>由于内存访问的频繁，这种情况是我们不想见到的。</strong>补救措施是在CPU 与内存之间， 通常是在CPU 芯片上， 增加更快的内存；这称为高速缓存(cache)。</p>
 <p>为了确保操作的正确，首先，我们需要确保每个进程都有一个单独的内存空间。单独的进程内存空间可以保护进程而不互相影响，这对于将多个进程加到内存以便并发执行来说至关重要，通过两个寄存器，通常为基地址和界限地址，如图8所示，我们可以提供这种保护。基地址寄存器含有最小的合法的物理内存地址，而界限地址寄存器指定了范围的大小。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/寄存器界定地址空间.PNG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/寄存器界定地址空间.jpg" alt></p>
 <p>内存空间的保护是通过CPU对在用户模式下产生的地址与寄存器的地址进行比较而得成的。<strong>只有操作系统</strong>可以通过特殊的特权指令，才能加载基地址寄存器和界限地址寄存器。这个方案允许操作系统修改这两个寄存器的值，而不允许<strong>用户程序</strong>修改它们。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/硬件地址保护.PNG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/硬件地址保护.jpg" alt></p>
 <p>在内核模式下执行的操作系统可以无限制地访问操作系统及用户的内存。</p>
 <h3 id="地址绑定"><a href="#地址绑定" class="headerlink" title="地址绑定"></a>地址绑定</h3><p>源程序中的地址通常是用符号表示，编译器会将这些符号地址绑定到可重定位的地址。链接程序或加载程序再将这些可重定位的地址绑定到绝对地址（如74014)。每次绑定都是从一个地址空间到另一个地址空间的映射。</p>
 <p>通常，指令和数据绑定到存储器地址可在沿途的任何一步中进行：</p>
