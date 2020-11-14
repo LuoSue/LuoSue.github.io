@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: Hexo | LuoSue&#39;s Blog</title>
+  <title itemprop="name">图的基本定义 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,64 +364,143 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="Hexo.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      图的基本定义</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-14<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">Hexo</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2020/11/06/Hello Hexo/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="图的基本定义"><a href="#图的基本定义" class="headerlink" title="图的基本定义"></a>图的基本定义</h1><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><h3 id="图（graph）"><a href="#图（graph）" class="headerlink" title="图（graph）"></a><strong>图（graph）</strong></h3><p>图是由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E)，其中，G表示一个图，V是图G中的顶点的集合，E是图G中边的集合。</p>
+<h3 id="顶点-Vertex"><a href="#顶点-Vertex" class="headerlink" title="顶点(Vertex)"></a><strong>顶点(Vertex)</strong></h3><p>图中的数据元素。线性表中我们把数据元素叫元素，树中将数据元素叫结点。</p>
+<h3 id="边"><a href="#边" class="headerlink" title="边"></a><strong>边</strong></h3><p>顶点之间的逻辑关系用边来表示，边集可以是空的。</p>
+<h4 id="无向边-Edge"><a href="#无向边-Edge" class="headerlink" title="无向边(Edge)"></a><strong>无向边(Edge)</strong></h4><p>若两个顶点之间的边没有方向，则称这条边为无向边。用(V1,V2)表示。(V1,V2) ≠ (V2,V1)</p>
+<h4 id="有向边-弧-Arc"><a href="#有向边-弧-Arc" class="headerlink" title="有向边(弧)(Arc)"></a><strong>有向边(弧)(Arc)</strong></h4><p>若两个顶点之间的边有方向，则称这条边为有向边。用&lt;V1,V2&gt;表示，V1为弧尾(Tail)(或终端点)，V2为弧头(Head)(或初始点)。&lt;V1,V2&gt; ≠ &lt;V2,V1&gt;</p>
+<h3 id="无向图-Undirected-graphs"><a href="#无向图-Undirected-graphs" class="headerlink" title="无向图(Undirected graphs)"></a><strong>无向图(Undirected graphs)</strong></h3><p>图中任意两个顶点之间的边都是无向边。</p>
+<h3 id="有向图-Directed-graphs"><a href="#有向图-Directed-graphs" class="headerlink" title="有向图(Directed graphs) "></a><strong>有向图(Directed graphs) </strong></h3><p>图中任意两个顶点之间的边都是有向边。</p>
+<h3 id="完全图-Completed-graph"><a href="#完全图-Completed-graph" class="headerlink" title="完全图(Completed graph) "></a><strong>完全图(Completed graph) </strong></h3><p>有(1/2)*n(n-1)条边的无向图称为无向完全图，有n(n-1)条弧的有向图称为有向完全图。</p>
+<h3 id="稀疏图-Sparse-graph"><a href="#稀疏图-Sparse-graph" class="headerlink" title="稀疏图(Sparse graph)"></a><strong>稀疏图(Sparse graph)</strong></h3><p>有很少条边或弧(如e&lt;nlogn)的图。</p>
+<h3 id="稠密图-Dense-graph"><a href="#稠密图-Dense-graph" class="headerlink" title="稠密图(Dense graph):"></a><strong>稠密图(Dense graph):</strong></h3><p>不是稀疏图的图。</p>
+<h3 id="权（Weight）"><a href="#权（Weight）" class="headerlink" title="权（Weight）"></a><strong>权（Weight）</strong></h3><p>与图的边或弧相关的数。</p>
+<h3 id="网（Network）"><a href="#网（Network）" class="headerlink" title="网（Network）"></a><strong>网（Network）</strong></h3><p>带权的图。</p>
+<h3 id="子图（Subgraph）"><a href="#子图（Subgraph）" class="headerlink" title="子图（Subgraph）"></a><strong>子图（Subgraph）</strong></h3><p>假设G=（V,{E}）和G‘=（V’,{E’}），如果V’包含于V且E’包含于E，则称G’为G的子图。</p>
+<h3 id="邻接点-Adjacent"><a href="#邻接点-Adjacent" class="headerlink" title="邻接点(Adjacent)"></a><strong>邻接点(Adjacent)</strong></h3><p>如果边(v,w)属于E，则称顶点v与w互为邻接点,v与w相邻接。边(v,w)依附于顶点v与w，或者说(v,w)和顶点v和w相关联。</p>
+<h3 id="度-Degree"><a href="#度-Degree" class="headerlink" title="度(Degree)"></a><strong>度(Degree)</strong></h3><p>是与v相关联的边的数目，记为TD(V).有向图中，入度表示指向自己的边的数目，出度表示指向其他边的数目，该顶点的度等于入度与出度的和.</p>
+<h3 id="路径-Path"><a href="#路径-Path" class="headerlink" title="路径(Path)"></a><strong>路径(Path)</strong></h3><p>从一个点到另一个的顶点序列，第一个顶点与最后一个顶点相同的路径称为<strong>回路</strong>或<strong>环(Cycle)</strong>。序列中顶点不重复的路径称为<strong>简单路径</strong>。</p>
+<h3 id="连通图-Connected-graph"><a href="#连通图-Connected-graph" class="headerlink" title="连通图(Connected graph)"></a><strong>连通图(Connected graph)</strong></h3><p>图中任意两个顶点都是连通的(从一个顶点到另一个顶点有路径)。</p>
+<h3 id="连通分量-Connected-Component"><a href="#连通分量-Connected-Component" class="headerlink" title="连通分量(Connected Component)"></a><strong>连通分量(Connected Component)</strong></h3><p>无向图中的极大连通子图。</p>
+<h3 id="强连通图"><a href="#强连通图" class="headerlink" title="强连通图"></a><strong>强连通图</strong></h3><p>有向图中任意两个顶点之间都有路径。</p>
+<h3 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a><strong>生成树</strong></h3><p>极小连通子图，含有图中全部顶点，但只有足以构成一棵树的n-1条边。</p>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2020/11/06/Hello Hexo/">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2020/11/06/Hello Hexo/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/11/10/OS内存管理/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                OS内存管理</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
