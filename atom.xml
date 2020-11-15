@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-11-14T14:13:35.325Z</updated>
+  <updated>2020-11-15T10:53:37.858Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>图的基本定义</title>
+    <title>数据结构-图的存储结构</title>
+    <link href="https://fallensue.cc/posts/790212ce.html"/>
+    <id>https://fallensue.cc/posts/790212ce.html</id>
+    <published>2020-11-15T11:00:01.000Z</published>
+    <updated>2020-11-15T10:53:37.858Z</updated>
+    
+    <summary type="html">
+    
+      图的基本存储结构
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="DataStructure" scheme="https://fallensue.cc/tags/DataStructure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-图的基本定义</title>
     <link href="https://fallensue.cc/posts/790212ce.html"/>
     <id>https://fallensue.cc/posts/790212ce.html</id>
     <published>2020-11-14T13:30:01.000Z</published>
-    <updated>2020-11-14T14:13:35.325Z</updated>
+    <updated>2020-11-15T10:44:58.195Z</updated>
     
     <summary type="html">
     
