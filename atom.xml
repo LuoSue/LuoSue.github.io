@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-11-18T14:10:51.437Z</updated>
+  <updated>2020-11-18T14:13:48.524Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://fallensue.cc/posts/f30c2ae3.html"/>
     <id>https://fallensue.cc/posts/f30c2ae3.html</id>
     <published>2020-11-18T11:33:01.000Z</published>
-    <updated>2020-11-18T14:10:51.437Z</updated>
+    <updated>2020-11-18T14:13:48.524Z</updated>
     
     <summary type="html">
     
@@ -41,7 +41,7 @@
     <link href="https://fallensue.cc/posts/d0f417a6.html"/>
     <id>https://fallensue.cc/posts/d0f417a6.html</id>
     <published>2020-11-18T10:33:01.000Z</published>
-    <updated>2020-11-18T14:10:51.437Z</updated>
+    <updated>2020-11-18T14:13:48.530Z</updated>
     
     <summary type="html">
     
@@ -61,7 +61,7 @@
     <link href="https://fallensue.cc/posts/57ad5ad7.html"/>
     <id>https://fallensue.cc/posts/57ad5ad7.html</id>
     <published>2020-11-18T09:33:01.000Z</published>
-    <updated>2020-11-18T14:10:51.437Z</updated>
+    <updated>2020-11-18T14:13:48.519Z</updated>
     
     <summary type="html">
     
@@ -81,7 +81,7 @@
     <link href="https://fallensue.cc/posts/5b12b8a1.html"/>
     <id>https://fallensue.cc/posts/5b12b8a1.html</id>
     <published>2020-11-18T08:33:01.000Z</published>
-    <updated>2020-11-18T14:10:51.437Z</updated>
+    <updated>2020-11-18T14:13:48.548Z</updated>
     
     <summary type="html">
     
@@ -121,7 +121,7 @@
     <link href="https://fallensue.cc/posts/75bf7760.html"/>
     <id>https://fallensue.cc/posts/75bf7760.html</id>
     <published>2020-11-18T07:33:01.000Z</published>
-    <updated>2020-11-18T09:45:05.960Z</updated>
+    <updated>2020-11-18T14:13:48.535Z</updated>
     
     <summary type="html">
     
@@ -141,7 +141,7 @@
     <link href="https://fallensue.cc/posts/cededa76.html"/>
     <id>https://fallensue.cc/posts/cededa76.html</id>
     <published>2020-11-18T07:30:01.000Z</published>
-    <updated>2020-11-18T14:13:41.157Z</updated>
+    <updated>2020-11-18T14:13:48.542Z</updated>
     
     <summary type="html">
     
@@ -253,6 +253,28 @@
     
     
       <category term="Hexo" scheme="https://fallensue.cc/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo-Theme-Sakura</title>
+    <link href="https://fallensue.cc/posts/186f70d4.html"/>
+    <id>https://fallensue.cc/posts/186f70d4.html</id>
+    <published>2018-12-12T14:16:01.000Z</published>
+    <updated>2020-03-16T10:41:30.000Z</updated>
+    
+    <summary type="html">
+    
+      hexo-sakura主题使用教程
+    
+    </summary>
+    
+      <category term="技术" scheme="https://fallensue.cc/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="web" scheme="https://fallensue.cc/tags/web/"/>
+    
+      <category term="悦读" scheme="https://fallensue.cc/tags/%E6%82%A6%E8%AF%BB/"/>
     
   </entry>
   
