@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-树 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,272 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构树.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构树.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-树</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>树是n个结点的有限集。</p>
+<p>其余的树叫做根的子树</p>
+<p>结点包含一个数据元素及指向其子树的分支。</p>
+<p>结点的子树数为结点的度，度为0的结点称之为叶子或终端结点，度不为0的结点称之为非终端结点或是分支结点。</p>
+<p>子树的根称为孩子，（双亲，兄弟，子孙，祖先）</p>
+<p>结点的层次，根为第一层。树中结点的最大层次称之为深度</p>
+<p>各子树看成从左至右有次序，则该树为有序树，否则为无序树</p>
+<h2 id="二叉树的定义"><a href="#二叉树的定义" class="headerlink" title="二叉树的定义"></a>二叉树的定义</h2><p>特点：每个结点至多有只有两棵子树，子树有左右之分</p>
+<p>特性：在二叉树的第i 层上至多有(2^i-1)个结点(i&gt;=1)</p>
+<p>深度为k的二叉树至多有(2^k)-1个结点(k&gt;=1)</p>
+<p>对任意一棵二叉树T，如果其终端结点为n，度为2的结点为m，则n=m+1</p>
+<h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>一棵深度为k且有(2^k)-1个结点的树称为满二叉树</p>
+<p>特点：每一层上的结点数都是最大结点数</p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树：深度为k,有n个结点，每一个结点与满二叉树一一对应</p>
+<p>特点：叶子节点只可能在层次最大的两层上出现，对任一结点，其右分支下的子孙的最大层次为l，则其左分支下的子孙的最大层次必为l或l+1</p>
+<p>具有n个结点的完全二叉树的深度为[log2n]+1</p>
+<p>如果对一棵有n个结点的完全二叉树的结点按层序编号，则对任一结点，有</p>
+<p>(1) 如果i=1，则结点i是二叉树的根，无双亲；若i&gt;1，其双亲PARENT(i)是结点[i/2]</p>
+<p>(2)如果2i&gt;n,则结点i无左孩子，否则其左孩子为结点2i’</p>
+<p>(3)如果2i+1&gt;n，则结点i无右孩子；否则其右孩子为结点2i+1</p>
+<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><h3 id="顺序存储结构"><a href="#顺序存储结构" class="headerlink" title="顺序存储结构"></a>顺序存储结构</h3><p>用一组地址连续的存储单元依次自上而下，自左而右的存储。</p>
+<p>仅适用于完全二叉树，否则浪费空间</p>
+<pre><code class="c++">#define MAX_TREE_SIZE 100//二叉树最大结点数
+typedef TElemType SqBiTree[MAX_TREE_SIZE];//0号单元存储根结点
+SqBiTree bt;
+</code></pre>
+<h3 id="链式存储结构"><a href="#链式存储结构" class="headerlink" title="链式存储结构"></a>链式存储结构</h3><p>结点由一个数据元素和分别指向其左、右子树的两个分支构成。（数据域，左右指针域）</p>
+<p>有时可以增加指向其双亲的指针域（分别称为二叉链表和三叉链表）</p>
+<p>n个结点的二叉链表中有n+1个空链域</p>
+<pre><code class="C++">typedef struct BiTNode{
+    TElemType data;
+    struct BiTNode *lchild,*rchild;//左右孩子指针
+}BiTNode,*BiTree;
+</code></pre>
+<h2 id="遍历二叉树"><a href="#遍历二叉树" class="headerlink" title="遍历二叉树"></a>遍历二叉树</h2><p>先序遍历：若是二叉树空，则空操作。否则先访问根节点，再先序遍历左子树，最后先序遍历右子树</p>
+<p>中序遍历：若是二叉树空，则空操作。否则先中序遍历左子树，再访问根节点，最后先序遍历右子树</p>
+<p>后序遍历：若是二叉树空，则空操作。否则先后序遍历左子树，再后序遍历右子树，最后访问根节点</p>
+<p>时间复杂度均为O(n)</p>
+<h2 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h2><p>若结点有左子树，则其lchild域指向其左孩子，否则令其lchild域指向其前驱；若结点有右子树，则令其rchild域指向其右孩子，否则指向其后继。增加两个标志域。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lchild</td>
+<td>LTag</td>
+<td>data</td>
+<td>RTag</td>
+<td>rchild</td>
+</tr>
+</tbody>
+</table>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构LTag和RTag.PNG" alt></p>
+<p>这样的二叉链表叫做线索链表，二叉树叫做线索二叉树。</p>
+<pre><code class="c++">typedef enum PointerTag{Link,Thread}; //Link==0:指针，Thread ==1:线索
+typedef struct BiThrNode{
+    TElemType data;
+    struct BiThrNode *lchild,*rchild; //左右孩子指针
+    PointerTag LTag,RTag;//左右标志
+}BiThrNode,*BiThTree;
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构二叉树线索化.PNG" alt></p>
+<h2 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h2><p>从树中一个结点到另一个结点之间的分支构成此两个结点之间的路径，路径上的分支数目叫做路径长度。路径长度是从树根到每一个结点的路径长度之和。</p>
+<p>树的带权路径长度：所有叶子结点的带权路径长度之和WPL</p>
+<p>WPL最小的树被称为赫夫曼树</p>
+<pre><code class="c++">typedef char** HuffmanCode;//动态分配数组存储哈夫曼编码表
+/*储存字符权值*/
+typedef struct {
+    char a;
+    int weight;
+}ElementType;
+ElementType element[Max_n];
+/*HuffmanTree的存储表示*/
+typedef struct {
+    ElementType data;
+    int parent, lchild, rchild;
+}HTNode, * HuffmanTree;
+
+/*创建Huffman树*/
+    if (n &lt;= 1) {
+        cout &lt;&lt; &quot;输入字符太少，无法创建哈夫曼树&quot; &lt;&lt; endl;
+        exit(0);
+    }
+    HT = new HTNode[2 * n];//0号单元未使用
+    int m = 2 * n - 1;
+    //初始化结点
+    for (int i = 1; i &lt;= m; i++) {
+        HT[i].parent = 0; HT[i].lchild = 0; HT[i].rchild = 0;
+        HT[i].data.a = element[i - 1].a; HT[i].data.weight = element[i - 1].weight;//Data从0开始存入信息
+    }
+    for (int i = n + 1; i &lt;= m; i++) {
+        int s1 = 0, s2 = 0;//下标
+        Select(HT, i - 1, s1, s2);
+        HT[s1].parent = i;
+        HT[s2].parent = i;//标记双亲为i,表示这两个值已经处理过
+        HT[i].lchild = s1;
+        HT[i].rchild = s2;//s1,s2分别为双亲的左右孩子
+        HT[i].data.weight = HT[s1].data.weight + HT[s2].data.weight;//双亲权值是左右孩子权值之和
+    }
+    cout &lt;&lt; &quot;哈夫曼树创建成功！&quot; &lt;&lt; endl;
+    //从叶子到根逆向求每个字符的哈夫曼编码,存储在编码表HC中
+    HC = new char* [n + 1];//0号位置不用
+    char* cd = new char[n];
+    cd[n - 1] = &#39;\0&#39;;//编码结束符
+    for (int i = 1; i &lt;= n; i++) {//求编码
+        int start = n - 1;//记录编码在cd中存放的位置,初始时指向最后
+        int c = i;
+        int f = HT[i].parent;//c记录从叶子结点向上回溯至根节点的下标,f记录i的双亲的下标
+        while (f != 0) {//向上没有双亲
+            start--;//向上走一次,start前移一次
+            if (HT[f].lchild == c) cd[start] = &#39;0&#39;; //左孩子编码为0
+            else cd[start] = &#39;1&#39;; //右孩子编码为1
+            c = f;
+            f = HT[f].parent; //继续向上找
+        }
+        HC[i] = new char[n - start];//第i个编码字符分配空间
+        strcpy(HC[i], &amp;cd[start]);
+    }
+    delete[]cd;
+    cout &lt;&lt; &quot;成功求出哈夫曼编码！&quot; &lt;&lt; endl;
+
+//从叶子到根逆向求每个字符的哈夫曼编码,存储在编码表HC中
+    HC = new char* [n + 1];//0号位置不用
+    char* cd = new char[n];
+    cd[n - 1] = &#39;\0&#39;;//编码结束符
+    for (int i = 1; i &lt;= n; i++) {//求编码
+        int start = n - 1;//记录编码在cd中存放的位置,初始时指向最后
+        int c = i;
+        int f = HT[i].parent;//c记录从叶子结点向上回溯至根节点的下标,f记录i的双亲的下标
+        while (f != 0) {//向上没有双亲
+            start--;//向上走一次,start前移一次
+            if (HT[f].lchild == c) cd[start] = &#39;0&#39;; //左孩子编码为0
+            else cd[start] = &#39;1&#39;; //右孩子编码为1
+            c = f;
+            f = HT[f].parent; //继续向上找
+        }
+        HC[i] = new char[n - start];//第i个编码字符分配空间
+        strcpy(HC[i], &amp;cd[start]);
+    }
+    delete[]cd;
+    cout &lt;&lt; &quot;成功求出哈夫曼编码！&quot; &lt;&lt; endl;
+</code></pre>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/posts/d0f417a6.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构-串</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

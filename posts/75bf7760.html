@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-绪论 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,200 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-绪论</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h1><p>图书馆书目检索自动化：文件管理的数学模型，对象之间存在简单的线性关系，线性的数据结构</p>
+<p>计算机与人对弈：格局，结果构成一棵“树”，一个数学模型，同为数据结构</p>
+<p>十字路口交通灯的管理：“图”，同样为数据结构</p>
+<h2 id="基本概念以及术语"><a href="#基本概念以及术语" class="headerlink" title="基本概念以及术语"></a>基本概念以及术语</h2><p>数据：符号</p>
+<p>数据元素：数据基本单位，可由若干个数据项构成</p>
+<p>数据项：最小单位，不可分割</p>
+<p>数据对象：数据的一个子集</p>
+<p>数据结构：相互之间存在一种或多种关系的数据元素的集合</p>
+<p><em>相互的关系称为结构</em></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构基本关系.JPG" alt></p>
+<p><strong>4类基本结构：</strong></p>
+<p>（1）集合：数据元素仅同属于一个集合，无他关系</p>
+<p>（2）线性结构：元素之间一对一关系</p>
+<p>（3）树形结构：元素之间一对多关系</p>
+<p>（4）图形结构或者网状结构：元素之间多对多关系</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/四种数据结构表示.JPG" alt></p>
+<p>数据结构（D，S）二元组表示</p>
+<p>D：数据元素有限集  S: D上关系有限集</p>
+<p>结构中的“关系”为逻辑关系也可称之为逻辑结构</p>
+<p>数据结构在计算机中表示（映像）可称为数据的物理结构（存储结构）</p>
+<p>两种不同表示：顺序映像，非顺序映像</p>
+<p>存储结构：<strong>链式（借助指针），顺序（相对位置）</strong></p>
+<p>数据类型：原子类型（整型、实型、字符型、枚举型……），结构类型</p>
+<p>抽象数据类型（ADT）：数学模型以及定义在此模型上的一组操作</p>
+<p>ADT构成：原子类型，固定聚合类型，可变聚合类型</p>
+<h2 id="算法与算法分析"><a href="#算法与算法分析" class="headerlink" title="算法与算法分析"></a>算法与算法分析</h2><p><strong>算法：</strong>问题求解步骤的一种描述</p>
+<p>重要特性：（1）有穷性（2）确定性（3）可行性（4）输入（5）输出</p>
+<p>好算法：正确，可读，健壮，效率</p>
+<p><strong>效率度量</strong></p>
+<p>两种办法：（1）事后统计（2）事前分析</p>
+<pre><code class="c">for(i=1;i&lt;=n;i++)
+    for(j=1;j&lt;=n;j++){
+        c[i][j]=0;
+        for(k=1;k&lt;=n;k++)
+            c[i][j]+=a[i][k]*b[k][j];
+    }
+</code></pre>
+<p>上述代码整个算法执行时间与基本操作（乘法执行次数n^3成正比，则记作T(n)=O(n^3)）。</p>
+<p>算法的时间量度：T(n)=O(f(n))</p>
+<p>f(n):问题规模n的某个函数</p>
+<p>T(n):算法时间复杂度</p>
+<pre><code class="c">a){x++;s=0;}
+b)for(i=1;i&lt;=n;i++){x++;s+=x;}
+c)for(j=1;j&lt;=n;j++)
+    for(k=1;k&lt;=n;k++){++x;s+=x;}
+</code></pre>
+<p>X++语句频度分别为1，n和n^2，时间复杂度分别为O(1),O(n),O(n^2)（常量阶，对数阶，平方阶）<strong>尽量让复杂度小</strong>。</p>
+<p>求复杂度一般考虑最坏情况，及关于n的表达式增长最快的项。</p>
+<pre><code class="c">void bubble_sort(int a[],int n){
+    //将 a中整数序列重新排列成自大到小有序的整数序列。
+    for(i=n-1,change=TRUE;i&gt;=1&amp;&amp;change;i--){
+        change=FALSE;
+        for(j=0;j&lt;i;j++)
+            if(a[j]&gt;a[j+1]){a[j]←→a[j+1];change=TRUE;}
+    }
+}
+</code></pre>
+<p>如上冒泡排序，最坏情况为a中序列自大到小，时间复杂度为T(n)=O(n^2)</p>
+<p>空间复杂度：算法存储空间的量度</p>
+<p>S(n)=O(f(n))</p>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/8c7e9ffb.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                OS虚拟内存管理</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/cededa76.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图最小生成树.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图最小生成树.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构-图最小生成树</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

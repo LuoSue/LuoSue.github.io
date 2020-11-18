@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">LuoSue&#39;s Blog</title>
+  <title itemprop="name">Category: 学习 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,173 +364,110 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+      
 <div class="pattern-center-blank"></div>
-
+<div class="pattern-center ">
+  <div class="pattern-attachment-img">
+    <img data-src="学习.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+  </div>
+  <header class="pattern-header ">
+    <h1 class="cat-title">学习.zh</h1>
+    <span class="cat-des">
+      <p>学习.en</p>
+    </span>
+  </header>
+</div>
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-        <div class="toc"></div>
-        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-          <header class="entry-header">
-            <h1 class="entry-title"></h1>
-            <p class="entry-census">&nbsp;·&nbsp;2020-11-15&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
-
-            <hr>
-          </header>
-        
-        <div class="entry-content">
-          <h1 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在含有n个顶点的连通图中选择n-1条边，构成一棵极小连通子图，并使该连通子图中n-1条边上权值之和达到最小，则称其为连通网的最小生成树。</p>
-<p>  构造网的最小生成树必须解决下面两个问题：</p>
-<p>  1、尽可能选取权值小的边，但不能构成回路；</p>
-<p>  2、选取n－1条恰当的边以连通n个顶点；</p>
-<h2 id="普里姆-prim-算法"><a href="#普里姆-prim-算法" class="headerlink" title="普里姆(prim)算法"></a>普里姆(prim)算法</h2><p>1.prim算法</p>
-<p> 基本思想：假设G＝(V，E)是连通的，TE是G上最小生成树中边的集合。算法从U＝{u0}（u0∈V）、TE＝{}开始。重复执行下列操作：</p>
-<p>  在所有u∈U，v∈V－U的边(u，v)∈E中找一条权值最小的边(u0,v0)并入集合TE中，同时v0并入U，直到V＝U为止。</p>
-<p>  此时，TE中必有n-1条边，T=(V，TE)为G的最小生成树。</p>
-<p>  Prim算法的核心:始终保持TE中的边集构成一棵生成树。</p>
-<p><strong>注意：prim算法适合稠密图，其时间复杂度为O(n^2)，其时间复杂度与边得数目无关，而kruskal算法的时间复杂度为O(eloge)跟边的数目有关，适合稀疏图。</strong></p>
-<p>例子如图</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构普里姆算法.jpg" alt></p>
-<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><p>由于最小生成树包含每个顶点，那么顶点的选中与否就可以直接用一个数组来标记used[max_vertexes];（我们这里直接使用程序代码中的变量定义，这样也易于理解）；当选中一个数组的时候那么就标记，现在就有一个问题，怎么来选择最小权值边，注意这里最小权值边是有限制的，边的一个顶点一定在已选顶点中，另一个顶点当然就是在未选顶点集合中了。可以设置两个辅助数组lowcost[max_vertexes]和closeset[max_vertexes]，lowcost[max_vertexes]数组记录从U到V－U具有最小代价的边。对于每个顶点v∈V－U,closedge[v], closeset[max_vertexes]记录了该边依附的在U中的顶点。</p>
-<p><strong>注意：我们在考虑两个顶点无关联的时候设为一个infinity 1000000最大值。</strong></p>
-<p>过程如下表：顶点标号都比图中的小1，比如v1为0，v2为1，这里首先选择v1点。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Lowcost[0]</th>
-<th>Lowcost[1]</th>
-<th>Lowcost[2]</th>
-<th>Lowcost[3]</th>
-<th>Lowcost[4]</th>
-<th>Lowcost[5]</th>
-<th>U</th>
-<th>V-U</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>closeset</td>
-<td>v1,∞</td>
-<td>v1,6</td>
-<td>v1,1</td>
-<td>v1,5</td>
-<td>v1,∞</td>
-<td>v1,∞</td>
-<td>v1</td>
-<td>v1,v2,v3,v4,v5,v6</td>
-</tr>
-</tbody>
-</table>
-<p>可以看到依附到v1顶点的v3的Lowcost最小为1，那么选择v3，选择了之后我们必须要更新Lowcost数组的值，因为记录从U到V－U具有最小代价的边，加入之后就会改变。这里更新Lowcost和更新closeset数组可能有点难理解，</p>
-<pre><code class="C++"> for (k=1;k&lt;
-            if (!used[k]&amp;&amp;(G[j][k]
-                { lowcost[k]=G[j][k];
-                closeset[k]=j; }
-        }
-</code></pre>
-
-        </div>
-        <!-- .entry-content -->
-        <div class="single-reward">
-          <div class="reward-open">赏
-            <div class="reward-main">
-              <ul class="reward-row">
-                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
-                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-        <footer class="post-footer">
-          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-          <div class="post-tags">
-          </div>
-          <div class="post-share">
-            <div class="social-share sharehidden share-component"></div>
-            <i class="iconfont show-share icon-forward"></i>
-          </div>
-        </footer><!-- .entry-footer -->
-      </article>
-      <!-- #post-## -->
-      <div class="toc" style="background: none;"></div>
-      <section class="post-squares nextprev">
-        
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/8c7e9ffb.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                OS虚拟内存管理</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
-        
-          
-            <div class="post-nepre half next">
-          
-            <a href="/posts/2b6326c7.html" rel="next">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图遍历.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图遍历.png">
-              </div>
-              <span class="label">
-              Next Post</span>
-              <div class="info">
-                <h3>
-                数据结构-图的遍历</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
-      </section>
       
-<div id="vcomments"></div>
-<script>
-  window.onload = function(){
-      var valine = new Valine();
-      valine.init({
-        el: '#vcomments',
-        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
-        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
-        path: window.location.pathname,
-        placeholder: "此生不相见，动如参与商"
-      })
-  }
-</script>
-
-      <section class="author-profile">
-        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
-          <div class="meta">
-            <span class="title">Author</span>
-            <h3 itemprop="name">
-            <a href="" itemprop="url" rel="author"></a>
-            </h3>
-          </div>
+  <!-- 首页默认取最最新文章集 -->
+  
+    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/posts/48e0383b.html">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
         </div>
-        <hr>
-        <p><i class="iconfont icon-write"></i></p>
-      </section>
-    </main><!-- #main -->
-  </div><!-- #primary -->
+        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/posts/48e0383b.html">
+    OS内存管理</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-11-10</div>
+    <p>
+    操作系统原理</p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/posts/48e0383b.html">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <hr>
+</article>
+  
+
+
+      <div class="clearer">
+      </div>
+    </main>
+    <!-- 
+      <nav class="navigator">
+        
+        <a class="extend prev" rel="prev" href="/categories/学习/"><i class="iconfont icon-back"></i></a><a class="page-number" href="/categories/学习/">1</a><span class="page-number current">2</span>
+      </nav>
+     -->
+    
+  </div>
 </div>
 
+<!-- 
+  
+    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
+  <div class="post-entry">
+    <div class="feature">
+      <a href="/posts/48e0383b.html">
+        <div class="overlay">
+          <i class="iconfont icon-text">
+          </i>
+        </div>
+        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
+      </a>
+    </div>
+    <h1 class="entry-title">
+    <a href="/posts/48e0383b.html">
+    OS内存管理</a>
+    </h1>
+    <div class="p-time">
+      <i class="iconfont icon-time">
+      </i>
+    2020-11-10</div>
+    <p>
+    操作系统原理</p>
+    <footer class="entry-footer">
+      <div class="post-more">
+        <a href="/posts/48e0383b.html">
+          <i class="iconfont icon-caidan">
+          </i>
+        </a>
+      </div>
+    </footer>
+  </div>
+  <hr>
+</article>
+  
 
-
+ -->
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
@@ -606,7 +543,7 @@
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">10.8k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">21k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>

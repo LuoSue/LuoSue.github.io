@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-串 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,277 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-串</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="串"><a href="#串" class="headerlink" title="串"></a>串</h1><p>由零个或者是多个字符组成的有限序列</p>
+<p><strong>零个字符为空串，长度为零。</strong></p>
+<p>字符在串中的位置（在序列中的序号）</p>
+<p>任意个字符组成的子序列称之为子串，包含子串的串称之为主串</p>
+<p>两个串相等，说明两个串的值相等。</p>
+<p><strong>由一个或多个空格组成的串叫做空格串（不是空串！）</strong></p>
+<p>串和线性表很像（但是串的数据对象约束为字符集），线性表通常</p>
+<p>以单个元素作为操作对象，但是串以整体作为对象。</p>
+<h2 id="串的定位函数"><a href="#串的定位函数" class="headerlink" title="串的定位函数"></a>串的定位函数</h2><p>Index(S,T,pos)</p>
+<p>基本思想：在主串S中取从第pos个字符起，长度与T相等的子串与串T进行比较，若相等则函数值为pos，否则不断增加持续比对</p>
+<pre><code class="c++">int Index(String S,String T, int pos){
+    if(pos&gt;0){
+        n = S.length;
+        m = T.length;
+        i = pos;
+        while(i&lt;=n-m+1){
+            SubString(sub,S,i,m);
+            if(StrCompare(sub,T)!=0)
+                i++;
+            else return i //返回子串在主串中的位置
+        }
+    }
+    return 0;//不存在
+}
+</code></pre>
+<h2 id="串的三种表示方法"><a href="#串的三种表示方法" class="headerlink" title="串的三种表示方法"></a>串的三种表示方法</h2><h3 id="定长顺序存储表示"><a href="#定长顺序存储表示" class="headerlink" title="定长顺序存储表示"></a>定长顺序存储表示</h3><p>类似于线性表的顺序存储结构，按照预定义的大小，分配一个固定长度的存储区，可以用定长数组表示之。</p>
+<pre><code class="c">#define MAXSTRLEN 255
+typedef unsigned char SString[MAXSTRLEN+1];
+</code></pre>
+<p>串长两种表示方法：1.数组0号单元存放 2.串后面加一个‘\0’符号（结束符号）</p>
+<h4 id="串的连接"><a href="#串的连接" class="headerlink" title="串的连接"></a>串的连接</h4><pre><code class="c++">Status Concat(SString &amp;T, SString S1,SString S2){
+    //用T返回由S1与S2连接成的新串
+    if(S1[0]+S2[0]&lt;=MAXSTRLEN){//未截断
+        T[1...S1[0]]=S1[1...s1[0]];
+        T[S1[0]+1...S1[0]+S2[0]]=S2[1...S2[0]];
+        T[0]=S1[0]+S2[0];
+    }
+    else if(S1[0]&lt;MAXSTRLEN){//截断
+        T[1...S1[0]]=S1[1...S1[0]];
+        T[S1[0]+1...MAXSTRLEN] = S2[1...MAXSTRLEN-S1[0]];
+        T[0]= MAXSTRLEN;
+        uncut = FALSE;
+    }
+    else{
+        T[0...MAXSTRLEN] = S1[0...MAXSTRLEN];
+        uncut = FALSE;
+    }
+    return uncut;
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串的联结.PNG" alt></p>
+<h4 id="求子串"><a href="#求子串" class="headerlink" title="求子串"></a>求子串</h4><pre><code class="c++">Status SubString(SString &amp;Sub,SString S, int pos,int len){
+    if(pos&lt;1||pos&gt;S[0]||len&lt;0||len&gt;S[0]-pos+1){
+        return ERROR;
+    }
+    sub[1...len]=S[pos...pos+len-1];
+    sub[0]=len;
+    return OK;
+}
+</code></pre>
+<p>这个结构弊端：串的最大长度受限，操作起来不易，如插入，置换。</p>
+<h3 id="堆分配存储表示"><a href="#堆分配存储表示" class="headerlink" title="堆分配存储表示"></a>堆分配存储表示</h3><p>特点：仍以一组连续的存储单元存放串值字符序列，但是存储空间为程序执行过程中动态分配得到</p>
+<pre><code class="c++">typedef struct{
+    char *ch;
+    int length;
+}HString;
+</code></pre>
+<h4 id="串的插入"><a href="#串的插入" class="headerlink" title="串的插入"></a>串的插入</h4><pre><code class="c++">Status StrInsert(HString &amp;S,int pos,HString T){
+    //在串的第pos个字符之前插入串T
+    if(pos&lt;1||pos&gt;S.length+1)
+        return ERROR;
+    if(T.length){//T非空，则重新分配空间，插入T
+        if(!(S.ch=(char*)realloc(S.ch,(S.length+T.length)*sizeof(char))))
+            exit(OVERFLOW);
+        for(i=S.length-1;i&gt;=pos-1;i--){
+            S.ch[i+T.length]=S.ch[i];
+            S.ch[pos-1...pos+T.length-2]=T.ch[0...T.length-1];
+            S.length += T.length;
+        }
+    }
+    return OK;
+}
+</code></pre>
+<h3 id="串的块链存储表示"><a href="#串的块链存储表示" class="headerlink" title="串的块链存储表示"></a>串的块链存储表示</h3><p>特点：与线性表的链式存储结构相似，用链表方式存储</p>
+<pre><code class="c++">#define CHUNKSIZE 80 //可由用户定义的块大小
+typedef struct Chunk{
+    char ch[CHUNKSIZE];
+    struct Chunk *next;
+}Chunk;
+typedef struct{
+    Chunk *head,*tail; //串的头和尾指针
+    int curlen; //串的当前长度
+}
+</code></pre>
+<h2 id="串的模式匹配算法"><a href="#串的模式匹配算法" class="headerlink" title="串的模式匹配算法"></a>串的模式匹配算法</h2><p>子串的定位操作称之为串的模式匹配</p>
+<h3 id="暴力匹配算法"><a href="#暴力匹配算法" class="headerlink" title="暴力匹配算法"></a>暴力匹配算法</h3><p>分别用计数指针i与j指示主串S和模式串T中当前正要比较的位置</p>
+<p>基本思想：从主串S的第pos个字符起与模式串的第一个字符比较，相等则继续逐个比较，否则从主串的下一个字符起再重新和模式串的字符进行比较。</p>
+<p>算法时间复杂度最坏的情况下为O(n*m)(n和m分别为主串与模式串的长度)</p>
+<pre><code class="c++">int Index( SString S, SString T, int pos )
+// 返回子串T在主串S中第pos个字符之后的位置。若不存在，则返回0
+{
+i = pos ; j = 1;
+while ( i &lt;= S[0] &amp;&amp; j &lt;= T[0] )
+// S[0]是串的长度
+{ if ( S[i] == T[j] ) { ++i ; ++j ; }
+// 继续比较
+else { i = i - j + 2; j = 1; } // 指针后退重新匹配
+}
+if ( j &gt; T[0] ) return i-T[0];
+else return 0;
+}
+</code></pre>
+<h3 id="KMP匹配算法"><a href="#KMP匹配算法" class="headerlink" title="KMP匹配算法"></a>KMP匹配算法</h3><p>时间复杂度为O(m)</p>
+<pre><code class="c++">int
+Index_KMP (SString S,SString T, int pos)
+{
+    i=pos;j=1;
+while(i&lt;=S[0] &amp;&amp; j &lt;= T[0])
+if(j==0||S[i]==T[j]){i++;j++;}
+else
+j=next[j];/*i 不变 ,j 后退*/
+}
+if(j&gt;T[0])return i-T[0];//匹配成功
+else
+return 0; //返回不匹配标志
+}
+void Get_next( SString T, int &amp;next[]
+// Get Next[] value
+{ j = 1 ; k = 0;
+next[1]=0;
+while ( j &lt;= T[0] )
+{ if ( k == 0 || T[j] == T[k] )
+{ ++j ; ++k ; next[j]=k; }
+else k = next[k];
+}
+}
+</code></pre>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/f30c2ae3.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构树.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构树.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构-树</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/57ad5ad7.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构-栈和队列</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

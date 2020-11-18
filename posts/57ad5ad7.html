@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-栈和队列 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,226 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-栈和队列</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h1><h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>限定只在表尾进行删除操作的线性表<strong>（表尾栈顶，表头栈底）</strong></p>
+<p>后进先出<strong>（插入元素叫做入栈，删除元素叫做出栈）</strong></p>
+<h2 id="栈的表示与实现"><a href="#栈的表示与实现" class="headerlink" title="栈的表示与实现"></a>栈的表示与实现</h2><p>一组连续的存储单元表示</p>
+<pre><code class="c">typedef struct{
+    SElemType *base;
+    SElemType *top;
+    int stacksize;
+}SqStack;
+</code></pre>
+<p>top为栈顶指针，base为栈底指针</p>
+<p>top == base表示栈空了，每插入一个元素,top++;每删除一个元素，top–。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈指针与栈元素的关系.PNG" alt></p>
+<h2 id="插入删除算法"><a href="#插入删除算法" class="headerlink" title="插入删除算法"></a>插入删除算法</h2><p>插入：先将元素插入当前栈顶指针所指向的位置，再移动栈顶指针。</p>
+<p>删除：先取得栈顶指针减一位置的值，栈顶指针再自减一。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构链栈.PNG" alt></p>
+<pre><code class="c">Status Push(SqStack &amp;S,SElemType e){
+    if(S.top-S.base&gt;=S.stacksize){//栈满了，追加存储空间
+        S.base=(SElemType *)realloc(S.base,(S.stacksize + STACKINCREMENT)*sizeof(SElemType));
+        if(!S.base)
+            exit(OVERFLOW);
+        S.top = S.base+S.stacksize;
+        S.stacksize+=STACKINCREMENT;
+    }
+    *S.top=e;
+    S.top++;
+    return OK;
+}
+
+Status Pop(SqStack &amp;S,SElemType &amp;e){
+    if(S.top == S.base)
+        return ERROR;
+    e = *(--(S.top));
+}
+</code></pre>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>与栈相反，先进先出（只允许在表的一端插入，在另一端删除）</p>
+<p>允许插入的一端叫做队尾，允许删除的一端叫做队头。</p>
+<h2 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h2><p>插入与删除操作在表的两端的线性表，两个端点分别称之为端点1与端点2.</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构双端队列.PNG" alt></p>
+<p>输出受限的双端队列：一个端点允许插入与删除，一个端点只允许插入</p>
+<p>输出受限的双端队列：一个端点允许插入与删除，一个端点只允许删除</p>
+<p>限定从某个端插入的结点只能在该端删除：两个栈底相接的栈</p>
+<h2 id="链队列"><a href="#链队列" class="headerlink" title="链队列"></a>链队列</h2><p>链表表示的队列</p>
+<p>给链队列添加一个头结点，并令头指针指向它<strong>（空的链队列即是头指针与尾指针均指向头结点）</strong></p>
+<h2 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h2><p>有两个指针front和rear来分别指示队列头元素以及队列尾元素</p>
+<p>插入元素，尾指针++；删除元素，头指针–</p>
+<p>非空的循环队列中，<strong>头指针始终指向队列头元素，尾指针始终指向队列尾元素的下一个位置</strong></p>
+<pre><code class="c++">#define MAXQSIZE 100//最大队列长度
+typedef struct{
+    QElemType *base; //初始化的动态分配存储空间
+    int front;  //头指针，若队列不空，指向队头元素
+    int rear;  //尾指针，若队列不空，指向队列尾元素的下一个位置
+}SqQueue;
+
+Status InitQueue(SqQueue &amp;Q){
+    Q.base = (QElemType *)malloc(MAXQSIZE*sizeof(QElemType));
+    if(!Q.base)exit(OVERFLOW);//分配失败
+    Q.front = Q.rear=0;
+    return OK;
+}
+int QueueLength(SqQueue Q){
+    //返回Q的元素个数，即队列的长度
+    return (Q.rear-Q.front+MAXQSIZE)%MAXQSIZE;
+}
+Status EnQueue(SqQueue &amp;Q,QElemType e){
+    //插入元素e为Q的新的队尾元素
+    if((Q.rear+1)%MAXQSIZE==Q.front)
+        return ERROR;//队列满了
+    Q.base[Q.rear]=e;
+    Q.rear = (Q.rear+1)%MAXQSIZE;
+    return OK;
+}
+Status DeQueue(SqQueue &amp;Q,QElemType &amp;e){
+    //若队列不空，则删除Q的队头元素，用e返回其值，并返回OK
+    //否则返回ERROR
+    if(Q.front == Q.rear)
+        return ERROR;
+    e = Q.base[Q.front];
+    Q.front = (Q.front + 1)%MAXQSIZE;
+    return OK;
+} 
+</code></pre>
+<h3 id="循环队列满不满的判定"><a href="#循环队列满不满的判定" class="headerlink" title="循环队列满不满的判定"></a>循环队列满不满的判定</h3><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构循环队列.PNG" alt></p>
+<p>我们可以发现，当循环队列属于上图的d1情况时，是无法判断当前状态是队空还是队满。为了达到判断队列状态的目的，可以通过牺牲一个存储空间来实现。 </p>
+<p>如上图d2所示， </p>
+<p><strong>队头指针在队尾指针的下一位置时，队满。</strong> Q.front == (Q.rear + 1) % MAXSIZE 因为队头指针可能又重新从0位置开始，而此时队尾指针是MAXSIZE - 1，所以需要求余。 </p>
+<p><strong>当队头和队尾指针在同一位置时，队空。</strong> Q.front == Q.rear;</p>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/d0f417a6.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构-串</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/5b12b8a1.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构-线性表</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

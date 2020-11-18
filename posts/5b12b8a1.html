@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-线性表 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,505 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-线性表</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><p>结构：n个元素的有限序列</p>
+<p>表中元素的个数n(n&gt;=0)为线性表的长度，n=0时为一个空表</p>
+<p>a1为第一个数据元素，an为最后一个数据元素。</p>
+<p>特点：灵活，便于插入，删除，访问</p>
+<h2 id="合并线性表"><a href="#合并线性表" class="headerlink" title="合并线性表"></a>合并线性表</h2><p>LA和LB，求A=AUB</p>
+<p>解法：扩大LA，若LB中有不存在于LA的元素就插入LA中。</p>
+<pre><code class="c">void union(List &amp;La,List Lb){
+ //将所有在线性表Lb中但不在La中的数据元素插入到La中。
+ La_len=ListLength(La); Lb_len=ListLength(Lb);//求线性表的长度
+ for(i=1;i&lt;=Lb_len;i++){
+      GetElem(Lb,i,e);         //取Lb中第i个数据元素赋给e
+      if(!LocateElem(La,e,equal)) ListInsert(La,++La_len,e);
+                                     //La中不存在和e相同的数据元素，则插入之
+     }
+}//union
+
+//合并两个无序线性表
+void union(List&amp; La,List Lb){
+    int i,j = 0;
+    int m = La.length;
+    int n = Lb.length;
+
+    for(i = 0; i &lt; n; i++){
+        while(La.data[j] != Lb.data[i] &amp;&amp; j &lt; m){//遍历La，直到找到等于Lb.data[i]的元素或者没找到才退出
+            j++;
+    }
+    if(j &gt;= m){
+        La.data[m] = Lb.data[i];
+        La.length++;
+        m++;
+    }
+    j=0;
+  }
+}
+</code></pre>
+<p>时间复杂度：T(n)=O(ListLength(LA)*ListLength(LB))</p>
+<p>C语言代码实现：</p>
+<pre><code class="c">//合并两个无序线性表
+void MergeList(SqList &amp;A,SqList &amp;B){
+    int i,j=0;
+    int m = A.length;
+    int n = B.length;
+
+    for(i=0;i&lt;n;i++){
+        while(A.data[j] != B.data[i] &amp;&amp; j&lt;m){
+            j++;
+        }
+        if(j&gt;=m){
+            A.data[m] = B.data[i];
+            A.length++;
+            m++;
+        }
+        j=0;
+    }
+}
+</code></pre>
+<h2 id="合并两个有序排列的线性表"><a href="#合并两个有序排列的线性表" class="headerlink" title="合并两个有序排列的线性表"></a>合并两个有序排列的线性表</h2><p>LA,LB均为非递减有序排列，合并为LC仍为非递减有序排列。</p>
+<p>解法：设LC为空，将LA与LB元素逐个插入，设两个指针i,j分别指向LA，LB中某个元素，对比两个元素大小决定插入谁，再逐个后移。</p>
+<pre><code class="c">void MergeList(List La,List Lb,List &amp;Lc){
+//已知线性表La和Lb中的数据元素按非值递减排列。
+//归并La和Lb得到新的线性表Lc，Lc的数据元素也可按值非递减排列。
+    InitList(Lc);
+    i=j=1;k=0;
+    La_len=ListLength(La); Lb_len=ListLength(Lb);
+    while((i&lt;=La_len)&amp;&amp;(j&lt;=Lb_len)) {//La和Lb均非空
+      GetElem(La,i,ai);GetElem(Lb,j,bj);
+      if(ai&lt;=bj) {ListInsert(Lc,++k,ai);++i;}
+        else {ListInsert(Lc,++k,bj);++j};
+       }
+      while(i&lt;=La_len) {
+       GetElem(La,++i,ai);ListInsert(Lc,++k,ai);
+       }
+      while(i&lt;=Lb_len) {
+       GetElem(Lb,++j,bj);ListInsert(Lc,++k,bj);
+       }
+</code></pre>
+<p>时间复杂度：O(ListLength(LA)+ListLength(LB))</p>
+<h2 id="线性表的顺序表示以及实现"><a href="#线性表的顺序表示以及实现" class="headerlink" title="线性表的顺序表示以及实现"></a>线性表的顺序表示以及实现</h2><p>顺序表示：指用一组连续的存储单元依次存储线性表的数据元素。</p>
+<p>Location(ai+1)=Location(ai)+(i-1)l <strong>线性表中第i个元素存储位置</strong></p>
+<p>表中相邻的元素有相邻的存储位置，因此只要确定起始位置就能随机存取任一表中数据元素。</p>
+<p>所以线性表的顺序存储结构为一种<strong>随机存取</strong>的存储结构</p>
+<pre><code class="c">/*线性表的动态分配存储结构*/
+typedef struct{
+    ElemType *elem; //存储空间基址
+    int length; //当前长度
+    int listsize; //当前分配的存储容量(以sizeof(ElemType)为单位)
+}SqList;
+
+Status InitList_Sq(SqList &amp;L){
+    //构造一个空的线性表L
+    L.elem = (ElemType *)malloc(LIST_INIT_SIZE*sizeof(ElemType));
+    if(!L.elem)
+        exit(OVERFLOW);//存储分配失败
+    L.length = 0; //空表长度为0
+    L.listsize = LIST_INIT_SIZE; //初始存储容量
+    return OK;
+}
+</code></pre>
+<h3 id="顺序表示下线性表的插入，删除"><a href="#顺序表示下线性表的插入，删除" class="headerlink" title="顺序表示下线性表的插入，删除"></a>顺序表示下线性表的插入，删除</h3><h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>在第i-1个数据元素与第i个数据元素之间插入一个新的数据元素,长度为n变为n+1</p>
+<p>于是，在第i(1&lt;=i&lt;=n)个元素之前插入一个元素，要将n至第i个元素均后移一位。</p>
+<pre><code class="c">/*初始条件:顺序线性表L已经存在，1&lt;=i&lt;=ListLength(L)*/
+/*操作结果:在L中第i(1&lt;=i&lt;=n)个位置之前插入新的数据元素e,L的长度++*/
+Status ListInsert(SqList *L,int i,ElemType e){
+    int k;
+    if(L-&gt;length==MAXSIZE)/*顺序表已满*/
+        return ERROR;
+    if(i&lt;1||i&gt;L-&gt;length+1)/*如果i不在范围内*/
+        return ERROR;
+    if(i&lt;=L-&gt;length){
+        for(k=L-&gt;length+1;k&gt;=i-1;k--)/*将要插入位置后数据元素向后移一位*/
+            L-&gt;data[k+1]=L-&gt;data[k];
+    }
+    L-&gt;data[i-1]=e;/*插入新元素*/
+    L-&gt;length++;/*表长++*/
+    return OK;
+}
+</code></pre>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>使长度为n的线性表变成长度n-1的线性表，删除第i个元素需要将从i+1至n个元素(共n-i)个元素依次前移一个位置</p>
+<pre><code class="c">/*初始条件:顺序线性表L已经存在，1&lt;=i&lt;=ListLength(L)*/
+/*操作结果:删除L的第i个数据元素,L的长度--*/
+Status ListDelete(SqList *L,int i,ElemType *e){
+    int k;
+    if(L-&gt;length==0)//线性表为空
+        return ERROR;
+    if(i&lt;1||i&gt;L-&gt;length+1)/*如果i不在范围内*/
+        return ERROR;
+    *e=L-&gt;data[i-1];
+    if(i&lt;L-&gt;length)//如果删除不是最后位置
+    {
+        for(k=i;k&lt;L-&gt;length;k++)
+            L-&gt;data[k-1]=L-&gt;data[k];
+    }
+    L-&gt;length--;
+    return OK;
+}
+</code></pre>
+<p>插入或者删除，时间主要耗费在移动元素上，即与要插入/删除的位置相关。设pi为在第i个元素之前插入一个元素的概率，则移动元素次数期望值*（表长为n）</p>
+<p>Σpi(n-i+1)</p>
+<p>设si为删除第i个元素的概率，则移动元素次数期望值（表长为n）</p>
+<p>Σsi(n-i)</p>
+<p>则有：</p>
+<p>插入移动个数：n/2</p>
+<p>删除移动个数：(n-1)/2</p>
+<p>平均要移动表中一半元素，时间复杂度为O(n),n为表长</p>
+<p><strong>最好情况：</strong></p>
+<p>如果插入到最后一个位置，或者删除最后一个位置，则时间复杂度为 O(1);</p>
+<p><strong>最坏情况：</strong></p>
+<p>如果插入到第一个位置或者删除第一个元素，则意味着需要移动所有元素，故时间复杂度为O(n);</p>
+<p><strong>平均情况：</strong></p>
+<p>由于元素插入到第i个位置，或删除第i个元素，需要移动n-i个元素。根据概率原理，每个位置插入或删除元素的可能性是相同的。</p>
+<p><strong>最终平均移动次数和最中间的那个元素的移动次数相等</strong>，为n-1/2</p>
+<p>实现LA=LAULB，执行时间取决于查找函数，比较次数，则为O(L.length)。union算法复杂度O(La.Length * Lb.Length)</p>
+<pre><code class="c">bool compare(ElemType c1, ElemType c2)
+{
+    if(c1 == c2)
+        return 1;
+    else
+        return 0;
+}
+int LocateElem_Sq(SqList L,ElemType e)//在顺序线性表L中查找第1个值与e相同的元素的位序
+//若找到，则返回其在L中的位序，否则返回0
+{
+    int i = 1;//i的初值为第1个元素的位序
+    ElemType *p = L.elem;//i的初值为第1个元素的位序
+    while((i&lt;=L.length) &amp;&amp; !(compare(*p++,e)))
+        ++i;
+    if(i&lt;=L.length)
+        return i;
+    else
+        return 0;
+}//LocateElem_Sq
+</code></pre>
+<p>合并有序顺序表：</p>
+<p>复杂度O(La.length+Lb.length)</p>
+<pre><code class="c">
+void MergeList_Sq(SqList La,SqList Lb,SqList &amp;Lc)//已知顺序线性表La和Lb的元素按值非递减排列
+//归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
+{
+    ElemType *pa = La.elem;
+    ElemType *pb = Lb.elem;
+    Lc.listsize = Lc.length = La.length+Lb.length;
+    ElemType* pc = Lc.elem = (ElemType *)malloc(Lc.listsize*sizeof(ElemType));
+    if(!Lc.elem)
+        exit(1);//存储分配失败
+    ElemType* pa_last = La.elem + La.length - 1;
+    ElemType* pb_last = Lb.elem + Lb.length - 1;
+    while(pa&lt;=pa_last &amp;&amp; pb&lt;=pb_last)//归并
+    {
+        if(*pa &lt;= *pb)
+            *pc++ = *pa++;
+        else
+            *pc++ = *pb++;
+    }
+    while(pa&lt;=pa_last)
+        *pc++ = *pa++;//插入La的剩余元素
+    while(pb&lt;=pb_last)
+        *pc++ = *pb++;//插入Lb的剩余元素
+    *pc = &#39;\0&#39;;//添加以截断
+}
+</code></pre>
+<h3 id="线性表的链式表示与实现"><a href="#线性表的链式表示与实现" class="headerlink" title="线性表的链式表示与实现"></a>线性表的链式表示与实现</h3><pre><code class="c">typedef struct LNode{
+    ElemType data;
+    struct LNode *next;
+}LNode,*LinkList;
+</code></pre>
+<p>特点：不要求逻辑相邻的元素物理位置上相邻，但是失去了可以随机存取的优点。</p>
+<p>线性链表：一组任意的存储单元存储数据元素。</p>
+<p>一个结点包括数据域和指针域，n个结点链接为链表。</p>
+<p>每个结点只包含一个指针域的话称之为线性链表或单链表</p>
+<p>存取必须从头指针（指向链表中第一个结点的位置）开始，最后一个结点指针为空。</p>
+<pre><code class="c++">typedef struct LNode{
+    ElemType data;
+    struct LNode *next;
+}LNode,*LinkList;
+</code></pre>
+<p>有时候，第一个结点之前可以设置一个头结点，指针域指向第一个结点。若为空表则头指针指针域为空</p>
+<p>则获取元素的算法实现：</p>
+<pre><code class="c">
+/*获取线性表的第i个元素的值*/
+Status Getlem(LinkList *L, int i, ElemType &amp;e)
+{
+    p = L-&gt;next;j=1;
+    while(p&amp;&amp;j&lt;i){
+        p=p-&gt;next;
+        j++;
+    }
+    if(!p||j&gt;i)
+        return ERROR;
+    e = p-&gt;data;
+    return OK;
+}
+</code></pre>
+<p>时间复杂度为O(n)</p>
+<p>单链表中的插入与删除：</p>
+<p>插入操作：</p>
+<p>先生成一个结点s,再修改相应的指针域</p>
+<p>s-&gt;next=p-&gt;next;p-&gt;next=s;</p>
+<p>删除操作：</p>
+<p>直接修改a的指针域</p>
+<p>a-&gt;next=a-&gt;next-&gt;next</p>
+<p>因此插入删除均只需要修改指针域就可以实现</p>
+<p>插入代码：</p>
+<pre><code class="c">Status ListInsert(LinkList *L;int i;ElemType e){
+    int j;
+    LinkList p,s;
+    &amp;p = L;
+    j = 1;
+    while(p&amp;&amp;j&lt;i){
+        p = p-&gt;next;
+        j++;
+    }
+    if(!p||j&gt;i){
+        return ERROR;
+    }
+    s =(LinkList)malloc(sizeof(Node));
+    s-&gt;data = e;
+    s-&gt;next = p-&gt;next;
+    p-&gt;next = s;
+    return OK;
+}
+</code></pre>
+<p>删除代码：</p>
+<pre><code class="c">Status ListDelete(LinkList *L;int i;ElemType e){
+    int j;
+    LinkList p,q;
+    &amp;p = L;
+    j=1;
+    while(p-&gt;next&amp;&amp;j&lt;i){
+        p=p-&gt;next;
+        j++;
+    }
+    if(!(p-&gt;next)||j&gt;i){
+        return ERROR;
+    }
+    q = p-&gt;next;
+    p-&gt;next = q-&gt;next;
+    *e = q-&gt;data;
+    free(q);
+    return Ok
+}
+</code></pre>
+<p>算法复杂度为O(n)</p>
+<p>建立单链表算法复杂度也为O(n)</p>
+<pre><code class="c">void CreatList_L(LinkList &amp;L,int n){
+    L = (LinkList)malloc(sizeof(LNode));
+    L-&gt;next = NULL;
+    for(i=n;i&gt;0;i--){
+        p=(LinkList)malloc(sizeof(LNode));
+        scanf(&amp;p-&gt;data);
+        p-&gt;next = L-&gt;next;
+        L-&gt;next = p;
+    }
+}
+</code></pre>
+<p>两个链表合并：</p>
+<p>三个指针pa,pb,pc</p>
+<p>pc指向Lc表中最后一个结点，pa,pb分别指向La,Lb中第一个结点。当pa-&gt;data &lt;= pb-&gt;data,则将pa所指结点链接到pc所指结点之后,否则就是pb.</p>
+<pre><code class="c">void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc){
+    pa=La-&gt;next;
+    pb=Lb-&gt;next;
+    Lc=pc=La;//La的头结点作为Lc的头结点
+    while(pa&amp;&amp;pb){
+        if(pa-&gt;data&lt;=pb-&gt;data){
+            pc-&gt;next =pa;
+            pc=pa;
+            pa=pa-&gt;next;
+        }
+        else{
+            pc-&gt;next = pb;
+            pc = pb;
+            pb = pb-&gt;next;
+        }
+    }
+    pc-&gt;next = pa?pa:pb;//插入剩余段
+    free(Lb);
+}
+</code></pre>
+<p>两个链表归并只需要重新链接结点就好。</p>
+<h3 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h3><pre><code class="c">#define MAXSIZE 1000
+typedef struct{
+    ElemType data;
+    int cur;
+}
+</code></pre>
+<p>一维数组描述的链表称之为静态链表</p>
+<p>定位函数</p>
+<pre><code class="c">int LocateElem_SL(SLinkList S,ElemType e){
+    i=S[0].cur;
+    while(i&amp;&amp;s[i].data!=e)
+        i=S[i].cur;
+    return i;
+}
+</code></pre>
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><p>表中最后一个结点的指针指向头结点，整个链表形成一个环。</p>
+<p>合并的话，只需要将表尾与表头相连接，运算时间为O(1)</p>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p>指针域中存放前驱和后继两个指针</p>
+<pre><code class="c">typedef struct DuLNode{
+    ElemType data;
+    struct DuLNode *prior;
+    struct DuLNode *next;
+}DuLNode,*DuLinkList;
+</code></pre>
+<p>插入或者删除均需要修改两个方向上的指针，于是时间复杂度为O(n)</p>
+<pre><code class="c">Status ListInsert_DuL(DuLinkList &amp;L,int i,ElemType e){
+    if(!(p=GetElemP_DuL(L,i)))//在L中确定插入位置
+        return ERROR; //P=NULL,插入位置不合法
+    if(!(s=(DuLinkList)malloc(sizeof(DuLNode))))
+        return ERROR;
+    s-&gt;data=e;
+    s-&gt;prior = p-&gt;prior;
+    p-&gt;prior-&gt;next = s;
+    s-&gt;next = p;
+    p-&gt;prior = s;
+    return OK;
+}
+Status ListDelete_DuL(DuLinkList &amp;L,int i;ElemType &amp;e){
+    if(!(p=GetElemP_DuL(L,i)))
+        return ERROR;
+    e=p-&gt;data;
+    p-&gt;prior-&gt;next=p-&gt;next;
+    p-&gt;next-&gt;prior=p-&gt;prior;
+    free(p);
+    return OK;
+}
+</code></pre>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/57ad5ad7.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构-栈和队列</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/8c7e9ffb.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                OS虚拟内存管理</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

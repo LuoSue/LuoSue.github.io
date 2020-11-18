@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Category: 技术 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构-图最小生成树 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,105 +364,617 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img data-src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/banner/coding.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图最小生成树.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图最小生成树.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      数据结构-图最小生成树</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">野生技术协会</h1>
-    <span class="cat-des">
-      <p>Geek – Only for Love</p>
-    </span>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在含有n个顶点的连通图中选择n-1条边，构成一棵极小连通子图，并使该连通子图中n-1条边上权值之和达到最小，则称其为连通网的最小生成树。</p>
+<p>  构造网的最小生成树必须解决下面两个问题：</p>
+<p>  1、尽可能选取权值小的边，但不能构成回路；</p>
+<p>  2、选取n－1条恰当的边以连通n个顶点；</p>
+<h2 id="普里姆-prim-算法"><a href="#普里姆-prim-算法" class="headerlink" title="普里姆(prim)算法"></a>普里姆(prim)算法</h2><p>1.prim算法</p>
+<p> 基本思想：假设G＝(V，E)是连通的，TE是G上最小生成树中边的集合。算法从U＝{u0}（u0∈V）、TE＝{}开始。重复执行下列操作：</p>
+<p>  在所有u∈U，v∈V－U的边(u，v)∈E中找一条权值最小的边(u0,v0)并入集合TE中，同时v0并入U，直到V＝U为止。</p>
+<p>  此时，TE中必有n-1条边，T=(V，TE)为G的最小生成树。</p>
+<p>  Prim算法的核心:始终保持TE中的边集构成一棵生成树。</p>
+<p><strong>注意：prim算法适合稠密图，其时间复杂度为O(n^2)，其时间复杂度与边得数目无关，而kruskal算法的时间复杂度为O(eloge)跟边的数目有关，适合稀疏图。</strong></p>
+<p>例子如图</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构普里姆算法.jpg" alt></p>
+<h3 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h3><pre><code class="c">设最小生成树为T={U,TE}; U={u0};/*起始点*/ TE={}/*一开始没有边*/
+while ( T 包含少于n-1条边)
+{(u,v)是一个花费最少的边，u∈U且v∉U
+if (没有这样的边)
+    break;
+将v添加到U;
+将(u,v)添加到TE;
+}
+if ( T包含少于n-1条边)
+printf(&quot;No spanning tree \n&quot;);
+</code></pre>
+<p>C++代码实现:</p>
+<p>1.邻接矩阵</p>
+<pre><code class="c++">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+using  namespace std;
+
+//首先是使用邻接矩阵完成Prim算法
+struct Graph {
+    int vexnum;  //顶点个数
+    int edge;   //边的条数
+    int** arc; //邻接矩阵
+    string* information; //记录每个顶点名称
+};
+//作为记录边的信息，这些边都是达到end的所有边中，权重最小的那个
+struct Assis_array {
+    int start; //边的终点
+    int end;  //边的起点
+    int weight;  //边的权重
+};
+void CreateGraph(Graph &amp;g){
+    cout &lt;&lt; &quot;请输入边的条数，顶点个数&quot; &lt;&lt; endl;
+    cin &gt;&gt; g.edge;
+    cin &gt;&gt; g.vexnum;
+    g.information = new string[g.vexnum];
+    g.arc = new int* [g.vexnum];
+    /*初始化矩阵*/
+    for (int i = 0; i &lt; g.vexnum;i++) {
+        g.arc[i] = new int[g.vexnum];
+        g.information[i] = &quot;v&quot; + to_string(i + 1);//每个顶点进行命名
+        for (int k = 0; k &lt; g.vexnum; k++) {
+            g.arc[i][k] = INT_MAX;
+        }
+    }
+    cout &lt;&lt; &quot;请输入每条边之间的顶点编号(顶点编号从1开始),以及该边的权重：&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; g.edge; i++) {
+        int start;
+        int end;
+        cin &gt;&gt; start;   //输入每条边的起点
+        cin &gt;&gt; end;     //输入每条边的终点
+        int weight;
+        cin &gt;&gt; weight;
+        g.arc[start - 1][end - 1] = weight;//无向图的边是相反的
+        g.arc[end - 1][start - 1] = weight;
+    }
+}
+//打印图
+void print(Graph g) {
+    int i;
+    for (i = 0; i &lt; g.vexnum; i++) {
+        //cout &lt;&lt; g.information[i] &lt;&lt; &quot; &quot;;
+        for (int j = 0; j &lt; g.vexnum; j++) {
+            if (g.arc[i][j] == INT_MAX)
+                cout &lt;&lt; &quot;∞&quot; &lt;&lt; &quot; &quot;;
+            else
+                cout &lt;&lt; g.arc[i][j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+}
+void Prim(Graph g, int begin) {
+    //close_edge这个数组记录到达某个顶点的各个边中的权重最大的那个边
+    Assis_array* close_edge = new Assis_array[g.vexnum];
+    int j;
+    //进行close_edge的初始化，更加开始起点进行初始化
+    for (j = 0; j &lt; g.vexnum; j++) {
+        if (j != begin - 1) {
+            close_edge[j].start = begin - 1;
+            close_edge[j].end = j;
+            close_edge[j].weight = g.arc[begin - 1][j];
+        }
+    }
+    //把起点的close_edge中的值设置为-1，代表已经加入到集合U了
+    close_edge[begin - 1].weight = -1;
+    //访问剩下的顶点，并依次加入到集合U
+    for (j = 1; j &lt; g.vexnum; j++) {
+        int min = INT_MAX;
+        int k;
+        int index;
+        for (k = 0; k &lt; g.vexnum; k++) {
+            if (close_edge[k].weight != -1) {
+                if (close_edge[k].weight &lt; min) {
+                    min = close_edge[k].weight;
+                    index = k;
+                }
+            }
+        }
+        //将权重最小的那条边的终点也加入到集合U
+        close_edge[index].weight = -1;
+        //输出对应的边的信息
+        cout &lt;&lt; g.information[close_edge[index].start]
+            &lt;&lt; &quot;-----&quot;
+            &lt;&lt; g.information[close_edge[index].end]
+            &lt;&lt; &quot;=&quot;
+            &lt;&lt; g.arc[close_edge[index].start][close_edge[index].end]
+            &lt;&lt; endl;
+        //更新我们的close_edge数组。
+        for (k = 0; k &lt; g.vexnum; k++) {
+            if (g.arc[close_edge[index].end][k] &lt; close_edge[k].weight) {
+                close_edge[k].weight = g.arc[close_edge[index].end][k];
+                close_edge[k].start = close_edge[index].end;
+                close_edge[k].end = k;
+            }
+        }
+    }
+}
+</code></pre>
+<p>2.邻接表</p>
+<pre><code class="c++">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;iostream&gt;
+#include&lt;string&gt;
+using  namespace std;
+//表结点
+struct ArcNode {
+    int adjvex;      //某条边指向的那个顶点的位置（一般是数组的下标）。
+    ArcNode* next;  //指向下一个表结点
+    int weight;      //边的权重
+};
+//头结点
+struct Vnode {
+    ArcNode* firstarc;  //第一个和该顶点依附的边 的信息
+    string data;       //记录该顶点的信息。
+};
+
+struct Graph_List {
+    int vexnum;     //顶点个数
+    int edge;       //边的条数
+    Vnode* node;  //顶点表
+};
+
+//创建图，是一个重载函数
+void createGraph(Graph_List&amp; g) {
+    cout &lt;&lt; &quot;请输入顶点数：输入顶点边的个数：&quot; &lt;&lt; endl;
+    cin &gt;&gt; g.vexnum;
+    cin &gt;&gt; g.edge;
+    g.node = new Vnode[g.vexnum];
+    int i;
+    for (i = 0; i &lt; g.vexnum; i++) {
+        g.node[i].data = &quot;v&quot; + std::to_string(i + 1);  //对每个顶点进行命名
+        g.node[i].firstarc = NULL;//初始化每个顶点的依附表结点
+    }
+
+    cout &lt;&lt; &quot;请输入每条边之间的顶点编号(顶点编号从1开始),以及该边的权重：&quot; &lt;&lt; endl;
+    for (i = 0; i &lt; g.edge; i++) {
+        int start;
+        int end;
+        cin &gt;&gt; start;   //输入每条边的起点
+        cin &gt;&gt; end;     //输入每条边的终点
+        int weight;
+        cin &gt;&gt; weight;
+
+        ArcNode* next = new ArcNode;
+        next-&gt;adjvex = end - 1;
+        next-&gt;next = NULL;
+        next-&gt;weight = weight;
+        //如果第一个依附的边为空
+        if (g.node[start - 1].firstarc == NULL) {
+            g.node[start - 1].firstarc = next;
+        }
+        else {
+            ArcNode* temp; //临时表结点
+            temp = g.node[start - 1].firstarc;
+            while (temp-&gt;next) {//找到表结点中start-1这个结点的链表的最后一个顶点
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = next;  //在该链表的尾部插入一个结点
+
+
+        }
+        //因为无向图边是双向的
+        ArcNode* next_2 = new ArcNode;
+        next_2-&gt;adjvex = start - 1;
+        next_2-&gt;weight = weight;
+        next_2-&gt;next = NULL;
+
+        //如果第一个依附的边为空
+        if (g.node[end - 1].firstarc == NULL) {
+            g.node[end - 1].firstarc = next_2;
+        }
+        else {
+            ArcNode* temp; //临时表结点
+            temp = g.node[end - 1].firstarc;
+            while (temp-&gt;next) {//找到表结点中start-1这个结点的链表的最后一个顶点
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = next_2;  //在该链表的尾部插入一个结点
+
+
+        }
+
+
+
+    }
+}
+
+void print(Graph_List g) {
+    cout &lt;&lt; &quot;图的邻接表：&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; g.vexnum; i++) {
+        cout &lt;&lt; g.node[i].data &lt;&lt; &quot; &quot;;
+        ArcNode* next;
+        next = g.node[i].firstarc;
+        while (next) {
+            cout &lt;&lt; &quot;(&quot; &lt;&lt; g.node[i].data &lt;&lt; &quot;,&quot; &lt;&lt; g.node[next-&gt;adjvex].data &lt;&lt; &quot;)=&quot; &lt;&lt; next-&gt;weight &lt;&lt; &quot; &quot;;
+            next = next-&gt;next;
+        }
+        cout &lt;&lt; &quot;^&quot; &lt;&lt; endl;
+    }
+}
+
+
+//作为记录边的信息，这些边都是达到end的所有边中，权重最小的那个
+struct Assis_array {
+    int start; //边的终点
+    int end;  //边的起点
+    int weight;  //边的权重
+};
+
+void Prim(Graph_List g, int begin) {
+    cout &lt;&lt; &quot;图的最小生成树：&quot; &lt;&lt; endl;
+    //close_edge这个数组记录到达某个顶点的各个边中的权重最大的那个边
+    Assis_array* close_edge = new Assis_array[g.vexnum];
+    int j;
+    for (j = 0; j &lt; g.vexnum; j++) {
+        close_edge[j].weight = INT_MAX;
+    }
+    ArcNode* arc = g.node[begin - 1].firstarc;
+
+    while (arc) {
+        close_edge[arc-&gt;adjvex].end = arc-&gt;adjvex;
+        close_edge[arc-&gt;adjvex].start = begin - 1;
+        close_edge[arc-&gt;adjvex].weight = arc-&gt;weight;
+        arc = arc-&gt;next;
+    }
+    //把起点的close_edge中的值设置为-1，代表已经加入到集合U了
+    close_edge[begin - 1].weight = -1;
+    //访问剩下的顶点，并加入依次加入到集合U
+    for (j = 1; j &lt; g.vexnum; j++) {
+        int min = INT_MAX;
+        int k;
+        int index;
+        //寻找数组close_edge中权重最小的那个边
+        for (k = 0; k &lt; g.vexnum; k++) {
+            if (close_edge[k].weight != -1) {
+                if (close_edge[k].weight &lt; min) {
+                    min = close_edge[k].weight;
+                    index = k;
+                }
+            }
+        }
+
+        //输出对应的边的信息
+        cout &lt;&lt; g.node[close_edge[index].start].data
+            &lt;&lt; &quot;-----&quot;
+            &lt;&lt; g.node[close_edge[index].end].data
+            &lt;&lt; &quot;=&quot;
+            &lt;&lt; close_edge[index].weight
+            &lt;&lt; endl;
+        //将权重最小的那条边的终点也加入到集合U
+        close_edge[index].weight = -1;
+        //更新我们的close_edge数组.
+        ArcNode* temp = g.node[close_edge[index].end].firstarc;
+        while (temp) {
+            if (close_edge[temp-&gt;adjvex].weight &gt; temp-&gt;weight) {
+                close_edge[temp-&gt;adjvex].weight = temp-&gt;weight;
+                close_edge[temp-&gt;adjvex].start = index;
+                close_edge[temp-&gt;adjvex].end = temp-&gt;adjvex;
+            }
+            temp = temp-&gt;next;
+        }
+    }
+
+}
+</code></pre>
+<h2 id="克鲁斯卡尔-Kruskal-算法"><a href="#克鲁斯卡尔-Kruskal-算法" class="headerlink" title="克鲁斯卡尔(Kruskal)算法"></a>克鲁斯卡尔(Kruskal)算法</h2><p>基本思想：</p>
+<p>（1）将图中的所有边都去掉。<br>（2）将边按权值从小到大的顺序添加到图中，保证添加的过程中不会形成环<br>（3）重复上一步直到连接所有顶点，此时就生成了最小生成树。这是一种贪心策略。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构克鲁斯卡尔算法.PNG" alt></p>
+<h3 id="算法设计-1"><a href="#算法设计-1" class="headerlink" title="算法设计"></a>算法设计</h3><pre><code class="c">T= { };
+while ( T contains less than n-1 edges &amp;&amp; E is not empty)
+{ choose a least cost edge (v,w) from E
+delete (v,w) from E;
+If ((v,w) does not create a cycle in T)
+add (v,w) to T
+else discard (v,w);
+}
+if (T contains fewer than n-1 edges)
+printf(&quot;No spanning tree\n&quot;)
+</code></pre>
+<p>代码实现：</p>
+<p>边集数组表示图</p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+using namespace std;
+
+//检验输入边数和顶点数的值是否有效，可以自己推算为啥：
+//顶点数和边数的关系是：((Vexnum*(Vexnum - 1)) / 2) &lt; edge
+bool check(int Vexnum,int edge) {
+    if (Vexnum &lt;= 0 || edge &lt;= 0 || ((Vexnum*(Vexnum - 1)) / 2) &lt; edge)
+        return false;
+    return true;
+}
+
+//判断我们每次输入的的边的信息是否合法
+//顶点从1开始编号
+bool check_edge(int Vexnum, int start ,int end, int weight) {
+    if (start&lt;1 || end&lt;1 || start&gt;Vexnum || end&gt;Vexnum || weight &lt; 0) {
+        return false;
+    }
+    return true;
+}
+
+//边集结构，用于保存每条边的信息
+typedef struct edge_tag {
+    bool visit; //判断这条边是否加入到了最小生成树中
+    int start;   //该边的起点
+    int end;   //该边的终点
+    int weight; //该边的权重
+}Edge;
+
+//创建一个图，但是图是使用边集结构来保存
+void createGraph(Edge * &amp;e,int Vexnum, int edge) {
+    e = new Edge[edge];//为每条边集开辟空间
+    int start = 0;
+    int end = 0;
+    int weight = 0;
+
+    int i = 0;
+    cout &lt;&lt; &quot;输入每条边的起点、终点和权重：&quot; &lt;&lt; endl;
+    while (i != edge)
+    {
+        cin &gt;&gt; start &gt;&gt; end &gt;&gt; weight;
+        while (!check_edge(Vexnum, start, end, weight)) {
+            cout &lt;&lt; &quot;输入的值不合法，请重新输入每条边的起点、终点和权重：&quot; &lt;&lt; endl;
+            cin &gt;&gt; start &gt;&gt; end &gt;&gt; weight;
+        }
+        e[i].start = start;
+        e[i].end = end;
+        e[i].weight = weight;
+        e[i].visit = false; //每条边都还没被初始化
+        ++i;
+
+    }
+}
+
+//我们需要对边集进行排序，排序是按照每条边的权重，从小到大排序。
+int cmp(const void*  first, const void * second) {
+    return ((Edge *)first)-&gt;weight - ((Edge *)second)-&gt;weight;
+}
+
+//好了，我们现在需要做的是通过一定的方式来判断
+//如果我们把当前的边加入到生成树中是否会有环出现。
+//通过我们之前学习树的知识，我们可以知道如果很多棵树就组成一个森林，而且
+//如果同一颗树的两个结点在连上一条边，那么就会出现环，
+//所以我们就通过这个方式来判断加入了一个新的边后，是否会产生环，
+//开始我们让我们的图的每个顶点都是一颗独立的树，通过不断的组合，把这个森林变
+//成来源于同一颗顶点的树
+//如果不理解，画个图就明白了，
+
+//首先是找根节点的函数,
+//其中parent代表顶点所在子树的根结点
+//child代表每个顶点孩子结点的个数
+int find_root(int child, int * parent) {
+
+    //此时已经找到了该顶点所在树的根节点了
+    if (parent[child] == child) {
+        return child;
+    }
+    //往前递归，寻找它父亲的所在子树的根结点
+    parent[child] = find_root(parent[child], parent);
+    return parent[child];
+}
+
+//合并两个子树
+bool union_tree(Edge  e, int * parent, int * child) {
+    //先找出改边所在子树的根节点
+    int root1;
+    int root2;
+    //记住我们顶点从1开始的，所以要减1
+    root1 = find_root(e.start-1, parent);
+    root2 = find_root(e.end-1, parent);
+    //只有两个顶点不在同一颗子树上，才可以把两棵树并未一颗树
+    if (root1 != root2) {
+        //小树合并到大树中，看他们的孩子个数
+        if (child[root1] &gt; child[root2]) {
+            parent[root2] = root1;
+            //大树的孩子数量是小树的孩子数量加上
+            //大树的孩子数量在加上小树根节点自己
+            child[root1] += child[root2] + 1;
+        }
+        else {
+            parent[root1] = root2;
+            child[root2] += child[root1] + 1;
+        }
+        return true;
+    }
+    return false;
+}
+
+//克鲁斯卡算法的实现
+void Kruskal() {
+    int Vexnum = 0;
+    int edge = 0;
+    cout &lt;&lt; &quot;请输入图的顶点数和边数：&quot; &lt;&lt; endl;
+    cin &gt;&gt; Vexnum &gt;&gt; edge;
+    while (!check(Vexnum, edge)) {
+        cout &lt;&lt; &quot;你输入的图的顶点数和边数不合法，请重新输入：&quot; &lt;&lt; endl;
+        cin &gt;&gt; Vexnum &gt;&gt; edge;
+    }
+
+    //声明一个边集数组
+    Edge * edge_tag;
+    //输入每条边的信息
+    createGraph(edge_tag, Vexnum, edge);
+
+    int * parent = new int[Vexnum]; //记录每个顶点所在子树的根节点下标
+    int * child = new int[Vexnum]; //记录每个顶点为根节点时，其有的孩子节点的个数
+    int i;
+    for (i = 0; i &lt; Vexnum; i++) {
+        parent[i] = i;
+        child[i] = 0;
+    }
+    //对边集数组进行排序，按照权重从小到达排序
+    qsort(edge_tag, edge, sizeof(Edge), cmp);
+    int count_vex; //记录输出的边的条数
+
+    count_vex = i = 0;
+    while (i != edge) {
+        //如果两颗树可以组合在一起，说明该边是生成树的一条边
+        if (union_tree(edge_tag[i], parent, child)) {
+            cout &lt;&lt; (&quot;v&quot; + std::to_string(edge_tag[i].start))
+                &lt;&lt; &quot;-----&quot;
+                &lt;&lt; (&quot;v&quot; + std::to_string(edge_tag[i].end))
+                &lt;&lt;&quot;=&quot;
+                &lt;&lt; edge_tag[i].weight
+                &lt;&lt; endl;
+            edge_tag[i].visit = true;
+            ++count_vex; //生成树的边加1
+        }
+        //这里表示所有的边都已经加入成功
+        if (count_vex == Vexnum - 1) {
+            break;
+        }
+        ++i;
+    }
+
+    if (count_vex != Vexnum - 1) {
+        cout &lt;&lt; &quot;此图为非连通图！无法构成最小生成树。&quot; &lt;&lt; endl;
+    }
+    delete [] edge_tag;
+    delete [] parent;
+    delete [] child;
+}
+</code></pre>
+
         </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/75bf7760.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构-绪论</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/2b6326c7.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图遍历.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图遍历.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                数据结构-图的遍历</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
 
-<!-- 
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/a1751c09.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/a1751c09.html">
-    Hello Hexo</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-6</div>
-    <p>
-    初来乍到</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/a1751c09.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
 
- -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
