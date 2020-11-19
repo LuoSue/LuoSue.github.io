@@ -370,7 +370,7 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS内存管理.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS内存管理.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS内存管理.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
@@ -378,7 +378,7 @@
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -412,9 +412,9 @@
 <h3 id="基本硬件"><a href="#基本硬件" class="headerlink" title="基本硬件"></a>基本硬件</h3><p>CPU可以直接访问的通用存储只有内存和处理器内置的寄存器。因此，执行指令以及指令使用的数据，应该处在这些可以直接访问的存础设备上。如果数据不在内存中， 那么在CPU 使用它们之前应先把数据移到内存。</p>
 <p>CPU 内置寄存器通常可以在一个CPU 时钟周期内完成访问。完成内存的访问可能需要多个CPU 时钟周期。在这种情况下， 由于没有数据以便完成正在执行的指令， CPU 通常需要暂停(stall)。<strong>由于内存访问的频繁，这种情况是我们不想见到的。</strong>补救措施是在CPU 与内存之间， 通常是在CPU 芯片上， 增加更快的内存；这称为高速缓存(cache)。</p>
 <p>为了确保操作的正确，首先，我们需要确保每个进程都有一个单独的内存空间。单独的进程内存空间可以保护进程而不互相影响，这对于将多个进程加到内存以便并发执行来说至关重要，通过两个寄存器，通常为基地址和界限地址，如图8所示，我们可以提供这种保护。基地址寄存器含有最小的合法的物理内存地址，而界限地址寄存器指定了范围的大小。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/寄存器界定地址空间.jpg" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/寄存器界定地址空间.jpg" alt></p>
 <p>内存空间的保护是通过CPU对在用户模式下产生的地址与寄存器的地址进行比较而得成的。<strong>只有操作系统</strong>可以通过特殊的特权指令，才能加载基地址寄存器和界限地址寄存器。这个方案允许操作系统修改这两个寄存器的值，而不允许<strong>用户程序</strong>修改它们。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/硬件地址保护.jpg" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/硬件地址保护.jpg" alt></p>
 <p>在内核模式下执行的操作系统可以无限制地访问操作系统及用户的内存。</p>
 <h3 id="地址绑定"><a href="#地址绑定" class="headerlink" title="地址绑定"></a>地址绑定</h3><p>源程序中的地址通常是用符号表示，编译器会将这些符号地址绑定到可重定位的地址。链接程序或加载程序再将这些可重定位的地址绑定到绝对地址（如74014)。每次绑定都是从一个地址空间到另一个地址空间的映射。</p>
 <p>通常，指令和数据绑定到存储器地址可在沿途的任何一步中进行：</p>
@@ -457,14 +457,14 @@
 <p>段表的每个条目都有<strong>段基地址</strong>和<strong>段界限</strong>，段基地址包含该段在内存中的开始物理地址，而段界限指定该段的长度。</p>
 <p>每个逻辑地址由两部分组成：<strong>段号s和段偏移d</strong>，段号是段表的索引，逻辑地址偏移应该在0和段界限之间。如果不合法就由操作系统处理，如果合法，那么就与基地址相加而得到所需字节的物理内存地址。<strong>因此，段表实际上是基址寄存器值和界限寄存器值的数组。</strong></p>
 <p>每个段都在段表中有一个条目， 它包括段在物理内存内的开始地址（基地址）和该段的长度（界限）。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS分段硬件.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS分段硬件.JPG" alt></p>
 <h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>优势：避免了外部碎片以及紧缩，分段不可以。避免了将不同大小的内存块匹配到交换空间的麻烦问题。</p>
 <h3 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h3><p>将物理内存分为固定大小的块，称为<strong>帧</strong>或<strong>页帧</strong>；将逻辑内存也分为同样大小的块，称为<strong>页</strong>或<strong>页面</strong>。</p>
 <p>逻辑地址空间要求的内存可以远远的大于实际的物理内存。</p>
 <h3 id="硬件支持"><a href="#硬件支持" class="headerlink" title="硬件支持"></a>硬件支持</h3><p>由CPU生成的每个地址分为两个部分：<strong>页码(p)</strong>和<strong>页偏移(d)</strong>。页码作为<strong>页表</strong>的索引。页表包含每页所在物理内存单元的基地址。这个基地址与页偏移的组合就形成了物理内存地址，可发送到物理单元。如下图所示。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS分页硬件.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS分页硬件.JPG" alt></p>
 <p>页大小（同帧大小一样）是由硬件来决定的。将页的大小选为2的幂可以方便地将逻辑地址转换为页码与页偏移。如果逻辑地址空间为2^m,且页的大小为2^n字节，那么逻辑地址的高m-n位表示页码，低n位表示页偏移。逻辑地址如下图所示</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS页面逻辑地址.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS页面逻辑地址.JPG" alt></p>
 <p>其中p作为页表的索引，而d作为页的偏移。</p>
 <p>分页本身是一种动态的重定位。每个逻辑地址由分页硬件绑定位某个物理地址。采用分页类似于采用一组基址(重定位)寄存器，每个基址对应着一个内存帧。</p>
 <p>分页不会产生外部碎片：每个空闲帧都可以分配给需要它的进程。</p>
@@ -473,16 +473,16 @@
 <p>分页的一个重要方面是，程序员视图的内存和实际的物理内存的清楚分离。帧同样有帧表用于保存。分页增加了上下文切换的时间。</p>
 <h2 id="页表结构"><a href="#页表结构" class="headerlink" title="页表结构"></a>页表结构</h2><h3 id="分层分页"><a href="#分层分页" class="headerlink" title="分层分页"></a>分层分页</h3><p>两层分页算法：将页表再分页。</p>
 <p>例如，再次假设一个系统，具有32位逻辑地址空间和4K大小的页。一个逻辑地址被分为20位的页码和12位的页偏移。因为要对页表进行再分页，所以此页码可分为10位的页码以及10位的页偏移。如下图所示。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS两层分页.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS两层分页.JPG" alt></p>
 <p>其中p1是用来访问外部页表的索引， 而p2是内部页表的页偏移。采用这种结构的地址转换方法如图所示，这种方案称作<strong>向前映射页表</strong>。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS分页地址转换.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS分页地址转换.JPG" alt></p>
 <p>但是如果外部页表实在太大，要分层分页就会很多，对于64位的架构，这个通常是不恰当的。</p>
 <h3 id="哈希页表"><a href="#哈希页表" class="headerlink" title="哈希页表"></a>哈希页表</h3><p>通常用于处理大于32位地址空间，采用虚拟页码作为哈希值。</p>
 <p>哈希页表的每一个条目都包括一个链表， 该链表的元素哈希到同一位置（该链表用来解决处理碰撞）。每个元素由三个字段组成： 1） 虚拟页码， 2 ) 映射的帧码， 3） 指向链表内下一个元素的指针。</p>
 <p>该算法工作如下：虚拟地址的虚拟页码哈希到哈希表。用虚拟页码与链表内的第一个元素的第一个字段相比较。如果匹配， 那么相应的帧码（第二个字段）就用来形成物理地址；如果不匹配， 那么与链表内的后续节点的第一个字段进行比较， 以查找匹配的页码。如图所示。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS哈希页表.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS哈希页表.JPG" alt></p>
 <h3 id="倒置页表"><a href="#倒置页表" class="headerlink" title="倒置页表"></a>倒置页表</h3><p>对千每个真正的内存页或帧， 倒置页表才有一个条目。每个条目包含保存在真正内存位置上的页的虚拟地址，以及拥有该页进程的信息。因此， 整个系统只有一个页表， 并且每个物理内存的页只有一条<br>相应的条目。工作原理如图所示。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS倒置页表.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS倒置页表.JPG" alt></p>
 
         </div>
         <!-- .entry-content -->
@@ -516,7 +516,7 @@
           
             <a href="/posts/790212ce.html" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构图.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图.png">
               </div>
               <span class="label">
               Previous Post</span>
@@ -534,7 +534,7 @@
           
             <a href="/posts/a1751c09.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/HelloHexo.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/HelloHexo.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/HelloHexo.png">
               </div>
               <span class="label">
               Next Post</span>
@@ -564,7 +564,7 @@
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">

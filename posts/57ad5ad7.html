@@ -370,7 +370,7 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈和队列.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构栈和队列.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构栈和队列.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
@@ -378,7 +378,7 @@
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -411,10 +411,10 @@
 </code></pre>
 <p>top为栈顶指针，base为栈底指针</p>
 <p>top == base表示栈空了，每插入一个元素,top++;每删除一个元素，top–。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构栈指针与栈元素的关系.PNG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构栈指针与栈元素的关系.PNG" alt></p>
 <h2 id="插入删除算法"><a href="#插入删除算法" class="headerlink" title="插入删除算法"></a>插入删除算法</h2><p>插入：先将元素插入当前栈顶指针所指向的位置，再移动栈顶指针。</p>
 <p>删除：先取得栈顶指针减一位置的值，栈顶指针再自减一。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构链栈.PNG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构链栈.PNG" alt></p>
 <pre><code class="c">Status Push(SqStack &amp;S,SElemType e){
     if(S.top-S.base&gt;=S.stacksize){//栈满了，追加存储空间
         S.base=(SElemType *)realloc(S.base,(S.stacksize + STACKINCREMENT)*sizeof(SElemType));
@@ -437,7 +437,7 @@ Status Pop(SqStack &amp;S,SElemType &amp;e){
 <h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>与栈相反，先进先出（只允许在表的一端插入，在另一端删除）</p>
 <p>允许插入的一端叫做队尾，允许删除的一端叫做队头。</p>
 <h2 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h2><p>插入与删除操作在表的两端的线性表，两个端点分别称之为端点1与端点2.</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构双端队列.PNG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构双端队列.PNG" alt></p>
 <p>输出受限的双端队列：一个端点允许插入与删除，一个端点只允许插入</p>
 <p>输出受限的双端队列：一个端点允许插入与删除，一个端点只允许删除</p>
 <p>限定从某个端插入的结点只能在该端删除：两个栈底相接的栈</p>
@@ -481,7 +481,7 @@ Status DeQueue(SqQueue &amp;Q,QElemType &amp;e){
     return OK;
 } 
 </code></pre>
-<h3 id="循环队列满不满的判定"><a href="#循环队列满不满的判定" class="headerlink" title="循环队列满不满的判定"></a>循环队列满不满的判定</h3><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构循环队列.PNG" alt></p>
+<h3 id="循环队列满不满的判定"><a href="#循环队列满不满的判定" class="headerlink" title="循环队列满不满的判定"></a>循环队列满不满的判定</h3><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构循环队列.PNG" alt></p>
 <p>我们可以发现，当循环队列属于上图的d1情况时，是无法判断当前状态是队空还是队满。为了达到判断队列状态的目的，可以通过牺牲一个存储空间来实现。 </p>
 <p>如上图d2所示， </p>
 <p><strong>队头指针在队尾指针的下一位置时，队满。</strong> Q.front == (Q.rear + 1) % MAXSIZE 因为队头指针可能又重新从0位置开始，而此时队尾指针是MAXSIZE - 1，所以需要求余。 </p>
@@ -519,7 +519,7 @@ Status DeQueue(SqQueue &amp;Q,QElemType &amp;e){
           
             <a href="/posts/d0f417a6.html" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构串.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构串.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构串.png">
               </div>
               <span class="label">
               Previous Post</span>
@@ -537,7 +537,7 @@ Status DeQueue(SqQueue &amp;Q,QElemType &amp;e){
           
             <a href="/posts/5b12b8a1.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构线性表.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构线性表.png">
               </div>
               <span class="label">
               Next Post</span>
@@ -567,7 +567,7 @@ Status DeQueue(SqQueue &amp;Q,QElemType &amp;e){
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">

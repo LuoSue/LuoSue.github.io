@@ -370,7 +370,7 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS虚拟内存管理.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS虚拟内存管理.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS虚拟内存管理.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
@@ -378,7 +378,7 @@
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -476,7 +476,7 @@
 <p>这种高度的页面调度活动称为抖动(thrashing)。如果一个进程的调页时间多于它的执行时间，那么这个进程就是在抖动。</p>
 <p>通过局部置换算法(localreplacement algorithm)或优先权置换算法(priority replacement al gorithm),可以限制系统抖动。如果一个进程开始抖动， 那么由于采用局部置换， 它不能从另一个进程中获取帧， 而且也不能导致后者抖动。这种方法定义了进程执行的局部性模型(locality model)。</p>
 <h4 id="工作集模型"><a href="#工作集模型" class="headerlink" title="工作集模型"></a>工作集模型</h4><p>如上所述， 工作集模型(working-set model)是基于局部性假设的。这个模型采用参数▲定义工作集窗口(working-setwindow)。它的思想是检查最近▲个页面引用。这最近▲个页面引用的页面集合称为工作集(working-set)（如图9-20所示）。如果一个页面处于活动使用状态， 那么它处在工作集中。如果它不再使用， 那么它在最后一次引用的▲ 时间单位后， 会从工作集中删除。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/OS工作集模型.JPG" alt></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS工作集模型.JPG" alt></p>
 <p>例如， 给定如图所示的内存引用序列， 如果▲为10个内存引用， 那么t1时的工作集为{1, 2, 5, 6, 7}。</p>
 <p>工作集的精度取决于▲ 的选择。如果▲太小， 那么它不能包含整个局部；如果▲太大， 那么它可能包含多个局部。在极端情况下， 如果▲为无穷大， 那么工作集为进程执行所需的所有页面的集合。<br>因此， 最重要的工作集属性是它的大小。如果系统内的每个工作集通过计算为wss,,那么就得到D=IWSS;<br>这里D为帧的总需求量。每个进程都使用其工作集内的页面。因此， 进程l需要WSS;帧。如果总需求大千可用帧的总数(D&gt;m)， 则将发生抖动， 因此有些进程得不到足够的帧数。</p>
 
@@ -512,7 +512,7 @@
           
             <a href="/posts/5b12b8a1.html" rel="prev">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构线性表.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构线性表.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构线性表.png">
               </div>
               <span class="label">
               Previous Post</span>
@@ -530,7 +530,7 @@
           
             <a href="/posts/75bf7760.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/post/数据结构绪论.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构绪论.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构绪论.png">
               </div>
               <span class="label">
               Next Post</span>
@@ -560,7 +560,7 @@
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
