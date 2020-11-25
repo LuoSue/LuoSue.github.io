@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: OS | LuoSue&#39;s Blog</title>
+  <title itemprop="name">OS绪论 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,229 +364,149 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="OS.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      OS绪论</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">OS</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h1><h2 id="操作系统的功能"><a href="#操作系统的功能" class="headerlink" title="操作系统的功能"></a>操作系统的功能</h2><p>操作系统控制硬件，并协调各个用户应用程序的硬件使用。</p>
+<p>当计算机系统运行时，操作系统提供正确手段以便使用这些资源。操作系统类似于政府，其本身不能实现任何有用功能， 而是提供一个方便其他程序执行有用工作的环境。</p>
+<h3 id="用户视角"><a href="#用户视角" class="headerlink" title="用户视角"></a>用户视角</h3><ul>
+<li>PC：让单个用户使用资源，<strong>目的是更好的使用体验，次要是性能，不在乎资源利用。</strong></li>
+<li>大型机与小型机相连的终端：其他用户通过其他终端一同访问计算机，<strong>目的是优化资源利用率；确保所有的CPU时间、内存、I/O均能够得到有效的使用，并且没有用户使用超过限额以外的资源。</strong></li>
+<li>工作站与服务器相连：<strong>兼顾使用方便性以及资源利用率。</strong></li>
+</ul>
+<h3 id="系统视角"><a href="#系统视角" class="headerlink" title="系统视角"></a>系统视角</h3><p>可把操作系统看成资源分配器或是控制程序。</p>
+<h3 id="操作系统的定义"><a href="#操作系统的定义" class="headerlink" title="操作系统的定义"></a>操作系统的定义</h3><p>一般来说没有广泛接受的定义，比较公认的定义是，操作系统是一个一直运行在计算机上的程序（内核）</p>
+<h2 id="操作系统的形成以及发展"><a href="#操作系统的形成以及发展" class="headerlink" title="操作系统的形成以及发展"></a>操作系统的形成以及发展</h2><h3 id="手工操作阶段"><a href="#手工操作阶段" class="headerlink" title="手工操作阶段"></a>手工操作阶段</h3><p>操作员手动将纸带放入输入机，运行完后手动取走纸带以及结果</p>
+<p>特点：具有用户独占计算机资源、资源利用率低及CPU等待人工操作的特点。</p>
+<p>随着CPU速度提高，已经被淘汰。</p>
+<h3 id="脱机输入-输出技术"><a href="#脱机输入-输出技术" class="headerlink" title="脱机输入/输出技术"></a>脱机输入/输出技术</h3><p>外围机将数据输入磁带</p>
+<h3 id="批处理技术"><a href="#批处理技术" class="headerlink" title="批处理技术"></a>批处理技术</h3><p>对一批作业自动进行处理，将一批作业输入到磁带上，并在系统中配置<strong>监督程序</strong>(管理作业的运行，完成作业的自动过渡，常驻于内存)。计算机按此一个一个自动的处理作业。</p>
+<h3 id="多道程序设计技术"><a href="#多道程序设计技术" class="headerlink" title="多道程序设计技术"></a>多道程序设计技术</h3><p>在早期的批处理系统中，内存中仅有一道程序，每当程序发出I/O 请求时，CPU 便处于等待I/O 完成的状态，致使CPU 空闲。为进一步改善CPU 的利用率引入了多道程序设计技术。</p>
+<p>多道程序设计技术是指同时把多个作业放入内存并允许它交替执行，共享系统中的各类资源，当一道程序因某种原因（如I/O 请求）而暂停执行时，CPU 立即转去执行另一道程序。</p>
+<p>在操作系统中引入多道程序设计技术，会<strong>使系统具有多道、宏观上并行、微观上串行的特点。</strong></p>
+<p>多道程序设计技术能有效提高系统的吞吐量和改善资源利用率。</p>
+<h2 id="操作系统基本类型"><a href="#操作系统基本类型" class="headerlink" title="操作系统基本类型"></a>操作系统基本类型</h2><p>三种基本类型：批处理操作系统，分时操作系统和实时操作系统。</p>
+<h3 id="批处理操作系统"><a href="#批处理操作系统" class="headerlink" title="批处理操作系统"></a>批处理操作系统</h3><p>一次运行一批作业，不足之处是没有交互性。</p>
+<h3 id="分时操作系统"><a href="#分时操作系统" class="headerlink" title="分时操作系统"></a>分时操作系统</h3><p>在分时操作系统中，采用了分时技术，即把处理机的运行时间分成很短的时间片，按时间片轮流把处理机分配给各终端作业使用。</p>
+<p>分时操作系统具有以下特征：<br>（1）多路性。同时有多个用户使用一台计算机。宏观上看有多个用户同时使用计算机，微观上各用户轮流使用计算机。</p>
+<p>（2）交互性。用户采用人-机会话的方式直接控制程序运行，即用户通过终端向系统提出服务要求，系统完成用户的请求并将结果返回给用户，用户再根据系统的结果信息向系统提出下一个服务请求。</p>
+<p>（3）独占性。每个用户各占一个终端，彼此独立操作互不干扰。用户感觉不到别人也在使用这台计算机，好像只有自己独占计算机。</p>
+<p>（4）及时性。用户的请求能在很短时间内获得响应，一般为2～3 秒。</p>
+<h3 id="实时操作系统"><a href="#实时操作系统" class="headerlink" title="实时操作系统"></a>实时操作系统</h3><p>响应及时，可靠性高</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/posts/ec79ecc8.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                OS结构</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/75e35db1.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/75e35db1.html">
-    OS绪论</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/75e35db1.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/ec79ecc8.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/ec79ecc8.html">
-    OS结构</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/ec79ecc8.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/357a36e1.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS进程.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/357a36e1.html">
-    OS进程</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/357a36e1.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/239c332d.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/239c332d.html">
-    OS线程</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/239c332d.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/8c7e9ffb.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS虚拟内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/8c7e9ffb.html">
-    OS虚拟内存管理</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-18</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/8c7e9ffb.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/48e0383b.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/48e0383b.html">
-    OS内存管理</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-10</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/48e0383b.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

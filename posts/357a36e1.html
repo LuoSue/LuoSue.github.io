@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: OS | LuoSue&#39;s Blog</title>
+  <title itemprop="name">OS进程 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -364,229 +364,426 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="OS.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS进程.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS进程.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      OS进程</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-11-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">OS</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程：一系列CPU活动的总称</p>
+<ul>
+<li>进程是活动的程序实体</li>
+<li>进程可以套娃：进程是用于执行其他程序的程序活动(JVM)</li>
+</ul>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>定义进程的状态：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">new</th>
+<th style="text-align:center">创建中</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">running</td>
+<td style="text-align:center">运行中</td>
+</tr>
+<tr>
+<td style="text-align:center">waiting</td>
+<td style="text-align:center">等待(运行暂停中)</td>
+</tr>
+<tr>
+<td style="text-align:center">ready</td>
+<td style="text-align:center">就绪(等待分配处理器)</td>
+</tr>
+<tr>
+<td style="text-align:center">terminated</td>
+<td style="text-align:center">执行完成</td>
+</tr>
+</tbody>
+</table>
+<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><p>在操作系统中如何表示进程：</p>
+<p>PCB=</p>
+<ul>
+<li>进程状态：(同上)</li>
+<li>程序计数器：存储下一个要执行的指令地址</li>
+<li>CPU寄存器：获取的硬件CPU中的寄存器数据</li>
+<li>CPU调度信息：进程优先级、调度队列指针和其他参数</li>
+<li>内存管理信息：各种进程所使用的内存地址以及寄存器值</li>
+<li>记帐信息：CPU时间、实际使用的CPU时间等记录数据</li>
+<li>I/O状态信息：分配给进程的I/O设备、文件等信息</li>
+</ul>
+<p><strong>注意：PCB可以被用来支持以线程为核心替代进程的系统，只需要增加一些信息</strong></p>
+<p>按照进程的功能给进程分类：</p>
+<p>I/O密集型进程(I/O-bound process):以执行I/O操作为主</p>
+<p>CPU密集型进程(CPU-bound process):以执行CPU计算操作为主</p>
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><h3 id="调度队列"><a href="#调度队列" class="headerlink" title="调度队列"></a>调度队列</h3><p>进程在进入系统时，会被加到<strong>作业队列(包括系统内的所有进程)</strong>。</p>
+<p>驻留在内存中的、就绪的、等待运行的进程保存在<strong>就绪队列</strong>上。</p>
+<p>等待特定I/O设备的进程列表，称为<strong>设备队列</strong>。</p>
+<h3 id="调度程序"><a href="#调度程序" class="headerlink" title="调度程序"></a>调度程序</h3><p>操作系统通过调度器/调度程序来从调度队列中选择进程</p>
+<p>调度程序的区分：</p>
+<ul>
+<li>长期调度程序/作业调度程序</li>
+<li>中期调度程序</li>
+<li>短期调度程序/CPU调度程序</li>
+</ul>
+<p>怎么调度：</p>
+<ul>
+<li>进程加入磁盘缓冲区(进程池)</li>
+<li>选择进程加入内存(作业和就绪队列)-&gt;长期调度</li>
+<li>从就绪队列中选择进程，分配CPU-&gt;短期调度</li>
+<li>进程开始运行</li>
+<li>根据需要中断进程，从内存或者是CPU中移出-&gt;中期调度</li>
+</ul>
+<p>一个指标：<strong>多道程序程度</strong>表示内存中的进程数量，长期调度必须保证该值稳定，即进程的进出速度几乎一致。</p>
+<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p>CPU进行进程换出或者是中断时都需要进行<strong>上下文切换</strong>：</p>
+<ul>
+<li>CPU状态保存(内核/用户模式)</li>
+<li>保存该进程PCB-&gt;读入新进程PCB-&gt;转换进程</li>
+<li>CPU状态恢复</li>
+</ul>
+<h3 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h3><p>发生的情况：</p>
+<ol>
+<li><p>进程running-&gt;waiting</p>
+</li>
+<li><p>进程结束terminate</p>
+</li>
+<li><p>进程由running-&gt;ready(中断时)</p>
+</li>
+<li>进程由waiting-&gt;ready(I/O完成时)</li>
+</ol>
+<p>以上情况均发生时都进行调度的调度方案：<strong>抢占式调度</strong></p>
+<p>只有1和2发生时进行调度的调度方案：<strong>非抢占式调度</strong></p>
+<p>非抢占式意味着一旦一个进程进入CPU运行，它一定会占用CPU，直到终止才退出。</p>
+<p>换入，换出。</p>
+<h5 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h5><h6 id="先到先服务-FIFO-FCFS-调度"><a href="#先到先服务-FIFO-FCFS-调度" class="headerlink" title="先到先服务(FIFO/FCFS)调度"></a>先到先服务(FIFO/FCFS)调度</h6><ul>
+<li>非抢占式</li>
+<li>先到的进程先执行</li>
+</ul>
+<p>优点：算法简单</p>
+<p>缺点：短运行时间的任务需要长时间的等待</p>
+<h6 id="最短时间优先-SJF"><a href="#最短时间优先-SJF" class="headerlink" title="最短时间优先(SJF)"></a>最短时间优先(SJF)</h6><ul>
+<li>非抢占式</li>
+<li>运行时间短的进程优先执行</li>
+</ul>
+<p>优点：效率最优</p>
+<p>缺点：系统难以预测后到达的进程的运行时间</p>
+<p>一个预测的方法：<br>$$<br>Tn+1=a(Tn)+(1-a)Qn<br>$$<br>预计下一次进程的运行时间=a*(本次运行时间)+(1-a)预计的本次运行时间</p>
+<h6 id="最短剩余时间优先-SRTF"><a href="#最短剩余时间优先-SRTF" class="headerlink" title="最短剩余时间优先(SRTF)"></a>最短剩余时间优先(SRTF)</h6><ul>
+<li>抢占机制的SJF</li>
+<li>每当进程进入/进程运行结束的时候，计算所有队列的进程的剩余运行时间</li>
+<li>剩余运行时间最短的进程可以抢占当前进程开始运行</li>
+</ul>
+<p>SRTF的缺点：如果不停的有短时间进程到达，则长时间任务会陷入饥饿</p>
+<p>饥饿：进程超级长时间在等待而得不到运行</p>
+<h6 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h6><ul>
+<li>SJF是优先级调度的特例</li>
+<li>非抢占式或抢占式</li>
+<li>为每个进程设置优先级，优先级高的进程先运行</li>
+</ul>
+<p>优缺点与SJF相似</p>
+<h6 id="轮转调度-RR"><a href="#轮转调度-RR" class="headerlink" title="轮转调度(RR)"></a>轮转调度(RR)</h6><ul>
+<li>抢占式，分时系统</li>
+<li>设定一个时间量单元(又称时间片)</li>
+<li>每个进程的执行时间都不能长于时间片</li>
+<li>当进程执行时间超过时间片时，队列里的下一个进程抢占该进程运行，重新开始时间片计时</li>
+<li>就绪队列里的进程遵循FCFS,即被抢占的进程回到队尾</li>
+</ul>
+<p>优点：短时间进程多的情况效率高</p>
+<p>缺点：长时间进程多时，频繁切换上下文会使效率降低，且RR调度的效率取决于时间片的大小，时间片越大时，其效率越接近FCFS</p>
+<h6 id="多级队列-多级反馈队列调度"><a href="#多级队列-多级反馈队列调度" class="headerlink" title="多级队列/多级反馈队列调度"></a>多级队列/多级反馈队列调度</h6><ul>
+<li>将就绪队列分成不同的n个队列，每个队列按照特定的规则调度进程(比如一个用FCFS，一个用SJF)</li>
+<li>队列之间可以进行反馈，使得进程在不同队列之间迁移</li>
+<li>如长时间占用CPU的进程可能会被移到优先级更低的队列</li>
+</ul>
+<p>优点：优化短时间进程和I/O密集型进程的运行效率</p>
+<p>缺点：仍然难以解决长时间进程的饥饿(又被称为老化，aging的问题)</p>
+<h6 id="彩票调度"><a href="#彩票调度" class="headerlink" title="彩票调度"></a>彩票调度</h6><ul>
+<li>在RR或多级队列的基础上进行优化</li>
+<li>给每个进程发一些彩票，在每个时间片开始之前，抽奖选出幸运进程</li>
+<li>为了防止饥饿，每个进程至少有一张彩票</li>
+<li>幸运进程的优先级会被提高，然后再开始确定调度</li>
+</ul>
+<p>发彩票的规则可以按照需求确定：</p>
+<ul>
+<li>如果要接近像SJF的短时效率，那么给短时间的进程多发彩票</li>
+<li>如果想解决长时间进程的饥饿问题，则给等待时间很长的进程增加其持有的彩票数，即增加其被抽中的概率</li>
+</ul>
+<h4 id="CPU调度-多核处理器"><a href="#CPU调度-多核处理器" class="headerlink" title="CPU调度(多核处理器)"></a>CPU调度(多核处理器)</h4><p>注意：现在使用的多核处理器架构并不是物理上的放置多个处理器，而是将多个处理器核放在一个物理芯片上</p>
+<p>方法一：非对称多处理</p>
+<ul>
+<li>一个处理器负责调度，称为主服务器</li>
+<li>其他处理器负责执行程序</li>
+</ul>
+<p>方法二：对称多处理</p>
+<ul>
+<li>每个处理器都独立地进行自我调度和执行程序</li>
+<li>每个处理器可以有一个自己的就绪队列</li>
+<li>或者共享一个就绪队列</li>
+</ul>
+<p>使用对称多处理的调度方案需要考虑的问题：</p>
+<blockquote>
+<p>处理器亲和性</p>
+<blockquote>
+<p>软亲和性：尽量让同一进程一直运行在同一处理器上</p>
+<p>硬亲和性：通过系统调用支持，使进程可以指定一个处理器或一个处理器子集运行该进程</p>
+<p>二者可以兼得</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>负载平衡</p>
+<p>保障不会发生“—些处理器高负载，而其他处理一直空闲”的情况</p>
+<p>对于有公共队列的调度系统，无需考虑负载平衡</p>
+<p>一旦处理器空闲，它可以立刻从公共队列里取进程，自动就平衡了</p>
+<p>负载平衡只对独立就绪队列的调度系统有必要</p>
+<p>负载平衡的方法</p>
+<blockquote>
+<p>推迁移push migration:将进程从超载处理器”推”到空闲处理器</p>
+<p>拉迁移pull migration:空闲处理器从超载处理器上”拉”下进程<br>(ps:有点像git的感觉）</p>
+<p>注意:负载平衡的实现会降低处理器亲和性，换句话说，二者不能共存</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>内存停顿：多核处理器访问内存时，可能因为cache未命中等多个<br>原因导致访问数据的时间变长很多，也可以称为长延迟事件</p>
+<p>解决办法:给每个核分配多线程，如果某个线程在等待内存，处理器核就切换到其他线程工作</p>
+<blockquote>
+<p>实现多核多线程的两种办法:</p>
+<p>粗粒度coars-grained:当遇到长延迟事件时才切换线程，切换线程的成本比较高</p>
+<p>细粒度fine-grained:在每个CPU指令周期结束/开始时切换线程，成本比较小，但切换频繁</p>
+<p>注意:多核多线程处理器实际需要两层调度:一是操作系统分配一系列用户进程的线程到处理器，这可以遵循单核的CPU调度方案;二是多核处理器决定哪些线程分配到哪些核上，需要另外—套方案</p>
+</blockquote>
+</blockquote>
+<h4 id="CPU调度-实时操作系统"><a href="#CPU调度-实时操作系统" class="headerlink" title="CPU调度(实时操作系统)"></a>CPU调度(实时操作系统)</h4><p>注意:实时操作系统要求优先级高的任务/进程必须以最快速度执行完毕，处理必须在固定时间内完成。Windows、Liunx、mac os都不是实时操作系统</p>
+<p>软实时系统:不会调度关键的实时进程，只保证它们的优先级更高</p>
+<p>硬实时系统:任务必须在时限内完成，否则不管是什么进程都会被中止</p>
+<p>实时系统必须要求尽可能低的事件延迟event latency:事件发生到得到服务的时间</p>
+<p>可以优化的延迟有:(不是简单的最小化，而是优化到尽可能符合时限的要求)</p>
+<p>中断延迟interrupt latency:从CPU收到中断到中断处理程序开始的时间</p>
+<p>调度延迟dispatch latency:调度程序从停止一个进程到启动另一个进程的时间</p>
+<p>因此，实时系统的调度一般采用抢占式调度</p>
+<p>调度延迟分为两个部分:</p>
+<ol>
+<li>冲突:调度程序在抢占优先级不够高内核进程并且释放其对要调度的进程有用的资源</li>
+<li>调度:切换到要调度的高优先级进程</li>
+</ol>
+<p>实时系统的三种抢占式调度:</p>
+<p>—些概念:(任务=进程)</p>
+<p>p:周期，任务多长时间需要CPU执行一次</p>
+<p>d:时限（截止期限,ddl)，周期开始后最多要在该时间内完成</p>
+<p>d ≤p但很多情况下也会令d = p</p>
+<p>t:处理时间，CPU只处理该任务需要的时间</p>
+<p>前提:所有任务的g即CPU利用率之和不超过1，否则会有任务超过时限<br>因此系统会使用准入控制算法，拒绝会超过ddl的任务进入</p>
+<p>单调速率调度rate-monotonic:</p>
+<ul>
+<li>周期p小的进程优先级高</li>
+<li>优先级高的任务在其周期开始时可以抢占优先级低的任务开始执行</li>
+<li>优先级低的任务必须等待优先级高的任务执行后继续执行自己</li>
+</ul>
+<p>最早截止日期优先Earliest-Deadline-First，EDF:<br>(byr调度方法(bushi):(</p>
+<ul>
+<li>每个进程在运行开始时告诉操作系统其ddl</li>
+<li>系统计算(DDL-当前时间）越小的进程优先级越高</li>
+<li>系统判断是否要抢占调度进程，抢占规则与上相同</li>
+</ul>
+<p>理论上i该方案是最佳的，CPU利用率能接近100%</p>
+<p>比例分享调度proportional share:</p>
+<ul>
+<li>处理器定义一个总分配值T</li>
+<li>给每个进程分配N的时间</li>
+<li>据此，每个进程可以使用*100%的CPU时间</li>
+</ul>
+<p>如果分配完后剩下的T值不够新进程的请求，准入算法会拒绝新的进程加入</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>不影响其他进程，也不受其他进程影响的进程：独立进程与其他进程进行数据共享的进程：协作进程</p>
+<p>协作进程的好处：</p>
+<ul>
+<li>信息共享information sharing</li>
+<li>计算加速computeration speedup</li>
+<li>模块化modularity</li>
+<li>便捷convenience</li>
+</ul>
+<p>进程间通信的两种方法:<br>1、共享内存:</p>
+<p>建立一块内存区域，可以供所有进程共享，进程从内存中读写数据，要保证不会由多个进程同时读写数据(进程同步会解决这个问题)</p>
+<p>建立共享内存时需要系统调用，但使用时无需</p>
+<p>优点:速度快(单核系统）</p>
+<p>缺点:在多核系统中有高速缓存一致性等问题，会使性能下降</p>
+<p>2、消息传递:<br>操作系统提供机制:进程可以进行两种操作:send(mes)发送消息，receive(mes)接受消息，进程可以通过一种方式互相发送消息，称为<br>通信链路communication link<br>不断进行系统调用才能实现</p>
+<p>优点:无需避免冲突(同步问题)，多核系统中效率高</p>
+<p>缺点:某些情况下系统调用要更慢</p>
+<p>实现通信链路的三个问题：</p>
+<p>如何找到对方:直接/间接通信:</p>
+<p>直接通信：</p>
+<ul>
+<li>对称的寻址: P发给Q, Q接受P</li>
+<li>非对称的寻址: P发给Q, Q接受任何消息</li>
+</ul>
+<p>间接通信：</p>
+<ul>
+<li>定义邮箱/端口，用来作为收发消息函数的参数</li>
+<li>两个进程之间只扫要有一个邮箱才能通信</li>
+<li>但一个邮箱可以服务与很多对进程</li>
+<li>两个进程间可以由多个邮箱组成多条通信链路</li>
+<li>邮箱的拥有者可以是os或者进程</li>
+</ul>
+<p>如何收发消息:同步/异步通信:</p>
+<p>同步←→阻塞blocking</p>
+<p>异步→非阻塞nonblocking</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>发送</th>
+<th>接收</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阻塞</td>
+<td>发送消息的进程进入阻塞，直到消息被接收</td>
+<td>接收消息的进程进入阻塞，直到收到有效的发送者消息</td>
+</tr>
+<tr>
+<td>非阻塞</td>
+<td>发送消息的进程发送消息后继续运行</td>
+<td>不管接收者收到什么消息，都继续接收并继续运行</td>
+</tr>
+</tbody>
+</table>
+<p>如果发送和接受消息都以阻塞的方式，那么称发送者<br>和接收者一定会有交会(rendzvous)</p>
+<p>发送的的消息存在哪里:缓存:</p>
+<p>消息存在临时队列中，临时队列的实现方法有:</p>
+<ul>
+<li>零容量:不允许暂存消息，所以必须以阻塞方式<br>收发消息</li>
+<li>有限容量:队列长度有限，只有当队列满的时<br>候，收发消息才必须以阻塞的方式</li>
+<li>无限容量:队列长度可以无限扩增，因此发送者<br>一直使用非阻塞的方式发送消息</li>
+</ul>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/posts/ec79ecc8.html" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                OS结构</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/posts/239c332d.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                OS线程</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/75e35db1.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/75e35db1.html">
-    OS绪论</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/75e35db1.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/ec79ecc8.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS结构.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/ec79ecc8.html">
-    OS结构</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/ec79ecc8.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/357a36e1.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS进程.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/357a36e1.html">
-    OS进程</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/357a36e1.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/239c332d.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/239c332d.html">
-    OS线程</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-25</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/239c332d.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/8c7e9ffb.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS虚拟内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/8c7e9ffb.html">
-    OS虚拟内存管理</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-18</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/8c7e9ffb.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/48e0383b.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/OS内存管理.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/48e0383b.html">
-    OS内存管理</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2020-11-10</div>
-    <p>
-    操作系统原理</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/48e0383b.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

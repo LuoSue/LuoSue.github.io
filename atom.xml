@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-11-19T13:17:49.754Z</updated>
+  <updated>2020-11-25T14:00:53.981Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -15,6 +15,86 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OS绪论</title>
+    <link href="https://fallensue.cc/posts/75e35db1.html"/>
+    <id>https://fallensue.cc/posts/75e35db1.html</id>
+    <published>2020-11-25T13:55:01.000Z</published>
+    <updated>2020-11-25T14:00:53.981Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OS结构</title>
+    <link href="https://fallensue.cc/posts/ec79ecc8.html"/>
+    <id>https://fallensue.cc/posts/ec79ecc8.html</id>
+    <published>2020-11-25T12:55:01.000Z</published>
+    <updated>2020-11-25T14:02:05.931Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OS进程</title>
+    <link href="https://fallensue.cc/posts/357a36e1.html"/>
+    <id>https://fallensue.cc/posts/357a36e1.html</id>
+    <published>2020-11-25T11:55:01.000Z</published>
+    <updated>2020-11-25T14:02:49.296Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OS线程</title>
+    <link href="https://fallensue.cc/posts/239c332d.html"/>
+    <id>https://fallensue.cc/posts/239c332d.html</id>
+    <published>2020-11-25T10:55:01.000Z</published>
+    <updated>2020-11-25T14:03:28.796Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
   
   <entry>
     <title>数据结构-图的关键路径分析</title>
