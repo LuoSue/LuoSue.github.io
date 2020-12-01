@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-12-01T08:34:20.732Z</updated>
+  <updated>2020-12-01T13:45:12.722Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OS文件系统</title>
+    <link href="https://fallensue.cc/posts/129f2172.html"/>
+    <id>https://fallensue.cc/posts/129f2172.html</id>
+    <published>2020-12-01T08:38:04.000Z</published>
+    <updated>2020-12-01T13:45:12.722Z</updated>
+    
+    <summary type="html">
+    
+      操作系统原理
+    
+    </summary>
+    
+      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
+    
+  </entry>
   
   <entry>
     <title>OS大容量存储结构</title>
@@ -393,26 +413,6 @@
     
     
       <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello Hexo</title>
-    <link href="https://fallensue.cc/posts/a1751c09.html"/>
-    <id>https://fallensue.cc/posts/a1751c09.html</id>
-    <published>2020-11-06T14:16:01.000Z</published>
-    <updated>2020-11-19T13:15:51.144Z</updated>
-    
-    <summary type="html">
-    
-      初来乍到
-    
-    </summary>
-    
-      <category term="技术" scheme="https://fallensue.cc/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Hexo" scheme="https://fallensue.cc/tags/Hexo/"/>
     
   </entry>
   

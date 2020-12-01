@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构-图的关键路径分析 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">OS文件系统 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -380,15 +380,15 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构关键路径.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构关键路径.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      数据结构-图的关键路径分析</h1>
+      OS文件系统</h1>
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -396,7 +396,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-11-19<span class="bull">
+        2020-12-1<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -410,168 +410,336 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="关键路径问题"><a href="#关键路径问题" class="headerlink" title="关键路径问题"></a>关键路径问题</h1><p>关键路径问题具体是要分析什么呢？其实是要分析类似下面的图(AOE)的相关问题。</p>
+          <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p>概念：操作系统对存储设备的物理属性加以抽象，从而定义逻辑存储单位，即文件(file)，用户创建的数据集，连续的逻辑地址空间</p>
+<p>对于用户来说，文件系统是操作系统中最重要的部分之一。</p>
+<p>希望文件的属性：</p>
 <ul>
-<li>边：表示一个活动，一个边(v,w)表示着事件v必须在w开始之前完成</li>
-<li>权重：一个活动的持续时间</li>
-<li>顶点：表示一个状态</li>
-<li>只有一个顶点的出度为0，也只有一个顶点的入度为0</li>
-<li><strong>没有环</strong></li>
+<li>长期存在(Long-term existence):文件存储在磁盘或其他辅助存储器上，并且在用户注销时不会消失</li>
+<li>进程间共享(Sharable between processes):文件具有名称，并且可以具有允许受控共享的关联访问权限</li>
+<li>结构(Structure):文件可以组织成层次结构或更复杂的结构，以反映文件之间的关系</li>
 </ul>
-<p><strong>有向图中，用顶点表示事件，用有向边表示活动之间开始的先后顺序，则称这种有向图为AOV（Activity On Vertex）网络；AOV网络可以反应任务完成的先后顺序（拓扑排序）。</strong></p>
-<p><strong>在AOV网的边上加上权值表示完成该活动所需的时间，则称这样的AOV网为AOE（Activity On Edge）网</strong>，如图：　</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图关键路径.jpg" alt></p>
-<p>如何求AOE网中各事件（节点）和各活动（边）的最早开始时间和最迟开始时间以及工程的关键路径？</p>
-<p><strong>整个活动的完成时间是AOE图中从始点到终点的最长路径的长度，这条路径称为关键路径。关键路径上的活动称作关键活动。</strong></p>
-<p><strong>注意：关键路径不一定只有一条。</strong></p>
-<p><strong>1.最早发生时间：</strong>从前往后，前驱结点到当前结点所需时间，取最大值。</p>
-<p>如上图中的节点4有两个前驱结点（节点2和3），节点2到节点4的最早发生时间是a1+a3也就是8，节点3到节点4的最早发生时间是a2+a4也就是12，因为12&gt;8，所以节点4的最早发生时间是12.</p>
-<p><strong>结束节点（10）的最早发生时间和最迟发生时间相同。</strong></p>
-<p><strong>2.最迟发生时间：从后往前，后继结点的最迟发生时间-边权值，取最小值。</strong></p>
-<p>如上图中的节点9的最迟发生时间为其后继节点10（只有一个）的最迟发生时间减去a14即24-2=22.</p>
-<table>
-<thead>
-<tr>
-<th>事件</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>最早发生时间</td>
-<td>0</td>
-<td>5</td>
-<td>6</td>
-<td>12</td>
-<td>15</td>
-<td>16</td>
-<td>17</td>
-<td>19</td>
-<td>22</td>
-<td>24</td>
-</tr>
-<tr>
-<td>最迟发生时间</td>
-<td>0</td>
-<td>9</td>
-<td>6</td>
-<td>12</td>
-<td>16</td>
-<td>20</td>
-<td>17</td>
-<td>20</td>
-<td>22</td>
-<td>24</td>
-</tr>
-</tbody>
-</table>
-<p><strong>3.关键路径：最早发生时间和最迟发生时间相同的结点即为关键路径上的节点。</strong></p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构GJ路径.jpg" alt></p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构关键LJ.jpg" alt></p>
-<p><strong>4.最早开始时间</strong>：等于当前边起始结点的最早发生时间。</p>
-<p><strong>5.最晚开始时间</strong>：等于当前边指向结点的最迟发生时间-当前边的权值。</p>
-<p><strong>6.最早完工时间</strong>：等于当前边指向结点的最早发生时间。</p>
-<p><strong>7.最晚完工时间</strong>：等于当前边指向结点的最迟发生时间。</p>
-<table>
-<thead>
-<tr>
-<th>活动</th>
-<th>a1</th>
-<th>a2</th>
-<th>a3</th>
-<th>a4</th>
-<th>a5</th>
-<th>a6</th>
-<th>a7</th>
-<th>a8</th>
-<th>a9</th>
-<th>a10</th>
-<th>a11</th>
-<th>a12</th>
-<th>a13</th>
-<th>a14</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>最早开工</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>6</td>
-<td>6</td>
-<td>12</td>
-<td>12</td>
-<td>12</td>
-<td>15</td>
-<td>15</td>
-<td>17</td>
-<td>19</td>
-<td>16</td>
-<td>22</td>
-</tr>
-<tr>
-<td>最迟开工</td>
-<td>4</td>
-<td>0</td>
-<td>9</td>
-<td>6</td>
-<td>13</td>
-<td>16</td>
-<td>13</td>
-<td>12</td>
-<td>16</td>
-<td>16</td>
-<td>17</td>
-<td>20</td>
-<td>20</td>
-<td>22</td>
-</tr>
-<tr>
-<td>最早完工</td>
-<td>5</td>
-<td>6</td>
-<td>12</td>
-<td>12</td>
-<td>15</td>
-<td>16</td>
-<td>15</td>
-<td>17</td>
-<td>17</td>
-<td>19</td>
-<td>22</td>
-<td>22</td>
-<td>24</td>
-<td>24</td>
-</tr>
-<tr>
-<td>最迟完工</td>
-<td>9</td>
-<td>6</td>
-<td>12</td>
-<td>12</td>
-<td>16</td>
-<td>20</td>
-<td>16</td>
-<td>17</td>
-<td>17</td>
-<td>20</td>
-<td>22</td>
-<td>22</td>
-<td>24</td>
-<td>24</td>
-</tr>
-</tbody>
-</table>
+<p>文件类型：</p>
+<ul>
+<li>数据：数字，字符，二进制</li>
+<li>程序</li>
+</ul>
+<p>文件信息由创建者定义，文件可以存储多种不同类型的信息，如源程序或者是可执行程序、数字或文本数据、照片balabala……</p>
+<h1 id="文件管理系统"><a href="#文件管理系统" class="headerlink" title="文件管理系统"></a>文件管理系统</h1><p>提供服务给用户和应用程序使用的文件</p>
+<p>用户或应用程序访问文件的方式</p>
+<p>程序员不需要开发文件管理软件</p>
+<p>目标:</p>
+<ul>
+<li>满足用户的数据管理需求</li>
+<li>确保文件中的数据都是有效的</li>
+<li>性能优化</li>
+<li>为各种存储设备类型提供I/O支持</li>
+<li>尽量减少丢失或破坏数据</li>
+<li>为用户进程提供一套标准化的I/O接口例程</li>
+<li>为多个用户提供I/O支持(如果需要)</li>
+</ul>
+<p>通用系统的要求：</p>
+<ol>
+<li>每个用户都应该能够创建、删除、读、写和修改文件</li>
+<li>每个用户都可以控制对其他用户文件的访问</li>
+<li>每个用户可以控制对用户文件允许的访问类型</li>
+<li>每个用户都应该能够以适合问题的形式重新构造用户文件</li>
+<li>每个用户都应该能够在文件之间移动数据</li>
+<li>每个用户都应该能够备份和恢复用户的文件，以防损坏</li>
+<li>每个用户都应该能够通过使用符号化名称来访问用户的文件</li>
+</ol>
+<h1 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h1><h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>文件名：</p>
+<ul>
+<li>仅以人类可读形式保存的信息</li>
+<li>由创建者(用户或程序)选择的名称。</li>
+<li>在特定目录中必须是唯一的</li>
+</ul>
+<p>标识：</p>
+<ul>
+<li>唯一的标签(数字)识别文件系统中的文件</li>
+</ul>
+<p>文件类型：</p>
+<ul>
+<li>支持不同类型的系统需要</li>
+</ul>
+<p>位置：</p>
+<ul>
+<li>指向设备上文件位置的指针</li>
+</ul>
+<p>尺寸：</p>
+<ul>
+<li>当前文件的大小</li>
+</ul>
+<p>文件组织：</p>
+<ul>
+<li>用于支持不同组织的系统</li>
+</ul>
+<p>保护：</p>
+<ul>
+<li>控制谁能读，写，执行</li>
+</ul>
+<p>时间、日期和用户标识：</p>
+<ul>
+<li>数据保护、安全,和使用监控</li>
+</ul>
+<p>关于文件的信息保存在目录结构中，它是在磁盘上维护的</p>
+<h2 id="地址信息"><a href="#地址信息" class="headerlink" title="地址信息"></a>地址信息</h2><p>Volume(卷组):指示存储文件的设备</p>
+<p>起始地址</p>
+<p>使用大小:文件的当前大小(以字节、字或块为单位)</p>
+<p>分配内存大小:文件的最大大小</p>
+<h2 id="使用信息"><a href="#使用信息" class="headerlink" title="使用信息"></a>使用信息</h2><ul>
+<li>创建日期</li>
+<li>创造者的身份</li>
+<li>最后一次读存取</li>
+<li>最后一位读者的身份</li>
+<li>最后修改日期</li>
+<li>最后一个修饰符的标识</li>
+<li>最后一次备份日期</li>
+<li>当前使用情况</li>
+</ul>
+<h2 id="目录元素-访问控制信息"><a href="#目录元素-访问控制信息" class="headerlink" title="目录元素:访问控制信息"></a>目录元素:访问控制信息</h2><p>雇主(Owner)</p>
+<ul>
+<li>雇主可以批准/拒绝访问其他用户和改变这些特权</li>
+</ul>
+<p>访问信息</p>
+<ul>
+<li>可能包括每个授权用户的用户名称和密码</li>
+</ul>
+<p>允许的行为</p>
+<ul>
+<li>控制读，写，执行，传输通过网络</li>
+</ul>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><p>文件是一种抽象数据类型，所以为了正确定义文件，需要考虑可以对文件执行的操作。</p>
+<p>创建文件：</p>
+<ul>
+<li>首先，必须在文件系统中为该文件找到空间</li>
+<li>其次，必须在目录中为新文件创建一个条目</li>
+</ul>
+<p>写文件：</p>
+<ul>
+<li>通过系统调用指定要写入的文件名和信息</li>
+<li>搜索该目录以查找文件的位置</li>
+</ul>
+<p>读文件：</p>
+<ul>
+<li>在读指针位置读取</li>
+</ul>
+<p>重新定位文件：</p>
+<ul>
+<li>搜索目录以寻找适当的条目， 并且将当前文件位置指针重新定位到给定值</li>
+</ul>
+<p>删除文件</p>
+<p>截断文件</p>
+<p>open(F):在磁盘上的目录结构中搜索条目F，并将条目的内容移动到内存中</p>
+<p>close(F):将内存中入口F的内容移动到磁盘上的目录结构中</p>
+<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><p>一些数据需要用于管理需要打开的文件</p>
+<p>打开文件表：跟踪所有需要打开的文件</p>
+<ul>
+<li>文件指针：指向打开文件的每个进程最后读/写位置的指针</li>
+</ul>
+<p>文件打开计数：一个文件打开次数的计数器，当最后一个进程关闭它时，允许从打开的文件表中删除数据</p>
+<p>文件的磁盘位置：在磁盘上找到文件所需的信息保存在内存中，以便系统不必在每次操作时都从磁盘读取它。</p>
+<p>访问权限：每个进程采用访问模式打开文件。这种信息保存在进程的打开文件表中，因此操作系统可以允许或拒绝后续的I/O请求。</p>
+<h2 id="文件锁"><a href="#文件锁" class="headerlink" title="文件锁"></a>文件锁</h2><p>和读-写锁差不多，共享锁类似于读者锁，以便多个进程可以并发获取它。独占锁类似于写者锁；一次只有一个进程可以获得这样的锁</p>
+<p>另外， 操作系统可以提供强制(mandatory) 或建议(advisory) 文件锁定机制。如果锁是强制性的， 则一旦进程获取独占锁， 操作系统就阻止任何其他进程访问锁定的文件。或者， 如果锁是建议性的， 则操作系统不会阻止访问。</p>
+<p>Windows系统采用强制锁定,UNIX系统采用建议锁定</p>
+<h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><p>一般使用扩展名来确定文件类型和可用于文件操作的类型</p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><p>无结构-字，字节的序列</p>
+<p>简单的记录结构：</p>
+<ul>
+<li>行</li>
+<li>固定长度</li>
+<li>可变长度</li>
+</ul>
+<p>复杂结构：</p>
+<ul>
+<li>格式化的文档</li>
+<li>浮动加载文件</li>
+</ul>
+<p>可以模拟最后两种与第一种方法插入适当的控制字符</p>
+<p>文件结构由操作系统和程序决定</p>
+<h1 id="文件组织类型"><a href="#文件组织类型" class="headerlink" title="文件组织类型"></a>文件组织类型</h1><h2 id="Pile-堆积"><a href="#Pile-堆积" class="headerlink" title="Pile(堆积)"></a>Pile(堆积)</h2><ul>
+<li>最简单的文件组织类型</li>
+<li>数据是按照它们到达的顺序被收集的</li>
+<li>每条记录由一组数据组成</li>
+<li>目的是简单地积累大量的数据并保存它</li>
+<li>记录访问是通过穷举搜索</li>
+</ul>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSPileFile.JPG" alt></p>
+<h2 id="The-Sequential-File-顺序文件"><a href="#The-Sequential-File-顺序文件" class="headerlink" title="The Sequential File(顺序文件)"></a>The Sequential File(顺序文件)</h2><ul>
+<li>最常见的文件结构形式</li>
+<li>记录使用固定格式</li>
+<li>键字段唯一地标识记录</li>
+<li>通常用于批处理应用程序</li>
+<li>只有易于存储在磁带和磁盘上的组织</li>
+</ul>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSSequentialFile.JPG" alt></p>
+<h2 id="Indexed-Sequential-File-索引顺序文件"><a href="#Indexed-Sequential-File-索引顺序文件" class="headerlink" title="Indexed Sequential File(索引顺序文件)"></a>Indexed Sequential File(索引顺序文件)</h2><ul>
+<li>向文件添加索引以支持随机访问</li>
+<li>添加溢出文件</li>
+<li>大大减少了访问单个记录所需的时间</li>
+<li>可以使用多级索引来提高访问效率</li>
+</ul>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSIndexedSequentialFile.JPG" alt></p>
+<h2 id="索引文件-Indexed-File"><a href="#索引文件-Indexed-File" class="headerlink" title="索引文件(Indexed File)"></a>索引文件(Indexed File)</h2><ul>
+<li>只能通过索引访问记录</li>
+<li>可以使用可变长度的记录</li>
+<li>穷举索引为主文件中的每个记录包含一个条目</li>
+<li>部分索引包含有关字段存在的记录条目</li>
+<li>主要用于信息及时性至关重要的应用程序</li>
+<li>例如航空公司预订系统和库存控制系统</li>
+</ul>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSIndexedFile.JPG" alt></p>
+<h2 id="直接或散列文件"><a href="#直接或散列文件" class="headerlink" title="直接或散列文件"></a>直接或散列文件</h2><ul>
+<li>直接访问已知地址的任意块</li>
+<li>在键值上使用哈希</li>
+<li>经常使用地点:快速访问是必需的,使用固定长度的记录,记录总是一次访问</li>
+</ul>
+<h1 id="文件组织标准"><a href="#文件组织标准" class="headerlink" title="文件组织标准"></a>文件组织标准</h1><p>重要的标准包括：</p>
+<ul>
+<li>访问时间短</li>
+<li>易于更新</li>
+<li>经济的存储</li>
+<li>维护简单</li>
+<li>可靠</li>
+</ul>
+<p>优先级会根据使用情况而有所不同(例如只读CD和硬盘)</p>
+<ul>
+<li>有些甚至会产生冲突</li>
+</ul>
+<h1 id="访问文件的方法"><a href="#访问文件的方法" class="headerlink" title="访问文件的方法"></a>访问文件的方法</h1><h2 id="顺序访问-sequential-access"><a href="#顺序访问-sequential-access" class="headerlink" title="顺序访问(sequential access)"></a>顺序访问(sequential access)</h2><p>最简单的访问方法，文件信息按照顺序(一个记录接一个记录进行处理)目前最常见，编辑器和编译器通常用这种方式访问文件</p>
+<h2 id="直接访问-direct-access"><a href="#直接访问-direct-access" class="headerlink" title="直接访问(direct access)"></a>直接访问(direct access)</h2><p>另一种方法是直接访问(direct access) 或相对访问(relative access) 。这里，文件由固定长度的逻辑记录(logical records) 组成，以允许程序按任意顺序进行快速读取和写入记录。直接访问方法基于文件的磁盘模型， 因为磁盘允许对任何文件块的随机访问.</p>
+<h2 id="基于内容的访问-Content-based-access"><a href="#基于内容的访问-Content-based-access" class="headerlink" title="基于内容的访问(Content based access)"></a>基于内容的访问(Content based access)</h2><p>根据字节的内容约束访问内容</p>
+<h1 id="文件使用模式"><a href="#文件使用模式" class="headerlink" title="文件使用模式"></a>文件使用模式</h1><p>大多数文件都很小，大多数引用也是针对小文件的</p>
+<p>大文件会占用大部分的磁盘空间</p>
+<p>大文件占用了内存和磁盘之间传输的大部分字节</p>
+<p>对于文件系统设计人员来说，这是个坏消息</p>
+<h1 id="文件系统设计限制"><a href="#文件系统设计限制" class="headerlink" title="文件系统设计限制"></a>文件系统设计限制</h1><p>高性能的：</p>
+<ul>
+<li>高效访问小文件：因为小文件经常使用而且还多</li>
+<li>高效访问大文件：因为大文件占用大部分的磁盘空间，而且占数据移动的大部分</li>
+</ul>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>包含关于文件的信息：</p>
+<ul>
+<li>属性</li>
+<li>位置</li>
+<li>所有权</li>
+</ul>
+<p>目录本身是操作系统拥有的文件</p>
+<p>提供文件名和文件本身之间的映射</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>包含所有文件信息的节点集合</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201201-19.50.39.JPG" alt></p>
+<p>目录结构和文件都驻留在磁盘上</p>
+<h2 id="目录上执行的操作"><a href="#目录上执行的操作" class="headerlink" title="目录上执行的操作"></a>目录上执行的操作</h2><p>一个目录系统应该支持许多操作，包括：</p>
+<ul>
+<li>搜索文件</li>
+<li>创建文件</li>
+<li>删除文件</li>
+<li>遍历目录</li>
+<li>重命名文件</li>
+<li>遍历文件系统</li>
+</ul>
+<h2 id="目录的简单结构"><a href="#目录的简单结构" class="headerlink" title="目录的简单结构"></a>目录的简单结构</h2><p>存储以前信息的方法在不同的系统之间差别很大，最简单的是一个条目列表，每个文件一个</p>
+<ul>
+<li>以文件名作为键的顺序文件</li>
+<li>不提供组织文件的帮助</li>
+<li>强制用户注意不要对两个不同的文件使用相同的名称</li>
+</ul>
+<h2 id="平面命名空间"><a href="#平面命名空间" class="headerlink" title="平面命名空间"></a>平面命名空间</h2><p>所有文件都存储在一个目录中</p>
+<ul>
+<li>优点：易于实现</li>
+<li>缺点：不能扩展到大型目录</li>
+</ul>
+<p>命名冲突：多个文件使用相同的名字</p>
+<h2 id="单级目录"><a href="#单级目录" class="headerlink" title="单级目录"></a>单级目录</h2><p>为所有用户提供一个目录，所有文件包含于同一目录中</p>
+<p>然而， 当文件数量增加或系统有多个用户时， 单级目录有重要的限制。因为所有文件位于同一目录中， 它们必须具有唯一的名称。</p>
+<p>会导致分组问题和命名冲突</p>
+<h2 id="分层命名"><a href="#分层命名" class="headerlink" title="分层命名"></a>分层命名</h2><ul>
+<li><p>使用多层目录</p>
+</li>
+<li><p>最流行的名称空间组织+概念模型映射到人类模型组织的事情，文件柜包含了许多文件</p>
+</li>
+<li>可扩展性：减少了名称冲突的概率</li>
+<li>空间局部性：将所有文件存储在一个圆筒内的一个目录下，以避免磁盘查找</li>
+</ul>
+<p>目录结构图：</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDirectoryPic.JPG" alt></p>
+<p>更多关于分层命名：</p>
+<p>绝对路径:包含从根目录‘/‘到文件的路径</p>
+<p>例如:/pets/cat.jpg</p>
+<p>路径解析：</p>
+<ol>
+<li>读取根目录的文件头‘/’(存储在磁盘上的固定位置)</li>
+<li>读取根目录的第一个数据块(查找宠物的目录条目)</li>
+<li>读取宠物的文件头</li>
+<li>读取宠物目录的第一个数据块(查找cat.jpg的目录条目)</li>
+<li>读取cat.jpg的文件头</li>
+<li>读取cat.jpg的数据块</li>
+</ol>
+<h2 id="工作目录"><a href="#工作目录" class="headerlink" title="工作目录"></a>工作目录</h2><p>声明完整的路径名和文件名是笨拙而乏味的</p>
+<p>通常，交互式用户或进程与当前目录或工作目录相关联</p>
+<p>除非使用显式的完整路径名，否则所有的文件名都是相对于工作目录引用的</p>
+<h1 id="文件系统挂载"><a href="#文件系统挂载" class="headerlink" title="文件系统挂载"></a>文件系统挂载</h1><p>必须先挂载文件系统，然后才能访问它</p>
+<p>卸载文件系统安装在一个挂载点(挂接点</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileMount.JPG" alt></p>
+<h1 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h1><p>共享可以通过保护计划来实现</p>
+<p>在分布式系统上，文件可以在网络上共享</p>
+<p>网络文件系统(NFS)是一种常见的分布式文件共享方法</p>
+<p>在多用户系统中，允许文件在用户之间共享</p>
+<p>有两个问题：</p>
+<ul>
+<li>访问权限</li>
+<li>同时访问的管理</li>
+</ul>
+<p>多用户系统：</p>
+<ul>
+<li>用户id标识用户，允许为每个用户提供权限和保护</li>
+<li>组id允许用户分组，允许组访问权限</li>
+<li>文件/目录的所有者</li>
+<li>文件/目录的组</li>
+</ul>
+<p>各种系统都使用了各种各样的访问权限</p>
+<ul>
+<li>通常作为一个层次结构，其中一个右表示前面</li>
+</ul>
+<p>不知道</p>
+<ul>
+<li>用户也不知道文件是否存在</li>
+</ul>
+<p>知道：</p>
+<ul>
+<li>用户只能确定文件的存在及其所有者是谁</li>
+</ul>
+<p>执行：</p>
+<ul>
+<li>用户可以加载和执行一个程序，但不能复制它</li>
+</ul>
+<p>读：</p>
+<ul>
+<li>用户可以出于任何目的读取文件，包括复制和执行</li>
+</ul>
+<p>附加：</p>
+<ul>
+<li>用户可以向文件添加数据，但不能修改或删除文件的任何内容</li>
+</ul>
+<p>更新：</p>
+<ul>
+<li>用户可以修改、删除和添加文件的数据。</li>
+</ul>
+<p>更改权限：</p>
+<ul>
+<li>用户可以更改授予其他用户的访问权限</li>
+</ul>
+<p>删除：</p>
+<ul>
+<li>用户可以删除该文件</li>
+</ul>
+<h1 id="用户的结构"><a href="#用户的结构" class="headerlink" title="用户的结构"></a>用户的结构</h1><p>所有者：通常是文件创建者，通常拥有完全的权利</p>
+<p>特定用户：权利可以明确授予特定用户</p>
+<p>用户组：标识为一个组的一组用户</p>
+<p>全部：每个人</p>
+<h1 id="同时存取"><a href="#同时存取" class="headerlink" title="同时存取"></a>同时存取</h1><p>用户可以锁定整个文件时，它是更新</p>
+<p>用户可以在更新期间锁定单个记录</p>
+<p>互斥和死锁是共享访问的问题</p>
 
         </div>
         <!-- .entry-content -->
@@ -600,36 +768,19 @@
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/239c332d.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS线程.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                OS线程</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/posts/c3ce505e.html" rel="next">
+            <a href="/posts/1b7af1c2.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构-图的拓扑排序.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构-图的拓扑排序.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构-图的拓扑排序</h3>
+                OS大容量存储结构</h3>
                 <hr>
               </div>
             </a>
@@ -653,7 +804,7 @@
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
