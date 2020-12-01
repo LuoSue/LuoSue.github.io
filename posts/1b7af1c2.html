@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">OS同步死锁 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">OS大容量存储结构 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -380,15 +380,15 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      OS同步死锁</h1>
+      OS大容量存储结构</h1>
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -410,180 +410,60 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="进程-线程同步"><a href="#进程-线程同步" class="headerlink" title="进程/线程同步"></a>进程/线程同步</h1><p>抽象同步问题为解决:</p>
-<blockquote>
-<p>竞争条件race condition:多个进程并发访问且要求修改同一个变量的情况</p>
-</blockquote>
-<p>解决方法：保护临界区</p>
+          <h1 id="大容量存储结构"><a href="#大容量存储结构" class="headerlink" title="大容量存储结构"></a>大容量存储结构</h1><h2 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h2><p>为现代计算机系统提供大量外存，涂有可磁化材料，但是非磁性</p>
+<p>数据通过读写磁头记录到磁盘，存储器可以直接存取</p>
+<p>一个磁盘可以有多个盘片，盘片的两面均涂着磁性材料，可以保存信息</p>
+<p>磁盘示意图如下：</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDisk.PNG" alt></p>
+<h3 id="性能参数"><a href="#性能参数" class="headerlink" title="性能参数"></a>性能参数</h3><p>磁盘的I/O操作取决于很多因素，下图为一般传输的时序图。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskTiming.PNG" alt></p>
+<p>Seek time(寻道时间):移动磁臂到所需柱面的时间</p>
+<p>Rotational Delay(旋转延迟):旋转磁臂到所要扇区的所需时间</p>
+<p>假设一分钟7200转(RPM)，则一秒钟7200/60=120转。一转1/120 = 8ms，平均旋转延迟为4ms.</p>
+<p>Transfer time(传输时间):传输数据的时间，假设一个4Kb的磁盘,传输58Mbyte每毫秒,则传输一个块的时间为0.07毫秒</p>
+<p>Disk access time(磁盘存取时间):Seek time(寻道时间) + rotational delay(旋转延迟) + transfer time(传输时间)</p>
+<p>性能指标:</p>
 <ul>
-<li>临界区critical section:进程在执行某一段代码时可能涉及修改公共变量、读写内存表和文件的操作，则该代码段被称为临界区</li>
+<li>延迟:寻道时间+旋转延迟</li>
+<li>带宽:字节传输/磁盘存取时间</li>
 </ul>
-<p>因此，进程和线程代码必须通过设计来保护临界区，由此可以定义:</p>
-<ul>
-<li>进入区entry section:进程在执行临界区代码前请求权限的代码段</li>
-<li>退出区exit section:进程在结束临界区代码执行后释放权限的代码段</li>
-<li>剩余区remainder section:进程在结束区后还要执行的其他代码</li>
-</ul>
-<p>临界区问题解决原则:</p>
-<ul>
-<li>互斥(mutual exclusion) :一旦有进程在临界区执行代码，那么任何进程不得进入临界区</li>
-<li>进步(progress) :如果临界区没有进程在执行，则在执行完剩余区的进程中选择一个进程下一次进入临界区</li>
-<li>有限等待(bound waiting) :不能使某个进程在进入区的请求无限被拒绝</li>
-</ul>
-<p>在操作系统内核中即存在临界区问题，主要分为:</p>
-<ul>
-<li>非抢占式内核non-preemptive kernel:内核模式的进程不允许被抢占，几乎没有竞争条件发生，但不适用于实时编程</li>
-<li>抢占式内核preemptive kernel:内核模式的进程允许被抢占，内核响应更快，但需要更精密的策略来防止临界区问题</li>
-</ul>
-<h1 id="临界区问题解决方案：锁🔒-locking"><a href="#临界区问题解决方案：锁🔒-locking" class="headerlink" title="临界区问题解决方案：锁🔒(locking)"></a>临界区问题解决方案：锁🔒(locking)</h1><h2 id="方案一-软件锁"><a href="#方案一-软件锁" class="headerlink" title="方案一:软件锁"></a>方案一:软件锁</h2><p>为临界区设置布尔变量(锁)，并且每个进程都要有一个waiting变量, 只有这些所有变量都正确时进程才能进入临界区，进程退出时修改锁的布尔变量和自己的waiting变量</p>
-<p>缺点:复杂，浪费时间和空间，无法封装为函数复用</p>
-<p><del>总结：太傻了没人用系列</del></p>
-<h2 id="方案二：互斥锁-mutex"><a href="#方案二：互斥锁-mutex" class="headerlink" title="方案二：互斥锁(mutex)"></a>方案二：互斥锁(mutex)</h2><p>包括一个布尔变量available， 两个函数acquire()和release():</p>
-<pre><code class="c">acquire(){
-while (!available);
-/* busy wait */
-available = false; 
-}
-
-release(){
-available= true;
-}
-
-/*临界区代码*/
-do {
-acquire(lock)
-/*critical section*/
-release(lock)
-/*remainder section*/
-}while (true);
-</code></pre>
-<p>优点:进程等待时，无需上下文切换;简单容易实现</p>
-<p>缺点:进程在进入区时要不断地调用acquire()请求权限， 这会导致忙碌等待(busy waiting):</p>
-<ul>
-<li>忙碌等待: CPU一直在循环调用无用的函数，浪费其有效的处理周期</li>
-</ul>
-<p>总结:可以适用于锁的使用时间较短，不会长时间等待时;适用于多核系统(一个核上在等待不会影响其他核</p>
-<h2 id="方案三-信号量-semaphore"><a href="#方案三-信号量-semaphore" class="headerlink" title="方案三:信号量(semaphore)"></a>方案三:信号量(semaphore)</h2><p>为了防止忙碌等待,信号量策略会调度进程，让等待的进程进入中断</p>
-<p>结构:一个整形变量s，一个参数链表，用来存放进程(的PCB) ;</p>
-<pre><code class="c">typedef struct{
-    int value;
-    struct process *list;
-}semaphore, sem;
-//两个函数wait() [又称为P操作]、signa() [又称为v操作] 
-wait(semaphore *S) {
-    S-&gt;value-;
-if (S-&gt;value &lt; 0)
-{
-/*add this process to S-&gt;list*/
-block();
-}
-}
-
-signal(semaphore *S){
-    S-&gt;value++;
-    if(S-&gt;value&lt;=0){
-        /*remove a process P from S-&gt;list*/
-       wakeup(P);
-    }
-}
-
-//临界段代码
-semaphore s =初始化值
-    do{
-        wait(S)
-/*critical section*/
-        signal(S)
-/*remainder section*/
-    }while (true);
-
-</code></pre>
-<p>s可以是任意整数，此时称信号量为计数信号量</p>
-<p>s只能为0或1,此时称信号量为二进制信号量，此时S类似于互斥锁</p>
-<p>注意:因为wait和signal必须 原子进行，即在运行这两个函数时CPU不能中断，否则就可能有多个进程同时执行它们(换句话说，信号量的两个函数本身就是一个临界区问题)</p>
-<p>在单核系统中，可以简单的不允许在执行它们时中断</p>
-<p>但在多核系统(SMP) 中，这是做不到的，因此多核系统中执行wait和signal也要加锁,比如加上一个互斥锁</p>
-<p>优点:基本避免了忙碌等待，可以适用于非互斥的情况(比如生产者消费者问题的仓库)</p>
-<p>缺点:不能完全消除忙碌等待(在临界区执行时可能还要等待) ;如果用户错误的使用了wait和signal (或是因为不能确定的函数执行顺序(时序) )，那么会导致死锁和饥饿</p>
-<p>怎么解决问题:将互斥锁的功能(S) 和调度队列链表的功能(wait函数等)分开</p>
-<h2 id="方案四-管程-monitor"><a href="#方案四-管程-monitor" class="headerlink" title="方案四:管程(monitor) :"></a>方案四:管程(monitor) :</h2><p>管程可以视为一种数据结构,有一个自己的ADT (抽象数据类型)</p>
-<p>管程 = 一个互斥锁+ n个条件变量</p>
-<p>互斥锁拥有acquire(cond)和release(cond)两个函数,不同的是函数会有参数,用于确定是调用哪一个条件的调度函数</p>
-<p>注意:有的管程还可以加入broadcast()函数, 作用是唤醒所有wait的进程( 唤醒以后的进程再由cpu调度)</p>
-<p>用户定义一系列条件变量condition ,每个条件变量相当于一个sem,有wait()和signal()两个函数</p>
-<p>调用x.wait()操作的进程会被中断，直到有其他进程调用x.signal()唤醒它</p>
-<p>假设P进程调用x.signal()唤醒了Q进程，那么此时只能由一个进程继续运行，所以:</p>
-<ul>
-<li>P自己变为等待，直到Q运行完-&gt; signal and wait</li>
-<li>Q等待P运行完然后运行自己-&gt; signal and continue</li>
-<li>可以让P立刻结束，那么Q就不需要等待了</li>
-</ul>
-<p>wait()也可以有参数，参数是一个整形数,用于确定有很多进程挂起在一个条件变量时唤醒哪一个进程:</p>
-<ul>
-<li>在进程挂起时x.wait(c)，则该进程赋予了一个优先级c</li>
-<li>在x.signal()时唤醒优先级c的值最小的进程</li>
-</ul>
-<p>管程最大限度的防止了错位调用调度函数导致的同步失败问题</p>
-<p>但程序员依旧要小心在程序中不能胡乱调用管程，否则依然有可能调度失败</p>
-<h1 id="解决死锁问题："><a href="#解决死锁问题：" class="headerlink" title="解决死锁问题："></a>解决死锁问题：</h1><p>死锁deadlock :</p>
-<p>在系统的某一部分中， 所有进程都在等待其他进程释放资源而陷入的无尽循环的等待过程</p>
-<p>形成死锁的四个条件:</p>
-<ol>
-<li>互斥(mutual exclusion) :至少有一个资源是被互斥控制的</li>
-<li>占有并等待(hold and wait):每个进程都至少占有了一个资源， 并在等待其他资源</li>
-<li>非抢占(no preemption) :资源不能被抢占，即不能从等待的进程中夺走释放</li>
-<li>循环等待(circular wait) :在一组有序进程中,每一个进程都在等待上一个进程的一个被占用的资源</li>
-</ol>
-<p>其中第4条成立意味着第2条也成立，所以如果满足134，那么状态就能被称为死锁</p>
-<h2 id="判断死锁："><a href="#判断死锁：" class="headerlink" title="判断死锁："></a>判断死锁：</h2><p>通过系统资源分配图system resource- allocation graph:</p>
-<p>定理：如果资源分配图中没有环，则一定不会产生死锁</p>
-<p>如果有环：</p>
-<ul>
-<li><strong>如果每种类型的资源只有一个实例，则系统已经产生了死锁</strong></li>
-<li>如果有类型的资源不止一个实例，则系统不一定死锁</li>
-</ul>
-<blockquote>
-<p>判断资源图是否死锁的方法(待验证) :</p>
-<ul>
-<li>找到图中所有的环(如找到n个环)</li>
-<li>做n次去除，每次单独去除一 一个环，步骤是:</li>
-<li>去掉不属于公共环的申请边和分配边</li>
-<li>去掉这些边连接的实例</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>每次去除后判断，剩下的图中是否有死锁的情况</p>
-<p>有子图的话递归判断</p>
-<p>如果在某次去除情况下发现只剩下一个环符合上述加粗的条件，则该图是死锁的</p>
-<p>如果所有去除后的图都不会死锁(不成环或子图不死锁)， 则该图不死锁</p>
-</blockquote>
-<h2 id="如何防止死锁"><a href="#如何防止死锁" class="headerlink" title="如何防止死锁"></a>如何防止死锁</h2><p>从死锁发生的条件来看：</p>
-<ul>
-<li><p>防止互斥：不使用互斥锁，则一定不会死锁。但是得不偿失</p>
+<h2 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h2><h3 id="先来先服务-FCFS-算法"><a href="#先来先服务-FCFS-算法" class="headerlink" title="先来先服务(FCFS)算法"></a>先来先服务(FCFS)算法</h3><ul>
+<li><p>优点:比较公平</p>
 </li>
-<li><p>防止持有并等待(hold and wait)：每个进程必须一次申请完自己所需的所有资源</p>
-<p>缺点：资源利用率低(占用大量资源的程序可能有很多时间用不上部分的资源，那还不如释放给别人)，而且容易导致其它进程饥饿。</p>
-</li>
-<li><p>允许抢占：进程可以抢占别的进程的资源</p>
-<p>问题：别的进程怎么办呢？这要求资源必须可以存储被使用的状态，才能被别的进程恢复使用。对于CPU寄存器与内存来说，这是可行的，但是其他的资源就不一定了。</p>
-</li>
-<li><p>防止循环等待：通过规划申请资源的顺序，尽可能的防止死锁</p>
+<li><p>缺点:不一定快，随机磁盘访问时效率极低</p>
 </li>
 </ul>
-<p>定义：安全状态(safe sequence)</p>
-<p>定义一个进程的资源申请顺序&lt;p1,p2,….,pn&gt;</p>
-<p>此顺序对于每个pi,其</p>
+<p>如果一个请求块的柱面顺序如下: 98,183,37,122,14,124,65,67</p>
+<p>假设一开始磁头位于柱面53,则先移至98,再移至183,依次往下，磁头移动柱面总数为640</p>
+<p>从122移到14再到124，说明这种调度有时不好用</p>
+<p>调度如下图所示：</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskFCFS.PNG" alt></p>
+<h3 id="最短寻道时间优先-SSTF-算法"><a href="#最短寻道时间优先-SSTF-算法" class="headerlink" title="最短寻道时间优先(SSTF)算法"></a>最短寻道时间优先(SSTF)算法</h3><p>选择处理距离当前磁头位置的最短寻道时间请求(最接近磁头位置的待处理请求)</p>
 <ul>
-<li>仍然可以申请的资源&lt;当前可用资源+所有在pi之前的进程占用的资源</li>
+<li>优点:减少了寻道时间</li>
+<li>缺点:可能导致饥饿</li>
 </ul>
-<p>此时pi获得其所需的所有资源并运行，终止后释放所有资源，然后pi+1也可以满足以上不等式的要求得到所需资源</p>
-<p>如果这样的序列存在，则称系统是安全状态，否则为不安全状态</p>
-<p>注意：安全状态一定不会死锁，但不安全状态可能会死锁，也可能不会死锁</p>
-<h2 id="银行家算法避免死锁："><a href="#银行家算法避免死锁：" class="headerlink" title="银行家算法避免死锁："></a>银行家算法避免死锁：</h2><p>绘制资源分配矩阵:</p>
-<p>Available:每种资源可用的实例数量</p>
-<p>Max:每个进程对每种资源的最大需求实例数量</p>
-<p>Allocation:每个进程现在被分配的每种资源的实例数量</p>
-<p>Need:每个进程还需要的每种资源的剩余数量</p>
-<p>公式:Need=Max-Allocation</p>
+<p>同上，给出调度示意图</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskSSTF.PNG" alt></p>
+<p>本质上是一种最短作业优先调度，当等待时间长的时候就会出现饥饿，同样不是最优的算法</p>
+<h3 id="SCAN-扫描算法-调度"><a href="#SCAN-扫描算法-调度" class="headerlink" title="SCAN(扫描算法)调度"></a>SCAN(扫描算法)调度</h3><p>对于扫描算法(SCAN algorithm)，磁臂从磁盘的一端开始，向另一端移动；在移过每个柱面时， 处理请求。当到达磁盘的另一端时， 磁头移动方向反转， 并继续处理。磁头连续来回扫描磁盘。SCAN算法有时称为电梯算法(elevator algorithm)， 因为磁头的行为就像大楼里面的电梯， 先处理所有向上的请求， 然后再处理相反方向的请求。</p>
+<p>如果请求刚好在磁头前方加入队列， 则它几乎马上就会得到服务；如果请求刚好在磁头后方加入队列，则它必须等待，直到磁头移到磁盘的另一端，反转方向，并返回。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskSCAN.PNG" alt></p>
+<ul>
+<li>优点:没有饥饿</li>
+<li>缺点:一个新的请求可能需要等待几乎两次完整的磁盘扫描</li>
+</ul>
+<h3 id="C-SCAN调度"><a href="#C-SCAN调度" class="headerlink" title="C-SCAN调度"></a>C-SCAN调度</h3><p>循环扫描(Circular SCAN, C-SCAN) 调度是SCAN 的一个变种， 以提供更均匀的等待时间。</p>
+<p>像SCAN 一样， C-SCAN 移动磁头从磁盘一端到磁盘另一端， 并且处理行程上的请求。然而，当磁头到达另一端时， 它立即返回到磁盘的开头， 而并不处理任何回程上的请Q求。C-SCAN 调度算法基本上将这些柱面作为一个环链， 将最后柱面连到首个柱面。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskC-SCAN.PNG" alt></p>
+<h3 id="LOOK调度"><a href="#LOOK调度" class="headerlink" title="LOOK调度"></a>LOOK调度</h3><p>正如以上所述， SCAN 和C-SCAN在磁盘的整个宽度内移动磁臂。实际上，这两种算法通常都不是按这种方式实施的。更常见的是，磁臂只需移到一个方向的最远请求为止。遵循这种模式的SCAN 算法和C-SCAN 算法分别称为LOOK 和C-LOOK 调度， 因为它们在向特定方向移动时查看是否会有请求。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskC-LOOK.PNG" alt></p>
+<h3 id="磁盘调度算法的选择"><a href="#磁盘调度算法的选择" class="headerlink" title="磁盘调度算法的选择"></a>磁盘调度算法的选择</h3><p>怎么选择最佳的磁盘调度算法？</p>
+<p>SSTF:最常见,并且拥有自然的吸引力，因为它比FCFS有更好的性能。</p>
+<p>对于磁盘负荷较大的系统,SCAN与C-SCAN表现更好，因为它们不太可能导致饥饿问题</p>
+<p>对于任何调度算法，性能很大程度上取决于请求的数量以及类型。</p>
+<p>文件分配方式可以大大的影响磁盘服务的请求</p>
+<p>由于这些复杂因素，磁盘调度算法应该作为操作系统的一个单独模块，这样如果需要，可以用不同的算法来替换。SSTF或者是LOOK是默认算法的合理选择</p>
 
         </div>
         <!-- .entry-content -->
@@ -612,36 +492,19 @@ semaphore s =初始化值
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/1b7af1c2.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                OS大容量存储结构</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/posts/75e35db1.html" rel="next">
+            <a href="/posts/4141860d.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OS绪论.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                OS绪论</h3>
+                OS同步死锁</h3>
                 <hr>
               </div>
             </a>
@@ -665,7 +528,7 @@ semaphore s =初始化值
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
