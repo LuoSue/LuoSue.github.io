@@ -643,6 +643,33 @@ bool deleteBSTree(BSTree &amp;pTree,int key)
     }
 
 </code></pre>
+<h1 id="二叉判定树的画法"><a href="#二叉判定树的画法" class="headerlink" title="二叉判定树的画法"></a>二叉判定树的画法</h1><p>思路分析：由于在计算mid值的时候，使用的mid=(low+high)/2。这里因为mid为int类型，所以向下取整。因此对一个长度为n的序列进行划分之后的序列为(0,1,2,……,mid-1) mid (mid+1,mid+2,……n-1)。这时候会发生两种情况：</p>
+<ul>
+<li>左边长度=右边长度(n=2m+1,m∈Z)</li>
+<li>左边长度=右边长度-1(n=2m,m∈Z)</li>
+</ul>
+<p>所以由此得知，折半查找的二叉判定树对于所有结点，左子树的结点个数&lt;=右子树的结点的个数.即：</p>
+<ul>
+<li>若某个序列总长度n为奇数,左右子树结点的个数相等</li>
+<li>若某个序列总长度n为偶数，左子树个数=右子树结点的个数-1</li>
+</ul>
+<p>所以对于一个给定的序列，构建折半查找的判定树一共有以下几步：</p>
+<ol>
+<li>按照二叉树每层最大结点数为2^（h-1）依次由上至下构建满二叉树至最底层不够形成满二叉树为止。</li>
+<li>根据上述规律再将剩下的结点逐个插入最底层</li>
+<li>按照中序遍历的顺序依次填入各结点值</li>
+</ol>
+<p>具体的例子如下：</p>
+<p><strong>画出对长度为10的有序表进行折半查找的判定树，并求其等概率时查找成功的平均查找长度。表的关键字序列为 1,2,3,4,5,6,7,8,9,10</strong></p>
+<p>(1) 序列总长度为10&gt;2^3-1，二叉判定树为4层，但是第四层不满</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.08.png" alt></p>
+<p>(2) 剩余三个结点。当第四层有一个叶结点时，结点总数n=8为偶数，因此对于a来说，应加在a的右子树，即c的子树中；对于c来说，结点总数n=4为偶数，应加在c的右子树中，即g的子树中；对于g来说，结点总数n=2为偶数，应加在g的右子树，即</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.11.png" alt></p>
+<p>（3）在第四层加入第二个结点时，结点总数n=9为奇数，因此对于a来说，应加在a的左子树使左右子树结点个数相等，即加在b的子树中；对于b来说，结点总数n=4为偶数，应加在b的右子树，即e的子树中；对于e来说，结点总数n=2为偶数，应加在e的右子树，即</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.12.png" alt></p>
+<p>(4) 同理分析，第三个结点应加在a的右孩子的左孩子的右子树，即</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.14.png" alt></p>
+<p>结束啦！</p>
 <h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><p>平衡二叉树又被称为AVL树，具有以下性质：它是一棵空的树或它的左右两个子树的高度差的绝对值不超过1，并且两个子树均是一棵平衡二叉树</p>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/900px-Unbalanced_binary_tree.svg.png" alt></p>
 <p>上图为一个AVL树</p>
@@ -659,6 +686,37 @@ bool deleteBSTree(BSTree &amp;pTree,int key)
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample1.JPG" alt></p>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample2.JPG" alt></p>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample3.JPG" alt></p>
+<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><p>概念：来自于维基百科</p>
+<blockquote>
+<p><strong>散列表</strong>（<strong>Hash table</strong>，也叫<strong>哈希表</strong>），是根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做散列函数，存放记录的数组称做<strong>散列表</strong></p>
+</blockquote>
+<p>根据上文得知，实际上哈希表的本质是一个数组。</p>
+<p>一个通俗易懂的例子用于解释哈希表：我们假定你有一个电话簿，它的样子是下面这样的：</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSHashPhone.jpg" alt></p>
+<p>显然目前你要找到郭七，李八，王二这些人都是非常容易的，因为你的电话簿的页数不够多，所以你用顺序查找很快啊，就能够找着了。但是，问题来了，如果你社交广泛，人气出众。你的电话簿越来越厚，这时候你再想随便查找一个人名，若还是用顺序查找，未免也太累。</p>
+<p>所以我们有一个办法，那就是把按照人名按照首字母顺序排列再创建一个表，如果这时候你再想查找“郭”姓的电话号码，你可以在首字母为G的表中找到它，显然比顺序查找不知道高到哪里去了。</p>
+<p>这里我们将人名作为关键字，“取首字母”是这个例子中的散列函数的函数法则F()，存放首字母的表对应的是散列表。关键字与函数的法则理论上你想咋定就咋定。</p>
+<p>如果一个关键字为k,那么它的值存放在f(k)的存储位置上。因此，不需要比较也能能够直接取得所查的记录。称这个对应关系f为散列(哈希)函数，根据这个函数建立成的表叫做散列(哈希)表</p>
+<p>散列冲突：<strong>对于不同的关键字能够得到同一个散列地址，即k1≠k2,但是f(k1)=f(k2)</strong>。这种现象叫做冲突。怎么理解冲突呢？比方说上述电话簿已经存储了一个叫做王二的人，但是若我们要再向电话簿中插入一个叫做王三的人，那么由于W已经被王二占据，所以这时候王三进不去了，出现了冲突。具有相同函数值的关键字对该散列函数来说称作<strong>同义词</strong>。</p>
+<p>散列函数能使对一个数据序列的访问过程更加迅速有效，通过散列函数，数据元素将被更快定位。</p>
+<p>构造散列函数方法：</p>
+<ol>
+<li>直接定址法：取关键字或关键字的某个线性函数值为散列地址。即<strong>hash(k)=k或hash(k)=ak+b</strong>，其中a,b为常数（这种散列函数叫做自身函数）</li>
+<li>数字分析法：假设关键字是以<em>r</em>为基的数，并且哈希表中可能出现的关键字都是事先知道的，则可取关键字的若干数位组成哈希地址。</li>
+<li>平方取中法：取关键字平方后的中间几位为哈希地址。通常在选定哈希函数时不一定能知道关键字的全部情况，取其中的哪几位也不一定合适，而一个数平方后的中间几位数和数的每一位都相关，由此使随机分布的关键字得到的哈希地址也是随机的。取的位数由表长决定。</li>
+<li>折叠法：将关键字分割成位数相同的几部分（最后一部分的位数可以不同），然后取这几部分的叠加和（舍去进位）作为哈希地址。</li>
+<li>随机数法:纯看运气</li>
+<li>除留余数法：取关键字被某个不大于散列表表长m的数p除后所得的余数为散列地址。即<strong>hash(k)=k mod p,p&lt;=m</strong>。不仅可以对关键字直接取模，也可在折叠法、平方取中法等运算之后取模。对p的选择很重要，一般取素数或m，若p选择不好，容易产生冲突。</li>
+</ol>
+<p>哈希冲突的解决方案：无论hash函数设计得再怎么巧妙，也永远避不开哈希冲突，解决冲突的方法以下几个比较常用。</p>
+<ul>
+<li>开放定址法(open addressing):hash(i)=(hash(key)+d(i)) mod m, i = 1,2,…k(k≤m-1)。其中hash(key)为散列函数，m为散列表长，d(i)为增量序列，i为已经发生冲突的次数。增量序列可以如下取：</li>
+<li>d(i)=1,2,3,4…(m-1)称之为<strong>线性探测</strong>，即d(i)=i，或是其它的线性函数。相当于逐个探测存放地址的表，直到查找到一个空的单元，然后插入</li>
+<li>d(i)=±1²,±2²,±3²,…±k²(k≤m/2)称之为<strong>平方探测</strong>。和线性探测差不多</li>
+<li>d(i)=伪随机数序列，称为<strong>伪随机探测</strong></li>
+</ul>
+<p>链地址法</p>
+<p>产生哈希冲突之后在存储数据之后加一个指针，指向后面冲突的数据，类似于链表</p>
 
         </div>
         <!-- .entry-content -->
@@ -815,7 +873,7 @@ bool deleteBSTree(BSTree &amp;pTree,int key)
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">40.8k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">42.7k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
