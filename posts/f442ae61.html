@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构-图的遍历 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">leetcode链表题解(简单) | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/eggplant.ico">
   
@@ -380,15 +380,15 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图遍历.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图遍历.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      数据结构-图的遍历</h1>
+      leetcode链表题解(简单)</h1>
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
-            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
           </a>
         </span>
         <span>
@@ -396,7 +396,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-11-15<span class="bull">
+        2020-12-9<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -410,98 +410,428 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h1><h2 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h2><p>步骤</p>
-<ul>
-<li>从一个给定的顶点v开始遍历</li>
-<li>访问v的第一个邻居w，然后访问w的第一个还没有被访问过的邻居，以此类推。</li>
-<li>如果某个结点没有没被访问过的邻居，那么就回溯到上一个访问的结点，并检查它的邻居是否被访问过</li>
-<li>重复上边过程直到所有顶点均被访问</li>
-</ul>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构深度优先.png" alt></p>
-<p>结果为V1,V2,V4,V8,V5,V6,V3,V7</p>
-<p><strong>算法的难点：</strong></p>
-<ul>
-<li>如何判断是否已经访问过某个顶点？</li>
-<li>如何搜索顶点的邻居？</li>
-</ul>
-<p><strong>解决方案：</strong></p>
-<ul>
-<li>设置一个数组Visit[n],当第i个顶点已经被访问时, 设置Visit[i]=1.</li>
-<li>根据不同的数据结构改变算法设计</li>
-</ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>分析：DFS需要回溯，那么使用递归。</p>
-<p>算法：</p>
-<pre><code class="c++">
-//访问标志的数组,为1表示访问过，为0表示未被访问
-int visted[100];
-
-//邻接表的深度优先遍历算法
-void AdjacencyList::DFS(GraphAdjList *G, int i) {
-    EdgeNode *p;
-    visted[i] = 1;
-    cout &lt;&lt; G-&gt;adjList[i].data &lt;&lt; &quot;--&quot;;
-    p = G-&gt;adjList[i].firstedge;
-    while (p)
-    {
-        if (!visted[p-&gt;adjvex])
-        {
-            //递归访问
-            DFS(G, p-&gt;adjvex);
-        }
-        p = p-&gt;next;
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这一学期专业课添加了数据结构，学分还挺高，期中过后便刷了几道leetcode的题目，收获颇丰,<del>虽然都是些简单的题目</del>。但还是写点题解吧，期末快到了，数据结构还是第一科，权当做个小复习，此处题解均为leetcode中的链表的简单题目部分</p>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="面试题-02-03-删除中间节点"><a href="#面试题-02-03-删除中间节点" class="headerlink" title="面试题 02.03. 删除中间节点"></a>面试题 02.03. 删除中间节点</h2><p>实现一种算法，删除单向链表中间的某个节点（即不是第一个或最后一个节点），假定你只能访问该节点。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：单向链表a-&gt;b-&gt;c-&gt;d-&gt;e-&gt;f中的节点c<br>结果：不返回任何数据，但该链表变为a-&gt;b-&gt;d-&gt;e-&gt;f</p>
+</blockquote>
+<p>这一题其实考的是链表的结构特性，我们知道链表一个结点由数据域与指针域表示，如果要删除某个结点，那么肯定需要改变指针域和数据域。</p>
+<p>我们只需要将结点c指向的下一个结点的值赋给结点c，即目前可以看作是a-&gt;b-&gt;d-&gt;d-&gt;e-&gt;f，这时候相当于有两个结点d，我们怎么删除它呢？</p>
+<p>我们只需要将结点c(此时值为d)的next指针指向结点e即可，由于是单向链表，所以此时相当于删除了结点c。</p>
+<p>C++代码：</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int data;
+ *     ListNode *next;
+ *     ListNode(int x) : data(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node-&gt;data = node-&gt;next-&gt;data;
+        node-&gt;next = node-&gt;next-&gt;next;
     }
-
-}
-
-//邻接表的深度遍历操作
-void AdjacencyList::DFSTraverse(GraphAdjList *G) {
-    //初始化所有顶点都没有访问过
-    cout&lt;&lt;&quot;深度优先遍历结果为：&quot;&lt;&lt;endl;
-    for (int i = 0; i &lt; G-&gt;numVertexes; i++)
-    {
-        visted[i] = 0;
-    }
-    for (int i = 0; i &lt; G-&gt;numVertexes; i++)
-    {
-        if (visted[i] == 0)
-        {
-            DFS(G, i);
-        }
-    }
-}
+};
 </code></pre>
-<h2 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h2><p>步骤：</p>
-<ul>
-<li>从一个顶点v开始访问</li>
-<li>访问v的所有邻居</li>
-<li>再访问v的第一个邻居w的所有邻居</li>
-<li>再访问v的第二个邻居x的所有邻居</li>
-</ul>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88.png" alt="img"></p>
-<p>结果为V1,V2,V3,V4,V5,V6,V7,V8</p>
-<p>BFS逐层访问结点(类似于层级遍历)，当访问每个结点的时候把它存起来，然后在遍历完这一层的结点之后可以溯回访问它相邻的节点，采用队列存储(给定层级上访问的第一个结点就是要返回的结点)</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>分析：</p>
-<ul>
-<li>访问开始结点v</li>
-<li>初始化一个队列，v入队</li>
-<li>当队列不为空时，删除一个结点，将删除结点的所有邻居（<strong>如果没被访问</strong>），访问它们并将它们入队</li>
-<li>重复以上直到队列为空</li>
-</ul>
-<pre><code class="C++">void BFSTraverse( Graph G )
-{ for ( v=1; v&lt;=G.vexnum; ++v )  visited[v] = FALSE;
-InitQueue(Q);
-for( v=1; v&lt;=G.vexnum; ++v )
-if ( !visited[v] )
-{  visited[v]=TRUE;     VISIT(v);        EnQueue(Q, v);
-while (!EmptyQueue(Q))
-{  DeQueue(Q,u);
-for(w=FirstAdjVex(G, u); w&gt;0; w=NextAdjVex(G, u, w))
-if( !visited[w] )
-{  visited[w]=TRUE; VISIT(w); EnQueue(Q, w); }
-} // end while
-} // end if
-}
+<h2 id="237-删除链表中的节点"><a href="#237-删除链表中的节点" class="headerlink" title="237. 删除链表中的节点"></a>237. 删除链表中的节点</h2><p>跟上道题是一摸一样的，自己看吧</p>
+<h2 id="1290-二进制链表转整数"><a href="#1290-二进制链表转整数" class="headerlink" title="1290. 二进制链表转整数"></a>1290. 二进制链表转整数</h2><p>给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。</p>
+<p>请你返回该链表所表示数字的 十进制值 。</p>
+<p>不断左移相或就完事了</p>
+<p>C++代码如下:</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+int getDecimalValue(ListNode* head) {
+        int res = 0;
+        while(head){
+            res = res | head-&gt;val;
+            if(head-&gt;next)
+                res&lt;&lt;=1;
+            head = head-&gt;next;
+        }
+        return res;
+    }
+};
 </code></pre>
+<h2 id="剑指-Offer-22-链表中倒数第k个节点"><a href="#剑指-Offer-22-链表中倒数第k个节点" class="headerlink" title="剑指 Offer 22. 链表中倒数第k个节点"></a>剑指 Offer 22. 链表中倒数第k个节点</h2><p>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。例如，一个链表有6个节点，从头节点开始，它们的值依次是1、2、3、4、5、6。这个链表的倒数第3个节点是值为4的节点。</p>
+<p>示例：</p>
+<blockquote>
+<p>给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k = 2.</p>
+<p>返回链表 4-&gt;5.</p>
+</blockquote>
+<p>这道题直接使用双指针，不过你先遍历一次链表的长度n，再用指针走(n-k)步也无伤大雅。先初始化一个快的指针fast,然后再初始化一个慢的指针slow分别指向头指针，然后先让fast走k步，slow才走，这样只要链表长度大于k，fast永远比slow多走k步。当fast走到链表结尾n时，slow恰好处于倒数第k个结点的位置，直接返回即可。</p>
+<p>C++代码示例:</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        if(k&lt;0||head == NULL)
+        return NULL;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        for(int i = 0;i&lt;k-1;i++){
+            if(fast-&gt;next){
+                fast = fast-&gt;next;
+            }
+            else{
+                return NULL;
+            }
+        }
+        while(fast-&gt;next){
+            slow = slow-&gt;next;
+            fast = fast-&gt;next;
+        }
+        return slow;
+    }
+};
+</code></pre>
+<h2 id="剑指-Offer-06-从尾到头打印链表"><a href="#剑指-Offer-06-从尾到头打印链表" class="headerlink" title="剑指 Offer 06. 从尾到头打印链表"></a>剑指 Offer 06. 从尾到头打印链表</h2><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+<p>这里有两种解法，一个递归，一个非递归</p>
+<p>递归：如果头指针是空的，那么返回空。然后开始递归。一直走到链表末尾然后反过来一个个push_back()，成功</p>
+<pre><code class="c++">class Solution {
+public:
+    vector&lt;int&gt; reversePrint(ListNode* head) {
+        if(!head)
+            return {};
+        vector&lt;int&gt; a=reversePrint(head-&gt;next);
+        a.push_back(head-&gt;val);
+        return a;
+    }
+};
+</code></pre>
+<p>非递归：</p>
+<p>先计算长度然后一个个插入</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; reversePrint(ListNode* head) {
+    const ListNode* node = head;
+    std::size_t count = 0;
+    while (node != nullptr) {
+        ++count;
+        node = node-&gt;next;
+    }
+    std::vector&lt;int&gt; nums(count);
+    node = head;
+    for (auto i = nums.rbegin(); i != nums.rend(); ++i) {
+        *i = node-&gt;val;
+        node = node-&gt;next;
+    }
+    return nums;
+    }
+};
+</code></pre>
+<h2 id="剑指-Offer-24-反转链表"><a href="#剑指-Offer-24-反转链表" class="headerlink" title="剑指 Offer 24. 反转链表"></a>剑指 Offer 24. 反转链表</h2><p>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点</p>
+<p><strong>示例:</strong></p>
+<p><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</code><br><code>输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</code></p>
+<p>还是我们可爱的双指针同学，直接定义两个指针pre与cur,pre在前面,cur在后面。</p>
+<ol>
+<li>每次都让pre的next指向cur，这样相当于一次反转</li>
+<li>反转完后两个指针都往前移动一个位置</li>
+<li>循环上述过程直至pre到达了链表的尾部</li>
+</ol>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* cur = NULL, *pre = head;
+        while (pre != NULL) {
+            ListNode* t = pre-&gt;next;
+            pre-&gt;next = cur;
+            cur = pre;
+            pre = t;
+        }
+        return cur;
+    }
+};
+</code></pre>
+<h2 id="876-链表的中间结点"><a href="#876-链表的中间结点" class="headerlink" title="876. 链表的中间结点"></a>876. 链表的中间结点</h2><p>给定一个头结点为 <code>head</code> 的非空单链表，返回链表的中间结点。</p>
+<p>如果有两个中间结点，则返回第二个中间结点。</p>
+<blockquote>
+<p>示例 1：</p>
+<p>输入：[1,2,3,4,5]<br>输出：此列表中的结点 3 (序列化形式：[3,4,5])<br>返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。<br>注意，我们返回了一个 ListNode 类型的对象 ans，这样：<br>ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.</p>
+</blockquote>
+<blockquote>
+<p>示例 2：</p>
+<p>输入：[1,2,3,4,5,6]<br>输出：此列表中的结点 4 (序列化形式：[4,5,6])<br>由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</p>
+</blockquote>
+<p>先遍历遍算表长，然后求得中间值，再走一遍完事</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* cut=head;
+        int num=0;
+        while(cut){
+            cut = cut-&gt;next;
+            num++;
+        }
+        int k=0;
+        cut=head;
+        while(k&lt;num/2){
+            cut=cut-&gt;next;
+            k++;
+        }
+        return cut;
+    }
+};
+</code></pre>
+<h2 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21. 合并两个有序链表"></a>21. 合并两个有序链表</h2><p>将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p>
+<blockquote>
+<p>示例：</p>
+<p>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4<br>输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</p>
+</blockquote>
+<p>新建一个链表，然后逐个比较l1和l2中的值，谁小谁进去，然后当有一个为空了就插另一个</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* preHead = new ListNode();
+        ListNode* prev = preHead;
+        while (l1 != nullptr &amp;&amp; l2 != nullptr) {
+            if (l1-&gt;val &lt; l2-&gt;val) {
+                prev-&gt;next = l1;
+                l1 = l1-&gt;next;
+            } else {
+                prev-&gt;next = l2;
+                l2 = l2-&gt;next;
+            }
+            prev = prev-&gt;next;
+        }
+        prev-&gt;next = l1 == nullptr ? l2 : l1;
+        return preHead-&gt;next;
+    }
+};
+</code></pre>
+<h2 id="剑指-Offer-52-两个链表的第一个公共节点"><a href="#剑指-Offer-52-两个链表的第一个公共节点" class="headerlink" title="剑指 Offer 52. 两个链表的第一个公共节点"></a>剑指 Offer 52. 两个链表的第一个公共节点</h2><p>输入两个链表，找出它们的第一个公共节点。</p>
+<p>如下面的两个链表：</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201209-20.07.44.png" alt></p>
+<p>在节点 c1 开始相交。</p>
+<p><del>这道题十分的浪漫</del>，其实真的很浪漫。原理相当于只要我们两个人最后会走一样的路，一定会在路的起点处牵手(没错这就是解题思路)</p>
+<p>我们使用两个指针 <code>node1</code>，<code>node2</code> 分别指向两个链表 <code>headA</code>，<code>headB</code> 的头结点，然后同时分别逐结点遍历，当 <code>node1</code> 到达链表 <code>headA</code> 的末尾时，重新定位到链表 <code>headB</code>的头结点；当 <code>node2</code> 到达链表 <code>headB</code> 的末尾时，重新定位到链表 <code>headA</code>的头结点。</p>
+<p>这样，当它们相遇时，所指向的结点就是第一个公共结点。</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* pa=headA;
+        ListNode* pb=headB;
+        while(pa!=pb){
+            pa = pa !=NULL?pa-&gt;next : headB;
+            pb = pb !=NULL?pb-&gt;next : headA;
+        }
+        return pa;
+    }
+};
+</code></pre>
+<h2 id="删除链表的节点"><a href="#删除链表的节点" class="headerlink" title="删除链表的节点"></a>删除链表的节点</h2><p>和上面的差不多……就是按照传的值删除，给你一个头指针和值来删除。</p>
+<p>自己看代码吧，就是跟上面一个意思，只不过用了递归</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        if(head==NULL){
+            return head;
+        }
+        if(head-&gt;val == val){
+            return head-&gt;next;
+        }
+        head-&gt;next = deleteNode(head-&gt;next,val);
+        return head;
+    }
+};
+</code></pre>
+<h2 id="83-删除排序链表中的重复元素"><a href="#83-删除排序链表中的重复元素" class="headerlink" title="83.删除排序链表中的重复元素"></a>83.删除排序链表中的重复元素</h2><p>给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</p>
+<p><strong>示例 1:</strong></p>
+<p><code>输入: 1-&gt;1-&gt;2</code><br><code>输出: 1-&gt;2</code></p>
+<p><strong>示例 2:</strong></p>
+<p><code>输入: 1-&gt;1-&gt;2-&gt;3-&gt;3</code><br><code>输出: 1-&gt;2-&gt;3</code></p>
+<p>怎么删除就不用说了吧，上面已经讲过了，还没理解的朋友们可以翻回去慢慢看，何况这还是个排序过的链表。</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==NULL||head-&gt;next==NULL){
+            return head;
+        }
+        ListNode*p=head;
+        while(p-&gt;next!=NULL){
+            if(p-&gt;val == p-&gt;next-&gt;val){
+                p-&gt;next=p-&gt;next-&gt;next;
+            }
+            else{
+                p=p-&gt;next;
+            }
+        }
+        return head;
+    }
+};
+</code></pre>
+<h2 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141.环形链表"></a>141.环形链表</h2><p>给定一个链表，判断链表中是否有环。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>如果链表中存在环，则返回 true 。 否则，返回 false 。</p>
+<p>解题思路：双指针，一个快一个慢，快的每次走两步，慢的走一步，如果有环那么就是追及相遇问题了。</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+    ListNode* fast = head;
+    ListNode* slow = head;
+    while(fast != nullptr &amp;&amp; fast-&gt;next != nullptr) {
+        slow = slow-&gt;next;
+        fast = fast-&gt;next-&gt;next;
+
+        if (fast == slow) {
+            return true;
+        }
+    }
+    return false;
+    }
+};
+</code></pre>
+<h2 id="回文链表"><a href="#回文链表" class="headerlink" title="回文链表"></a>回文链表</h2><p>编写一个函数，检查输入的链表是否是回文的。</p>
+<p>解题思路：双指针，一个快，一个慢，快2步，慢一步。快终点，慢中间，反转一半，开始比较</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* fast=head;
+        ListNode* slow=head;
+        while(fast&amp;&amp;fast-&gt;next){
+            fast=fast-&gt;next-&gt;next;
+            slow=slow-&gt;next;
+        }
+        ListNode* temp;
+        ListNode* pre=NULL;
+        while(slow!=NULL){
+            temp=slow-&gt;next;
+            slow-&gt;next=pre;
+            pre=slow;
+            slow=temp;
+        }
+        while(pre!=NULL){
+            if((head-&gt;val)!=(pre-&gt;val)){return false;}
+            head=head-&gt;next;pre=pre-&gt;next;  
+        }
+        return true;
+    }
+};
+</code></pre>
+<h2 id="移除链表元素"><a href="#移除链表元素" class="headerlink" title="移除链表元素"></a>移除链表元素</h2><p>删除链表中等于给定值val的所有结点</p>
+<pre><code class="c++">class Solution {
+public:
+    //题解1：递归法
+    ListNode* removeElements_1(ListNode* head, int val) {
+        //1、递归边界
+        if(!head)return nullptr;
+        //2、递去：直到到达链表尾部才开始删除重复元素
+        head-&gt;next=removeElements(head-&gt;next,val);
+        //3、递归式：相等就是删除head，不相等就不用删除
+        return head-&gt;val==val?head-&gt;next:head;
+    }
+
+    //题解2：迭代法
+    ListNode *removeElements(ListNode* head,int val){
+        if(!head)return nullptr;
+        ListNode *cur=head,*del;
+        //每次循环我们判断cur的next节点值是否为val，确定是否删除
+        while(cur-&gt;next){
+            if(cur-&gt;next-&gt;val==val){//若cur-&gt;next的节点值为val，那么我们需要删除cur-&gt;next
+                del=cur-&gt;next;
+                cur-&gt;next=del-&gt;next;
+                delete del;
+            }
+            else{//若不为val，那么我们需要移动cur
+                cur=cur-&gt;next;
+            }
+        }
+        return head-&gt;val==val?head-&gt;next:head;
+    }
+};
+</code></pre>
+<p>大佬的题解在此</p>
 
         </div>
         <!-- .entry-content -->
@@ -530,36 +860,19 @@ if( !visited[w] )
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/cededa76.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图最小生成树.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图最小生成树.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                数据结构-图最小生成树</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/posts/5d8f99e.html" rel="next">
+            <a href="/posts/c024d7ad.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图存储.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/post/数据结构图存储.jpg">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSSearch.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSSearch.png">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                数据结构-图的存储结构</h3>
+                数据结构查找</h3>
                 <hr>
               </div>
             </a>
@@ -583,7 +896,7 @@ if( !visited[w] )
 
       <section class="author-profile">
         <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn@master/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
           <div class="meta">
             <span class="title">Author</span>
             <h3 itemprop="name">
