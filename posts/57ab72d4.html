@@ -477,7 +477,7 @@
 <pre><code class="c">void Insertion_sort(int arr[],int len){
     int i,j,key;
     //i=1是因为我们认为第一个元素已经被排序
-    for(i=1;i!len;i++){
+    for(i=1;i &lt; len;i++){
         key = arr[i];//取出下一个元素
         j = i - 1;
         //如果已排序元素大于新元素，将元素移到下一个位置
