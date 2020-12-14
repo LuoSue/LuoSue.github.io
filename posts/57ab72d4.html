@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">OS大容量存储结构 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">数据结构排序 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/aubergine.ico">
   
@@ -380,11 +380,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSMassStorage.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/1607914273911.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/1607914273911.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      OS大容量存储结构</h1>
+      数据结构排序</h1>
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
@@ -396,7 +396,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-12-01 15:32:26<span class="bull">
+        2020-12-14 10:34:15<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -410,60 +410,327 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="大容量存储结构"><a href="#大容量存储结构" class="headerlink" title="大容量存储结构"></a>大容量存储结构</h1><h2 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h2><p>为现代计算机系统提供大量外存，涂有可磁化材料，但是非磁性</p>
-<p>数据通过读写磁头记录到磁盘，存储器可以直接存取</p>
-<p>一个磁盘可以有多个盘片，盘片的两面均涂着磁性材料，可以保存信息</p>
-<p>磁盘示意图如下：</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDisk.PNG" alt></p>
-<h3 id="性能参数"><a href="#性能参数" class="headerlink" title="性能参数"></a>性能参数</h3><p>磁盘的I/O操作取决于很多因素，下图为一般传输的时序图。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskTiming.PNG" alt></p>
-<p>Seek time(寻道时间):移动磁臂到所需柱面的时间</p>
-<p>Rotational Delay(旋转延迟):旋转磁臂到所要扇区的所需时间</p>
-<p>假设一分钟7200转(RPM)，则一秒钟7200/60=120转。一转1/120 = 8ms，平均旋转延迟为4ms.</p>
-<p>Transfer time(传输时间):传输数据的时间，假设一个4Kb的磁盘,传输58Mbyte每毫秒,则传输一个块的时间为0.07毫秒</p>
-<p>Disk access time(磁盘存取时间):Seek time(寻道时间) + rotational delay(旋转延迟) + transfer time(传输时间)</p>
-<p>性能指标:</p>
+          <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/Sort.png" alt></p>
+<h1 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序(Bubble Sort)"></a>冒泡排序(Bubble Sort)</h1><p>特点：最简单的排序算法，重复的遍历若干次要排序的数列，每次遍历的时候都会从前往后依次的比较两个相邻数据的大小；如果前者比后者大，那么就会交换它们的位置。这样一来，经过一次遍历之后，最大的元素就会在数列末尾；采用同样的方法再一次遍历后，第二大的元素就会被排序在最大元素之前。重复这个操作直到整个数列均有序。</p>
+<p>第一种实现方法：</p>
+<pre><code class="c">void bubble_sort1(int a[], int n)
+{
+    int i,j,temp;
+
+    for (i=n-1; i&gt;0; i--)
+    {
+        // 将a[0...i]中最大的数据放在末尾
+        for (j=0; j&lt;i; j++)
+        {
+            if (a[j] &gt; a[j+1]){
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+            }
+        }
+    }
+}
+</code></pre>
+<p>但是这种方法效率不高，我们添加一个标记位用于判断一次遍历中是否发生交换，如果没有发生交换，则排序完成！</p>
+<p>第二种实现方法：</p>
+<pre><code class="c">void bubble_sort2(int a[], int n)
+{
+    int i, j, temp;
+    int flag;                 // 标记
+
+    for (i = n - 1; i &gt; 0; i--)
+    {
+        flag = 0;            // 初始化标记为0
+
+        // 将a[0...i]中最大的数据放在末尾
+        for (j = 0; j &lt; i; j++)
+        {
+            if (a[j] &gt; a[j+1])
+            {
+                temp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = temp;
+                flag = 1;    // 若发生交换，则设标记为1
+            }
+        }
+
+        if (flag == 0)
+            break;            // 若没发生交换，则说明数列已有序。
+    }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/BubbleSort.gif" alt></p>
+<p>时间复杂度：时间复杂度为O(n^2)，假设参与排序的数列中有n个数。遍历一趟的时间复杂度为O(n)，需要遍历N-1次，因此时间复杂度为O(n^2).</p>
+<p>稳定性：冒泡排序是稳定的算法，它满足稳定算法的定义。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="直接插入排序-Straight-Insertion-Sort"><a href="#直接插入排序-Straight-Insertion-Sort" class="headerlink" title="直接插入排序(Straight Insertion Sort)"></a>直接插入排序(Straight Insertion Sort)</h1><p>特点：简单直观的排序算法，工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应的位置并完成插入。<strong>插入排序</strong>在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因此在从后向前扫描过程中，需要反复将已排序元素逐步向后挪位，为最新元素提供插入空间</p>
+<p>举一个简单易懂<del>或许</del>的例子，打扑克牌大家应该都玩过，如果桌子上的扑克牌排序是{7,3,6,4,5,8}，很明显这是顺子。我们拿起第一张7，之后手里的牌就是{7}；拿起第二张3，3比7小，放在前边,手里的牌是{3,7}；拿起第三张6，6比3大但比7小，放在中间，手里的牌是{3,6,7}；依次类推，插入排序就是这么个原理。</p>
+<p>一般来说，<strong>插入排序</strong>都采用in-place在数组上实现。具体算法描述如下：</p>
+<ol>
+<li>从第一个元素开始，该元素可以认为已经被排序</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</li>
+<li>将新元素插入到该位置后</li>
+<li>重复步骤2~5</li>
+</ol>
+<p>C代码实现：</p>
+<pre><code class="c">void Insertion_sort(int arr[],int len){
+    int i,j,key;
+    //i=1是因为我们认为第一个元素已经被排序
+    for(i=1;i!len;i++){
+        key = arr[i];//取出下一个元素
+        j = i - 1;
+        //如果已排序元素大于新元素，将元素移到下一个位置
+        while((j &gt;= 0) &amp;&amp; (arr[j] &gt; key)){
+            arr[j+1] = arr[j];
+            j--;
+        }
+        //找到已排序的元素小于或者等于新元素的位置
+        //将新元素插入到该位置之后
+        arr[j+1] = key;
+    }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/StraightInsertionSort.gif" alt></p>
+<p>时间复杂度：O(n^2)，假设被排列的数列中有n个数，遍历一趟的时间复杂度为O(n),需要遍历n-1次。</p>
+<p>最好情况：序列已经是升序排列的序列，这种情况下，比较操作只需要n-1次即可。</p>
+<p>最坏情况：序列是降序排列，那么一共需要进行n(n-1)/2次。插入排序不太适合对于数据量比较大的排序应用</p>
+<p>稳定性：稳定的排序算法</p>
+<p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="希尔排序（Shell-Sort）"><a href="#希尔排序（Shell-Sort）" class="headerlink" title="希尔排序（Shell Sort）"></a>希尔排序（Shell Sort）</h1><p>特点：插入排序的更高效的改进版本。又被称作缩小增量排序</p>
 <ul>
-<li>延迟:寻道时间+旋转延迟</li>
-<li>带宽:字节传输/磁盘存取时间</li>
+<li>插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率</li>
+<li>但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位</li>
 </ul>
-<h2 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h2><h3 id="先来先服务-FCFS-算法"><a href="#先来先服务-FCFS-算法" class="headerlink" title="先来先服务(FCFS)算法"></a>先来先服务(FCFS)算法</h3><ul>
-<li><p>优点:比较公平</p>
-</li>
-<li><p>缺点:不一定快，随机磁盘访问时效率极低</p>
-</li>
-</ul>
-<p>如果一个请求块的柱面顺序如下: 98,183,37,122,14,124,65,67</p>
-<p>假设一开始磁头位于柱面53,则先移至98,再移至183,依次往下，磁头移动柱面总数为640</p>
-<p>从122移到14再到124，说明这种调度有时不好用</p>
-<p>调度如下图所示：</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskFCFS.PNG" alt></p>
-<h3 id="最短寻道时间优先-SSTF-算法"><a href="#最短寻道时间优先-SSTF-算法" class="headerlink" title="最短寻道时间优先(SSTF)算法"></a>最短寻道时间优先(SSTF)算法</h3><p>选择处理距离当前磁头位置的最短寻道时间请求(最接近磁头位置的待处理请求)</p>
+<p>希尔排序实质上是一种分组插入方法。它的基本思想是：对于n个待排序的数列，取一个小于n的整数gap(gap被称为步长)将待排序元素分成若干个组子序列，所有距离为gap的倍数的记录放在同一个组中；然后，对各组内的元素进行直接插入排序。 这一趟排序完成之后，每一个组的元素都是有序的。然后减小gap的值，并重复执行上述的分组和排序。重复这样的操作，当gap=1时，整个数列就是有序的。</p>
+<p>例如，假设有这样一组数[ 13 14 94 33 82 25 59 94 65 23 45 27 73 25 39 10 ]，如果我们以步长为5开始进行排序，我们可以通过将这列表放在有5列的表中来更好地描述算法，这样他们就应该看起来是这样：</p>
+<pre><code>13 14 94 33 82
+25 59 94 65 23
+45 27 73 25 39
+10
+</code></pre><p>然后我们对每一列进行排序</p>
+<pre><code>10 14 73 25 23
+13 27 94 33 39
+25 59 94 65 82
+45
+</code></pre><p>将上述四行数字，依序接在一起时我们得到：[ 10 14 73 25 23 13 27 94 33 39 25 59 94 65 82 45 ].这时10已经移至正确位置了，然后再以3为步长进行排序：</p>
+<pre><code>10 14 73
+25 23 13
+27 94 33
+39 25 59
+94 65 82
+45
+</code></pre><p>排序之后变为：</p>
+<pre><code>10 14 13
+25 23 33
+27 25 59
+39 65 73
+45 94 82
+94
+</code></pre><p>最后以1步长进行排序（此时就是简单的插入排序了）。</p>
+<p>代码实现：</p>
+<pre><code class="C">void shell_sort(int arr[], int len) {
+    int gap, i, j;
+    int temp;
+    //gap为步长，每次减为原来的一半
+    for (gap = len/2; gap &gt; 0; gap /= 2)
+        //一共有gap个组，对每一组均执行直接插入排序
+        //i:代表即将插入的元素角标，作为每一组比较数据的最后一个元素角标
+        //j:代表与i同一组的数组元素角标
+        for (i = gap; i &lt; len; i++) {
+            //此处减是防止数组角标越界
+            for (j = i - gap; j &gt;= 0; j -= gap)
+                //j+gap代表即将插入元素所在的角标
+                //符合条件，插入元素（交换位置）
+                if(arr[j]&gt;arr[j+gap]){
+                    temp = arr[j];
+                    arr[j] = arr[j+gap];
+                    arr[j+gap] = temp;
+                }
+        }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/ShellSort.gif" alt></p>
+<p>时间复杂度：希尔排序的时间复杂度与增量(即，步长gap)的选取有关。例如，当增量为1时，希尔排序退化成了直接插入排序，此时的时间复杂度为O(n²)，而Hibbard增量的希尔排序的时间复杂度为O(n^3/2)。</p>
+<p>稳定性：不稳定算法</p>
+<p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="选择排序-Selection-Sort"><a href="#选择排序-Selection-Sort" class="headerlink" title="选择排序(Selection Sort)"></a>选择排序(Selection Sort)</h1><p>特点：<strong>选择排序</strong>（Selection sort）是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
+<p>算法描述：</p>
+<p>n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结果。具体算法描述如下：</p>
 <ul>
-<li>优点:减少了寻道时间</li>
-<li>缺点:可能导致饥饿</li>
+<li>初始状态：无序区为R[1..n]，有序区为空；</li>
+<li>第i趟排序(i=1,2,3…n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前无序区中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别变为记录个数增加1个的新有序区和记录个数减少1个的新无序区；</li>
+<li>n-1趟结束，数组有序化了。</li>
 </ul>
-<p>同上，给出调度示意图</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskSSTF.PNG" alt></p>
-<p>本质上是一种最短作业优先调度，当等待时间长的时候就会出现饥饿，同样不是最优的算法</p>
-<h3 id="SCAN-扫描算法-调度"><a href="#SCAN-扫描算法-调度" class="headerlink" title="SCAN(扫描算法)调度"></a>SCAN(扫描算法)调度</h3><p>对于扫描算法(SCAN algorithm)，磁臂从磁盘的一端开始，向另一端移动；在移过每个柱面时， 处理请求。当到达磁盘的另一端时， 磁头移动方向反转， 并继续处理。磁头连续来回扫描磁盘。SCAN算法有时称为电梯算法(elevator algorithm)， 因为磁头的行为就像大楼里面的电梯， 先处理所有向上的请求， 然后再处理相反方向的请求。</p>
-<p>如果请求刚好在磁头前方加入队列， 则它几乎马上就会得到服务；如果请求刚好在磁头后方加入队列，则它必须等待，直到磁头移到磁盘的另一端，反转方向，并返回。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskSCAN.PNG" alt></p>
+<p>代码实现：</p>
+<pre><code class="c">/*
+ * 选择排序
+ *
+ * 参数说明：
+ *     a -- 待排序的数组
+ *     n -- 数组的长度
+ */
+void select_sort(int a[], int n)
+{
+    int i;        // 有序区的末尾位置
+    int j;        // 无序区的起始位置
+    int min;    // 无序区中最小元素位置
+
+    for(i=0; i&lt;n-1; i++)
+    {
+        min=i;
+
+        // 找出&quot;a[i+1] ... a[n]&quot;之间的最小元素，并赋值给min。
+        for(j=i+1; j&lt;n; j++)
+        {
+            if(a[j] &lt; a[min])
+                min=j;
+        }
+
+        // 若min!=i，则交换 a[i] 和 a[min]。
+        // 交换之后，保证了a[0] ... a[i] 之间的元素是有序的。
+        if(min != i){
+           int temp = a[min];
+            a[min] = a[i];
+            a[i] = temp;
+        }
+    }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/SelectionSort.gif" alt></p>
+<p>时间复杂度：O(n²)，假设要被排列的数列中有n个数，遍历一遍的时间复杂度为O(n)，一共要遍历n-1次。</p>
+<p>稳定性：稳定算法</p>
+<p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序(Heap Sort)"></a>堆排序(Heap Sort)</h1><p>特点：<strong>堆排序</strong>（英语：Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足<strong>堆的性质</strong>：即子节点的键值或索引总是小于（或者大于）它的父节点。</p>
+<p>若以升序排序说明，把数组转换成最大堆(Max-Heap Heap)，这是一种满足最大堆性质(Max-Heap Property)的二叉树：对于除了根之外的每个节点i, A[parent(i)] ≥ A[i]。</p>
+<p>重复从最大堆取出数值最大的结点(把根结点和最后一个结点交换，把交换后的最后一个结点移出堆)，并让残余的堆维持最大堆性质。</p>
+<p>堆结点的访问：通常堆是通过一维数组来实现的。在数组起始位置为0的情形中：</p>
 <ul>
-<li>优点:没有饥饿</li>
-<li>缺点:一个新的请求可能需要等待几乎两次完整的磁盘扫描</li>
+<li>父节点i的左子节点在位置(2i+1)</li>
+<li>父节点i的左子节点在位置(2i+2)</li>
+<li>子节点i的父节点在位置floor((i-1)/2)</li>
 </ul>
-<h3 id="C-SCAN调度"><a href="#C-SCAN调度" class="headerlink" title="C-SCAN调度"></a>C-SCAN调度</h3><p>循环扫描(Circular SCAN, C-SCAN) 调度是SCAN 的一个变种， 以提供更均匀的等待时间。</p>
-<p>像SCAN 一样， C-SCAN 移动磁头从磁盘一端到磁盘另一端， 并且处理行程上的请求。然而，当磁头到达另一端时， 它立即返回到磁盘的开头， 而并不处理任何回程上的请Q求。C-SCAN 调度算法基本上将这些柱面作为一个环链， 将最后柱面连到首个柱面。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskC-SCAN.PNG" alt></p>
-<h3 id="LOOK调度"><a href="#LOOK调度" class="headerlink" title="LOOK调度"></a>LOOK调度</h3><p>正如以上所述， SCAN 和C-SCAN在磁盘的整个宽度内移动磁臂。实际上，这两种算法通常都不是按这种方式实施的。更常见的是，磁臂只需移到一个方向的最远请求为止。遵循这种模式的SCAN 算法和C-SCAN 算法分别称为LOOK 和C-LOOK 调度， 因为它们在向特定方向移动时查看是否会有请求。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDiskC-LOOK.PNG" alt></p>
-<h3 id="磁盘调度算法的选择"><a href="#磁盘调度算法的选择" class="headerlink" title="磁盘调度算法的选择"></a>磁盘调度算法的选择</h3><p>怎么选择最佳的磁盘调度算法？</p>
-<p>SSTF:最常见,并且拥有自然的吸引力，因为它比FCFS有更好的性能。</p>
-<p>对于磁盘负荷较大的系统,SCAN与C-SCAN表现更好，因为它们不太可能导致饥饿问题</p>
-<p>对于任何调度算法，性能很大程度上取决于请求的数量以及类型。</p>
-<p>文件分配方式可以大大的影响磁盘服务的请求</p>
-<p>由于这些复杂因素，磁盘调度算法应该作为操作系统的一个单独模块，这样如果需要，可以用不同的算法来替换。SSTF或者是LOOK是默认算法的合理选择</p>
+<p>堆的操作：</p>
+<p>在堆的数据结构中，堆中的最大值总是位于根节点（在优先队列中使用堆的话堆中的最小值位于根节点）。堆中定义以下几种操作：</p>
+<ul>
+<li>最大堆调整（Max Heapify）：将堆的末端子节点作调整，使得子节点永远小于父节点</li>
+<li>创建最大堆（Build Max Heap）：将堆中的所有数据重新排序</li>
+<li>堆排序（HeapSort）：移除位在第一个数据的根节点，并做最大堆调整的递归运算</li>
+</ul>
+<p>代码实现(C):</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+/*
+ * (最大)堆的向下调整算法
+ *
+ * 注：数组实现的堆中，第N个节点的左孩子的索引值是(2N+1)，右孩子的索引是(2N+2)。
+ *     其中，N为数组下标索引值，如数组中第1个数对应的N为0。
+ *
+ * 参数说明：
+ *     a -- 待排序的数组
+ *     start -- 被下调节点的起始位置(一般为0，表示从第1个开始)
+ *     end   -- 截至范围(一般为数组中最后一个元素的索引)
+ */
+void maxHeapDown(int* a, int start, int end)
+{
+    int dad = start;            // 父节点的位置
+    int lchild = 2*dad + 1;        // 左(left)孩子的位置
+    int tmp = a[dad];            // 父节点的大小
+    //子结点指标在范围内才考虑比较
+    while(lchild&lt;=end){
+        //先比较两个子结点大小，选择最大的一个
+        if(lchild+1&lt;=end&amp;&amp;a[lchild]&lt;a[lchild+1])
+            lchild++;
+        //如果父节点大于子结点则调整完毕，直接跳出
+        if(a[dad]&gt;a[lchild])
+            return;
+        //否则交换父子内容继续子节点与孙节点比较
+        else{
+            a[dad] = a[lchild];
+            a[lchild] = temp;
+            dad = lchild;
+            lchild = dad*2+1;
+        }
+    }
+}
+
+/*
+ * 堆排序(从小到大)
+ *
+ * 参数说明：
+ *     a -- 待排序的数组
+ *     n -- 数组的长度
+ */
+void heapSortAsc(int* a, int n)
+{
+    int i,tmp;
+
+    // 从(n/2-1) --&gt; 0逐次遍历。遍历之后，得到的数组实际上是一个(最大)二叉堆。
+    for (i = n / 2 - 1; i &gt;= 0; i--)
+        maxHeapDown(a, i, n-1);
+
+    // 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素
+    for (i = n - 1; i &gt; 0; i--)
+    {
+        // 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最大的。
+        tmp = a[0];
+        a[0] = a[i];
+        a[i] = tmp;
+        // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最大堆。
+        // 即，保证a[i-1]是a[0...i-1]中的最大值。
+        maxHeapDown(a, 0, i-1);
+    }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/HeapSort.gif" alt></p>
+<p>时间复杂度：堆排序的时间复杂度是O(nlog₂n)。<br>假设被排序的数列中有n个数。遍历一趟的时间复杂度是O(n)，需要遍历多少次呢？<br>堆排序是采用的二叉堆进行排序的，二叉堆就是一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。最多是多少呢？由于二叉堆是完全二叉树，因此，它的深度最多也不会超过log₂(2n)。因此，遍历一趟的时间复杂度是O(n)，而遍历次数介于log₂(n+1)和log₂(2n)之间；因此得出它的时间复杂度是O(nlog₂n)。</p>
+<p>稳定性：堆排序是不稳定的算法，它不满足稳定算法的定义。它在交换数据的时候，是比较父结点和子节点之间的数据，所以，即便是存在两个数值相等的兄弟节点，它们的相对顺序在排序也可能发生变化。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序(Quick Sort)"></a>快速排序(Quick Sort)</h1><p>特点：又被称作“快排”、分区交换排序。采用<strong>分治策略</strong>，基本思想：选择一个基准数，通过一趟排序将要排序的数据分割成独立的两部分；其中一部分所有数据比另一部分所有数据小。然后，再按此方法对这两部分数据再次分别进行快速排序（递归），直至整个数据变成有序序列</p>
+<p>算法流程：</p>
+<ol>
+<li>从数列中挑出一个基准值</li>
+<li>将所有比基准值小的放在基准值的前面，比基准值大的放在后面（相同数随意），完成之后这个基准便处于数列的中间位置。</li>
+<li>递归排序基准值前面的子数列与后面的子数列</li>
+</ol>
+<p>代码实现(C):</p>
+<pre><code class="c">/*
+ * 快速排序
+ *
+ * 参数说明：
+ *     a -- 待排序的数组
+ *     l -- 数组的左边界(例如，从起始位置开始排序，则l=0)
+ *     r -- 数组的右边界(例如，排序截至到数组末尾，则r=a.length-1)
+ */
+void quick_sort(int a[], int l, int r)
+{
+    if (l &lt; r)
+    {
+        int i,j,x;
+
+        i = l;
+        j = r;
+        x = a[i];
+        while (i &lt; j)
+        {
+            while(i &lt; j &amp;&amp; a[j] &gt; x)
+                j--; // 从右向左找第一个小于x的数
+            if(i &lt; j)
+                a[i++] = a[j];
+            while(i &lt; j &amp;&amp; a[i] &lt; x)
+                i++; // 从左向右找第一个大于x的数
+            if(i &lt; j)
+                a[j--] = a[i];
+        }
+        a[i] = x;
+        quick_sort(a, l, i-1); /* 递归调用 */
+        quick_sort(a, i+1, r); /* 递归调用 */
+    }
+}
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/QuickSort.gif" alt></p>
+<p>时间复杂度：快速排序的时间复杂度在最坏情况下是O(n²)，平均的时间复杂度是O(n*log₂n)。<br>这句话很好理解：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(n)，需要遍历多少次呢？至少log₂(n+1)次，最多n次。<br>(01) 为什么最少是log₂(N+1)次？快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。因此，快速排序的遍历次数最少是log₂(n+1)次。<br>(02) 为什么最多是n次？这个应该非常简单，还是将快速排序看作一棵二叉树，它的深度最大是n。因此，快读排序的遍历次数最多是n次。</p>
+<p>稳定性：不稳定的算法，不满足稳定算法的定义</p>
+<p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 
         </div>
         <!-- .entry-content -->
@@ -492,36 +759,19 @@
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/129f2172.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                OS文件系统</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/posts/4141860d.html" rel="next">
+            <a href="/posts/f442ae61.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSTongBuSiSuo.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                OS同步死锁</h3>
+                leetcode链表题解(简单)</h3>
                 <hr>
               </div>
             </a>
