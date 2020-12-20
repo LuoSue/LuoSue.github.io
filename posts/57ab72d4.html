@@ -460,8 +460,10 @@
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/BubbleSort.gif" alt></p>
-<p>时间复杂度：时间复杂度为O(n^2)，假设参与排序的数列中有n个数。遍历一趟的时间复杂度为O(n)，需要遍历N-1次，因此时间复杂度为O(n^2).</p>
-<p>稳定性：冒泡排序是稳定的算法，它满足稳定算法的定义。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<p>时间复杂度：</p>
+<p>时间复杂度为O(n^2)，假设参与排序的数列中有n个数。遍历一趟的时间复杂度为O(n)，需要遍历N-1次，因此时间复杂度为O(n^2).</p>
+<p>稳定性：</p>
+<p>冒泡排序是稳定的算法，它满足稳定算法的定义。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 <h1 id="直接插入排序-Straight-Insertion-Sort"><a href="#直接插入排序-Straight-Insertion-Sort" class="headerlink" title="直接插入排序(Straight Insertion Sort)"></a>直接插入排序(Straight Insertion Sort)</h1><p>特点：简单直观的排序算法，工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应的位置并完成插入。<strong>插入排序</strong>在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因此在从后向前扫描过程中，需要反复将已排序元素逐步向后挪位，为最新元素提供插入空间</p>
 <p>举一个简单易懂<del>或许</del>的例子，打扑克牌大家应该都玩过，如果桌子上的扑克牌排序是{7,3,6,4,5,8}，很明显这是顺子。我们拿起第一张7，之后手里的牌就是{7}；拿起第二张3，3比7小，放在前边,手里的牌是{3,7}；拿起第三张6，6比3大但比7小，放在中间，手里的牌是{3,6,7}；依次类推，插入排序就是这么个原理。</p>
 <p>一般来说，<strong>插入排序</strong>都采用in-place在数组上实现。具体算法描述如下：</p>
@@ -492,10 +494,14 @@
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/StraightInsertionSort.gif" alt></p>
-<p>时间复杂度：O(n^2)，假设被排列的数列中有n个数，遍历一趟的时间复杂度为O(n),需要遍历n-1次。</p>
-<p>最好情况：序列已经是升序排列的序列，这种情况下，比较操作只需要n-1次即可。</p>
-<p>最坏情况：序列是降序排列，那么一共需要进行n(n-1)/2次。插入排序不太适合对于数据量比较大的排序应用</p>
-<p>稳定性：稳定的排序算法</p>
+<p>时间复杂度：</p>
+<p>O(n^2)，假设被排列的数列中有n个数，遍历一趟的时间复杂度为O(n),需要遍历n-1次。</p>
+<p>最好情况：</p>
+<p>序列已经是升序排列的序列，这种情况下，比较操作只需要n-1次即可。</p>
+<p>最坏情况：</p>
+<p>序列是降序排列，那么一共需要进行n(n-1)/2次。插入排序不太适合对于数据量比较大的排序应用</p>
+<p>稳定性：</p>
+<p>稳定的排序算法</p>
 <p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 <h1 id="希尔排序（Shell-Sort）"><a href="#希尔排序（Shell-Sort）" class="headerlink" title="希尔排序（Shell Sort）"></a>希尔排序（Shell Sort）</h1><p>特点：插入排序的更高效的改进版本。又被称作缩小增量排序</p>
 <ul>
@@ -551,8 +557,10 @@
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/ShellSort.gif" alt></p>
-<p>时间复杂度：希尔排序的时间复杂度与增量(即，步长gap)的选取有关。例如，当增量为1时，希尔排序退化成了直接插入排序，此时的时间复杂度为O(n²)，而Hibbard增量的希尔排序的时间复杂度为O(n^3/2)。</p>
-<p>稳定性：不稳定算法</p>
+<p>时间复杂度：</p>
+<p>希尔排序的时间复杂度与增量(即，步长gap)的选取有关。例如，当增量为1时，希尔排序退化成了直接插入排序，此时的时间复杂度为O(n²)，而Hibbard增量的希尔排序的时间复杂度为O(n^3/2)。</p>
+<p>稳定性：</p>
+<p>不稳定算法</p>
 <p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 <h1 id="选择排序-Selection-Sort"><a href="#选择排序-Selection-Sort" class="headerlink" title="选择排序(Selection Sort)"></a>选择排序(Selection Sort)</h1><p>特点：<strong>选择排序</strong>（Selection sort）是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
 <p>算法描述：</p>
@@ -598,8 +606,10 @@ void select_sort(int a[], int n)
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/SelectionSort.gif" alt></p>
-<p>时间复杂度：O(n²)，假设要被排列的数列中有n个数，遍历一遍的时间复杂度为O(n)，一共要遍历n-1次。</p>
-<p>稳定性：稳定算法</p>
+<p>时间复杂度：</p>
+<p>O(n²)，假设要被排列的数列中有n个数，遍历一遍的时间复杂度为O(n)，一共要遍历n-1次。</p>
+<p>稳定性：</p>
+<p>稳定算法</p>
 <p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 <h1 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序(Heap Sort)"></a>堆排序(Heap Sort)</h1><p>特点：<strong>堆排序</strong>（英语：Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足<strong>堆的性质</strong>：即子节点的键值或索引总是小于（或者大于）它的父节点。</p>
 <p>若以升序排序说明，把数组转换成最大堆(Max-Heap Heap)，这是一种满足最大堆性质(Max-Heap Property)的二叉树：对于除了根之外的每个节点i, A[parent(i)] ≥ A[i]。</p>
@@ -683,8 +693,10 @@ void heapSortAsc(int* a, int n)
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/HeapSort.gif" alt></p>
-<p>时间复杂度：堆排序的时间复杂度是O(nlog₂n)。<br>假设被排序的数列中有n个数。遍历一趟的时间复杂度是O(n)，需要遍历多少次呢？<br>堆排序是采用的二叉堆进行排序的，二叉堆就是一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。最多是多少呢？由于二叉堆是完全二叉树，因此，它的深度最多也不会超过log₂(2n)。因此，遍历一趟的时间复杂度是O(n)，而遍历次数介于log₂(n+1)和log₂(2n)之间；因此得出它的时间复杂度是O(nlog₂n)。</p>
-<p>稳定性：堆排序是不稳定的算法，它不满足稳定算法的定义。它在交换数据的时候，是比较父结点和子节点之间的数据，所以，即便是存在两个数值相等的兄弟节点，它们的相对顺序在排序也可能发生变化。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<p>时间复杂度：</p>
+<p>堆排序的时间复杂度是O(nlog₂n)。<br>假设被排序的数列中有n个数。遍历一趟的时间复杂度是O(n)，需要遍历多少次呢？<br>堆排序是采用的二叉堆进行排序的，二叉堆就是一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。最多是多少呢？由于二叉堆是完全二叉树，因此，它的深度最多也不会超过log₂(2n)。因此，遍历一趟的时间复杂度是O(n)，而遍历次数介于log₂(n+1)和log₂(2n)之间；因此得出它的时间复杂度是O(nlog₂n)。</p>
+<p>稳定性：</p>
+<p>堆排序是不稳定的算法，它不满足稳定算法的定义。它在交换数据的时候，是比较父结点和子节点之间的数据，所以，即便是存在两个数值相等的兄弟节点，它们的相对顺序在排序也可能发生变化。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 <h1 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序(Quick Sort)"></a>快速排序(Quick Sort)</h1><p>特点：又被称作“快排”、分区交换排序。采用<strong>分治策略</strong>，基本思想：选择一个基准数，通过一趟排序将要排序的数据分割成独立的两部分；其中一部分所有数据比另一部分所有数据小。然后，再按此方法对这两部分数据再次分别进行快速排序（递归），直至整个数据变成有序序列</p>
 <p>算法流程：</p>
 <ol>
@@ -728,9 +740,94 @@ void quick_sort(int a[], int l, int r)
 }
 </code></pre>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/QuickSort.gif" alt></p>
-<p>时间复杂度：快速排序的时间复杂度在最坏情况下是O(n²)，平均的时间复杂度是O(n*log₂n)。<br>这句话很好理解：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(n)，需要遍历多少次呢？至少log₂(n+1)次，最多n次。<br>(01) 为什么最少是log₂(N+1)次？快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。因此，快速排序的遍历次数最少是log₂(n+1)次。<br>(02) 为什么最多是n次？这个应该非常简单，还是将快速排序看作一棵二叉树，它的深度最大是n。因此，快读排序的遍历次数最多是n次。</p>
-<p>稳定性：不稳定的算法，不满足稳定算法的定义</p>
+<p>时间复杂度：</p>
+<p>快速排序的时间复杂度在最坏情况下是O(n²)，平均的时间复杂度是O(n*log₂n)。</p>
+<p>这句话很好理解：假设被排序的数列中有N个数。遍历一次的时间复杂度是O(n)，需要遍历多少次呢？至少log₂(n+1)次，最多n次。<br>(01) 为什么最少是log₂(N+1)次？快速排序是采用的分治法进行遍历的，我们将它看作一棵二叉树，它需要遍历的次数就是二叉树的深度，而根据完全二叉树的定义，它的深度至少是log₂(n+1)。因此，快速排序的遍历次数最少是log₂(n+1)次。<br>(02) 为什么最多是n次？这个应该非常简单，还是将快速排序看作一棵二叉树，它的深度最大是n。因此，快读排序的遍历次数最多是n次。</p>
+<p>稳定性：</p>
+<p>不稳定的算法，不满足稳定算法的定义</p>
 <p><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
+<h1 id="归并排序-Merge-Sort"><a href="#归并排序-Merge-Sort" class="headerlink" title="归并排序(Merge Sort)"></a>归并排序(Merge Sort)</h1><p>特点：将两个有序数列合并成一个有序数列，我们称之为“归并”，</p>
+<p>归并算法建立在归并操作上</p>
+<p><strong>从下往上的归并排序：</strong></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/vfeveruichdhv.PNG" alt></p>
+<ol>
+<li>先将长度为n的数列分成n个长度为1的子数列</li>
+<li>然后将相邻的数列两两合并，直至子数列全部合并完成</li>
+<li>这样得到的数列就是一个有序数列</li>
+</ol>
+<p>代码如下：</p>
+<pre><code class="c++">/**从上往下的归并排序
+    参数说明:
+           arr 待排序的数组*/
+void Merge_Sort(std::vector&lt;int&gt;&amp; arr) {
+    int len = arr.size();
+    int n;
+    if (len &lt;= 0)
+        return;
+    for (n = 1; n &lt; len; n *= 2) {
+        Merge_Groups(arr, len, n);
+    }
+}
+/**
+   将一个数组中的两个相邻有序区间合并成一个
+   参数说明:
+          arr 包含两个有序区间的数组
+          start 第一个有序区间的起始地址
+          mid 第一个有序区间的结束地址，也是第二个有序区间的起始地址
+          end 第二个有序区间的结束地址*/
+void Merge(std::vector&lt;int&gt;&amp; arr, int start, int mid, int end) {
+        int* temp = new int[end - start + 1];
+        int i = start;
+        int j = mid + 1;
+        int k = 0;
+        while (i &lt;= mid &amp;&amp; j &lt;= end) {
+            if (arr[i] &lt;= arr[j]) {
+                temp[k++] = arr[i++];
+                this-&gt;compare[6]++;
+                this-&gt;move[6] = this-&gt;move[6] + 3;
+            }
+            else {
+                temp[k++] = arr[j++];
+                this-&gt;compare[6]++;
+                this-&gt;move[6] = this-&gt;move[6] + 3;
+            }
+        }
+        while (i &lt;= mid) {
+            temp[k++] = arr[i++];
+            this-&gt;move[6]++;
+        }
+
+        while (j &lt;= end) {
+            temp[k++] = arr[j++];
+            this-&gt;move[6]++;
+        }
+        // 将排序后的元素，全部都整合到数组a中。
+        for (i = 0; i &lt; k; i++) {
+            arr[start + i] = temp[i];
+            this-&gt;move[6]++;
+        }
+        delete[] temp;
+    }
+/** 对数组做若干次合并，数组总长度为len，将其分成若干个长度为interval的子数组，每两个相邻的子数组进行排序*/
+void Merge_Groups(std::vector&lt;int&gt;&amp; arr, int len, int interval) {
+        int j;
+        // 将&quot;每2个相邻的子数组&quot; 进行合并排序。
+        for (j = 0; j + 2 * interval - 1 &lt; len; j += (2 * interval)) {
+            Merge(arr, j, j + interval - 1, j + 2 * interval - 1);
+        }
+
+        // 若 i+gap-1 &lt; len-1，则剩余一个子数组没有配对。
+        // 将该子数组合并到已排序的数组中。
+        if (j + interval - 1 &lt; len - 1) {
+            Merge(arr, j, j + interval - 1, len - 1);
+        }
+    }
+</code></pre>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/fdsfsfsdfcd.gif" alt></p>
+<p>时间复杂度：</p>
+<p>O(N<em>㏒N)，假设被排序的数列中有N个数，遍历一趟的时间复杂度是O(N)。归并排序的形式就是一棵二叉树，要遍历的次数就是二叉树的深度，根据完全二叉树可以的出 时间复杂度为O(N</em>㏒N)</p>
+<p>稳定性：</p>
+<p>归并排序是稳定的算法，它满足稳定算法的定义。<br><em>算法稳定性 – 假设在数列中存在a[i]=a[j]，若在排序之前，a[i]在a[j]前面；并且排序之后，a[i]仍然在a[j]前面。则这个排序算法是稳定的！</em></p>
 
         </div>
         <!-- .entry-content -->
@@ -904,7 +1001,7 @@ void quick_sort(int a[], int l, int r)
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">73.8k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">74.5k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
