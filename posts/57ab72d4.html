@@ -790,28 +790,21 @@ void Merge(std::vector&lt;int&gt;&amp; arr, int start, int mid, int end) {
         while (i &lt;= mid &amp;&amp; j &lt;= end) {
             if (arr[i] &lt;= arr[j]) {
                 temp[k++] = arr[i++];
-                this-&gt;compare[6]++;
-                this-&gt;move[6] = this-&gt;move[6] + 3;
             }
             else {
                 temp[k++] = arr[j++];
-                this-&gt;compare[6]++;
-                this-&gt;move[6] = this-&gt;move[6] + 3;
             }
         }
         while (i &lt;= mid) {
             temp[k++] = arr[i++];
-            this-&gt;move[6]++;
         }
 
         while (j &lt;= end) {
             temp[k++] = arr[j++];
-            this-&gt;move[6]++;
         }
         // 将排序后的元素，全部都整合到数组a中。
         for (i = 0; i &lt; k; i++) {
             arr[start + i] = temp[i];
-            this-&gt;move[6]++;
         }
         delete[] temp;
     }
