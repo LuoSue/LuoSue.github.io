@@ -724,15 +724,22 @@ void quick_sort(int a[], int l, int r)
         x = a[i];
         while (i &lt; j)
         {
+            //因为默认基准是从左边开始，所以从右边开始比较
+    //当队尾的元素大于等于基准数据 时,就一直向前挪动 j 指针
             while(i &lt; j &amp;&amp; a[j] &gt; x)
                 j--; // 从右向左找第一个小于x的数
+// 当找到比 array[i] 小的时，就把后面的值 array[j] 赋给它
             if(i &lt; j)
                 a[i++] = a[j];
+// 当队首元素小于等于基准数据 时,就一直向后挪动 i 指针
             while(i &lt; j &amp;&amp; a[i] &lt; x)
                 i++; // 从左向右找第一个大于x的数
+// 当找到比 array[j] 大的时，就把前面的值 array[i] 赋给它
             if(i &lt; j)
                 a[j--] = a[i];
         }
+    // 跳出循环时 i 和 j 相等,此时的 i 或 j 就是 key 的正确索引位置
+    // 把基准数据赋给正确位置
         a[i] = x;
         quick_sort(a, l, i-1); /* 递归调用 */
         quick_sort(a, i+1, r); /* 递归调用 */
@@ -1001,7 +1008,7 @@ void Merge_Groups(std::vector&lt;int&gt;&amp; arr, int len, int interval) {
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">74.5k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">74.6k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
