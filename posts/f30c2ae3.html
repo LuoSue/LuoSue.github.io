@@ -444,10 +444,19 @@ SqBiTree bt;
     struct BiTNode *lchild,*rchild;//左右孩子指针
 }BiTNode,*BiTree;
 </code></pre>
-<h2 id="遍历二叉树"><a href="#遍历二叉树" class="headerlink" title="遍历二叉树"></a>遍历二叉树</h2><p>先序遍历：若是二叉树空，则空操作。否则先访问根节点，再先序遍历左子树，最后先序遍历右子树</p>
-<p>中序遍历：若是二叉树空，则空操作。否则先中序遍历左子树，再访问根节点，最后先序遍历右子树</p>
-<p>后序遍历：若是二叉树空，则空操作。否则先后序遍历左子树，再后序遍历右子树，最后访问根节点</p>
+<h2 id="遍历二叉树"><a href="#遍历二叉树" class="headerlink" title="遍历二叉树"></a>遍历二叉树</h2><p><strong>先序遍历：</strong>若是二叉树空，则空操作。否则先访问根节点，再先序遍历左子树，最后先序遍历右子树</p>
+<p><strong>中序遍历：</strong>若是二叉树空，则空操作。否则先中序遍历左子树，再访问根节点，最后先序遍历右子树</p>
+<p><strong>后序遍历：</strong>若是二叉树空，则空操作。否则先后序遍历左子树，再后序遍历右子树，最后访问根节点</p>
 <p>时间复杂度均为O(n)</p>
+<p><strong>已知中序遍历和后续遍历序列，如何构造二叉树？</strong></p>
+<p>例子：已知中序遍历序列：HDMIBJNEAFKCG，后序遍历序列：HMIDNJEBKFGCA</p>
+<p>根据后序遍历的特点知道，最后一个必然是根节点。因此A是根，再根据中序遍历可知道HDMIBJNE是A的左子树部分，FKCG是右子树部分，图示如下</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/vdfbdfbeviju.PNG" alt></p>
+<p>取A的右子树部分观察，右子树部分的中序遍历：FKCG，后序遍历：KFGC。接着从后序遍历中看A的左子树KFGC，所以C是根。又从中序遍历得知，FK是C的左子树部分，G是C的右子树，如图所示</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/veuvhierhvum.PNG" alt></p>
+<p>使用同样的方法，C的左子树部分，中序：FK，后序：KF，可以知道F是根，那么K只能是F的右子树，如图所示</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/gergeuihio546.PNG" alt></p>
+<p>左子树同理，<del>此处先不写了有空会补上</del></p>
 <h2 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h2><p>若结点有左子树，则其lchild域指向其左孩子，否则令其lchild域指向其前驱；若结点有右子树，则令其rchild域指向其右孩子，否则指向其后继。增加两个标志域。</p>
 <table>
 <thead>
@@ -732,7 +741,7 @@ typedef struct {
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">74.6k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">74.8k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
