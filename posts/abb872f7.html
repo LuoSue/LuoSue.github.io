@@ -1609,6 +1609,83 @@ resultSet.getString(2) + &quot; &quot; + resultSet.getString(3));
 }
 //getString()里的数字代表列数
 </code></pre>
+<p>一段程序:</p>
+<pre><code class="java">import java.sql.*;
+
+public class SimpleJdbc {
+  public static void main(String[] args)
+      throws SQLException, ClassNotFoundException {
+    // Load the JDBC driver
+    Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+    System.out.println(&quot;Driver loaded&quot;);
+
+    // Establish a connection
+    Connection connection = DriverManager.getConnection
+      (&quot;jdbc:mysql://localhost:3306/javabook?useLegacyDatetimeCode=false&amp;serverTimezone=America/New_York&quot;, &quot;root&quot;, &quot;password&quot;);
+    System.out.println(&quot;Database connected&quot;);
+
+    Thread t = new DBThread(connection);
+    t.start();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    // Create a statement
+    Statement statement = connection.createStatement();
+
+    // Execute a statement
+    ResultSet resultSet = statement.executeQuery
+//      (&quot;select firstName, mi, lastName from Student where lastName &quot;
+//        + &quot; = &#39;Smith&#39;&quot;);
+//        (&quot;select * from Student where lastName &quot;
+//            + &quot; = &#39;Smith&#39;&quot;);
+        (&quot;select * from Course&quot;);
+
+    // Iterate through the result and print the student names
+    while (resultSet.next())
+      System.out.println(resultSet.getString(1) + &quot;\t&quot; +
+        resultSet.getString(2) + &quot;\t&quot; + resultSet.getString(3) +
+        &quot;\t&quot; + resultSet.getString(4)  + &quot;\t&quot; + resultSet.getString(5));
+
+    // Close the connection
+    connection.close();
+  }
+}
+
+class DBThread extends Thread {
+  private Connection conn = null;
+  DBThread(Connection conn) {
+    this.conn = conn;
+  }
+  public void run() {
+    try {
+      // Create a statement
+      Statement statement = conn.createStatement();
+      // Execute a statement
+      statement.executeUpdate(&quot;update Course set &quot;
+          + &quot;numOfCredits=4 where CourseId=44411119&quot;);
+      // Execute a statement
+      ResultSet resultSet = statement.executeQuery
+//        (&quot;select firstName, mi, lastName from Student where lastName &quot;
+//          + &quot; = &#39;Smith&#39;&quot;);
+//          (&quot;select * from Student where lastName &quot;
+//              + &quot; = &#39;Smith&#39;&quot;);
+          (&quot;select * from Course&quot;);
+      // Iterate through the result and print the student names
+      while (resultSet.next())
+        System.out.println(resultSet.getString(1) + &quot;\t&quot; +
+          resultSet.getString(2) + &quot;\t&quot; + resultSet.getString(3) +
+          &quot;\t&quot; + resultSet.getString(4)  + &quot;\t&quot; + resultSet.getString(5));
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // Close the connection
+  }
+}
+</code></pre>
 <h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="TCP，UDP编程"><a href="#TCP，UDP编程" class="headerlink" title="TCP，UDP编程"></a>TCP，UDP编程</h3><p><strong>TCP:</strong></p>
 <p>一个简单的代码例子：</p>
 <pre><code class="java">//Server1.java
@@ -2296,7 +2373,7 @@ public class Client {
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.3k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
