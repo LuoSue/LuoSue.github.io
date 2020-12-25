@@ -447,17 +447,17 @@
 <li>每个用户都应该能够备份和恢复用户的文件，以防损坏</li>
 <li>每个用户都应该能够通过使用符号化名称来访问用户的文件</li>
 </ol>
-<h1 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h1><h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>文件名：</p>
+<h1 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h1><h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><p>名称：</p>
 <ul>
 <li>仅以人类可读形式保存的信息</li>
 <li>由创建者(用户或程序)选择的名称。</li>
 <li>在特定目录中必须是唯一的</li>
 </ul>
-<p>标识：</p>
+<p>标识符：</p>
 <ul>
-<li>唯一的标签(数字)识别文件系统中的文件</li>
+<li>唯一的标签(数字)识别文件系统中的文件，非人类可读</li>
 </ul>
-<p>文件类型：</p>
+<p>类型：</p>
 <ul>
 <li>支持不同类型的系统需要</li>
 </ul>
@@ -518,10 +518,13 @@
 <ul>
 <li>通过系统调用指定要写入的文件名和信息</li>
 <li>搜索该目录以查找文件的位置</li>
+<li>写指针(write pointer)指向需要进行下次写操作的文件位置，每次写操作后更新</li>
 </ul>
 <p>读文件：</p>
 <ul>
-<li>在读指针位置读取</li>
+<li>系统调用，指明文件名称和需要文件的下一个块应该在哪里</li>
+<li>在读指针位置读取，读指针指向下一次读取操作的文件位置</li>
+<li>当前操作位置可以设置为当前文件位置指针，读与写都使用相同的指针，可以节省空间并降低系统复杂性</li>
 </ul>
 <p>重新定位文件：</p>
 <ul>
@@ -531,19 +534,38 @@
 <p>截断文件</p>
 <p>open(F):在磁盘上的目录结构中搜索条目F，并将条目的内容移动到内存中</p>
 <p>close(F):将内存中入口F的内容移动到磁盘上的目录结构中</p>
-<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><p>一些数据需要用于管理需要打开的文件</p>
-<p>打开文件表：跟踪所有需要打开的文件</p>
+<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><p>首次使用文件之前进行系统调用open()</p>
+<p>打开文件表：跟踪所有需要打开的文件，维护所有打开文件的信息</p>
+<p>请求文件操作时可以通过此表的索引指定文件，无需搜索，文件不再使用时关掉它，打开文件表中的条目删除</p>
+<p>create()和delete()是针对关闭文件而不是打开文件进行操作</p>
+<p>open()：</p>
 <ul>
-<li>文件指针：指向打开文件的每个进程最后读/写位置的指针</li>
+<li>根据文件名搜索目录，将目录条目复制到打开文件表</li>
+<li>会接收访问模式信息，根据权限检查</li>
+<li>允许，打开文件，返回一个指针指向打开文件表的对应条目</li>
 </ul>
-<p>文件打开计数：一个文件打开次数的计数器，当最后一个进程关闭它时，允许从打开的文件表中删除数据</p>
-<p>文件的磁盘位置：在磁盘上找到文件所需的信息保存在内存中，以便系统不必在每次操作时都从磁盘读取它。</p>
-<p>访问权限：每个进程采用访问模式打开文件。这种信息保存在进程的打开文件表中，因此操作系统可以允许或拒绝后续的I/O请求。</p>
+<p>操作系统采用两级的内部表：</p>
+<ul>
+<li>每个进程表：跟踪它打开的所有文件，存的是进程对文件的使用信息</li>
+<li>整个系统表：存储的是每个进程表</li>
+</ul>
+<p>当另一个进程执行open()，只需要简单地在其进程打开表中增加一个条目，并指向系统表的相应条目。</p>
+<p>每个打开文件有如下信息：</p>
+<ul>
+<li><p>文件指针：记录上次读写位置，每个进程是唯一的</p>
+</li>
+<li><p>文件打开计数：一个文件打开次数的计数器，当最后一个进程关闭它时，允许从打开的文件表中删除数据，每次close()递减。</p>
+</li>
+<li><p>文件的磁盘位置：在磁盘上找到文件所需的信息保存在内存中，以便系统不必在每次操作时都从磁盘读取它。</p>
+</li>
+<li><p>访问权限：每个进程采用访问模式打开文件。这种信息保存在进程的打开文件表中，因此操作系统可以允许或拒绝后续的I/O请求。</p>
+</li>
+</ul>
 <h2 id="文件锁"><a href="#文件锁" class="headerlink" title="文件锁"></a>文件锁</h2><p>和读-写锁差不多，共享锁类似于读者锁，以便多个进程可以并发获取它。独占锁类似于写者锁；一次只有一个进程可以获得这样的锁</p>
 <p>另外， 操作系统可以提供强制(mandatory) 或建议(advisory) 文件锁定机制。如果锁是强制性的， 则一旦进程获取独占锁， 操作系统就阻止任何其他进程访问锁定的文件。或者， 如果锁是建议性的， 则操作系统不会阻止访问。</p>
 <p>Windows系统采用强制锁定,UNIX系统采用建议锁定</p>
 <h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><p>一般使用扩展名来确定文件类型和可用于文件操作的类型</p>
-<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><p>无结构-字，字节的序列</p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><p>无结构：字，字节的序列</p>
 <p>简单的记录结构：</p>
 <ul>
 <li>行</li>
@@ -606,8 +628,10 @@
 <ul>
 <li>有些甚至会产生冲突</li>
 </ul>
-<h1 id="访问文件的方法"><a href="#访问文件的方法" class="headerlink" title="访问文件的方法"></a>访问文件的方法</h1><h2 id="顺序访问-sequential-access"><a href="#顺序访问-sequential-access" class="headerlink" title="顺序访问(sequential access)"></a>顺序访问(sequential access)</h2><p>最简单的访问方法，文件信息按照顺序(一个记录接一个记录进行处理)目前最常见，编辑器和编译器通常用这种方式访问文件</p>
-<h2 id="直接访问-direct-access"><a href="#直接访问-direct-access" class="headerlink" title="直接访问(direct access)"></a>直接访问(direct access)</h2><p>另一种方法是直接访问(direct access) 或相对访问(relative access) 。这里，文件由固定长度的逻辑记录(logical records) 组成，以允许程序按任意顺序进行快速读取和写入记录。直接访问方法基于文件的磁盘模型， 因为磁盘允许对任何文件块的随机访问.</p>
+<h1 id="访问文件的方法"><a href="#访问文件的方法" class="headerlink" title="访问文件的方法"></a>访问文件的方法</h1><h2 id="顺序访问-sequential-access"><a href="#顺序访问-sequential-access" class="headerlink" title="顺序访问(sequential access)"></a>顺序访问(sequential access)</h2><p>最简单的访问方法</p>
+<p>文件信息按照顺序(一个记录接一个记录进行处理)目前最常见，编辑器和编译器通常用这种方式访问文件</p>
+<h2 id="直接访问-direct-access"><a href="#直接访问-direct-access" class="headerlink" title="直接访问(direct access)"></a>直接访问(direct access)</h2><p>另一种方法是直接访问(direct access) 或相对访问(relative access) </p>
+<p>文件由固定长度的逻辑记录(logical records) 组成，以允许程序按任意顺序进行快速读取和写入记录。直接访问方法基于文件的磁盘模型， 因为磁盘允许对任何文件块的随机访问.</p>
 <h2 id="基于内容的访问-Content-based-access"><a href="#基于内容的访问-Content-based-access" class="headerlink" title="基于内容的访问(Content based access)"></a>基于内容的访问(Content based access)</h2><p>根据字节的内容约束访问内容</p>
 <h1 id="文件使用模式"><a href="#文件使用模式" class="headerlink" title="文件使用模式"></a>文件使用模式</h1><p>大多数文件都很小，大多数引用也是针对小文件的</p>
 <p>大文件会占用大部分的磁盘空间</p>
@@ -650,19 +674,22 @@
 <li>缺点：不能扩展到大型目录</li>
 </ul>
 <p>命名冲突：多个文件使用相同的名字</p>
-<h2 id="单级目录"><a href="#单级目录" class="headerlink" title="单级目录"></a>单级目录</h2><p>为所有用户提供一个目录，所有文件包含于同一目录中</p>
+<h2 id="单级目录"><a href="#单级目录" class="headerlink" title="单级目录"></a>单级目录</h2><p>最简单的目录</p>
+<p>为所有用户提供一个目录，所有文件包含于同一目录中</p>
 <p>然而， 当文件数量增加或系统有多个用户时， 单级目录有重要的限制。因为所有文件位于同一目录中， 它们必须具有唯一的名称。</p>
 <p>会导致分组问题和命名冲突</p>
 <h2 id="分层命名"><a href="#分层命名" class="headerlink" title="分层命名"></a>分层命名</h2><ul>
 <li><p>使用多层目录</p>
 </li>
-<li><p>最流行的名称空间组织+概念模型映射到人类模型组织的事情，文件柜包含了许多文件</p>
+<li><p>每个用户都有自己的目录</p>
 </li>
 <li>可扩展性：减少了名称冲突的概率</li>
 <li>空间局部性：将所有文件存储在一个圆筒内的一个目录下，以避免磁盘查找</li>
 </ul>
 <p>目录结构图：</p>
 <p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSDirectoryPic.JPG" alt></p>
+<p>优点：解决了名称碰撞问题</p>
+<p>缺点：隔离了用户，不利于访问彼此的文件</p>
 <p>更多关于分层命名：</p>
 <p>绝对路径:包含从根目录‘/‘到文件的路径</p>
 <p>例如:/pets/cat.jpg</p>
@@ -913,7 +940,7 @@
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.7k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">87.9k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>

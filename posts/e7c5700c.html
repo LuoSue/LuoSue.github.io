@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: web | LuoSue&#39;s Blog</title>
+  <title itemprop="name">OS文件系统实现 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/aubergine.ico">
   
@@ -374,64 +374,178 @@
   </div>
 </header>
 
-      
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="web.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1608896111577.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1608896111577.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      OS文件系统实现</h1>
+      <p class="entry-census">
+        <span>
+          <a href="fallensue.cc">
+            <img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="fallensue.cc">LuoSue</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-12-25 19:32:52<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
   </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">web</h1>
-  </header>
-</div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope="" itemtype="https://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/posts/186f70d4.html">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="文件系统结构"><a href="#文件系统结构" class="headerlink" title="文件系统结构"></a>文件系统结构</h1><p>文件系统永远驻留在外存上，外存设计为永久容纳大量数据</p>
+<p>磁盘提供用于维护文件系统的外存，有两个优势：</p>
+<ul>
+<li>磁盘能够原地重写</li>
+<li>磁盘可以直接访问它包含信息的任何块</li>
+<li>一个文件到另一个文件只需要移动读写磁头，等待磁盘旋转</li>
+</ul>
+<p>为了提高效率，传输以<strong>块</strong>为单位执行，每个块有一个或者是多个扇区（一般为512字节）</p>
+<p>文件系统提供了高效和便捷的磁盘访问，以便允许轻松存储、定位、提取数据</p>
+<p>设计问题：</p>
+<ul>
+<li>如何定义文件系统的用户接口</li>
+<li>创建算法与数据结构，以便映射逻辑文件系统到物理外存设备</li>
+</ul>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/8949byfgwueyfg.PNG" alt></p>
+<p>文件系统本身通常由许多不同的层组成，每层设计利用更低层的功能，创建新功能，以用于高层服务</p>
+<p><strong>I/O控制层</strong>：</p>
+<ul>
+<li>包含设备驱动程序（用作翻译器）和中断处理程序，用于在主内存和磁盘系统之间传输信息</li>
+</ul>
+<p><strong>基本文件系统</strong>：</p>
+<ul>
+<li><p>只需向适当设备驱动程序发送通用命令，以读取和写入磁盘的物理块</p>
+</li>
+<li><p>该层也管理内存缓冲区和保存各种文件系统、目录和数据块的缓存。</p>
+</li>
+</ul>
+<p><strong>文件组织模块</strong>：</p>
+<ul>
+<li><p>知道文件及其逻辑块以及物理块</p>
+</li>
+<li><p>还包括可用空间管理器，以跟踪未分配的块并根据要求提供给文件组织模块</p>
+</li>
+</ul>
+<p><strong>逻辑文件系统</strong>：</p>
+<ul>
+<li><p>管理元数据信息</p>
+</li>
+<li><p>通过文件控制块（FCB）来维护文件结构</p>
+</li>
+<li><p>FCB包含有关文件的信息，包括所有者、权限、文件内容的位置等</p>
+</li>
+</ul>
+<p>当采用分层结构实现文件系统的时候，可以最小化代码的重复</p>
+<h1 id="文件系统实现"><a href="#文件系统实现" class="headerlink" title="文件系统实现"></a>文件系统实现</h1><p>磁盘上，文件系统可能包括如下信息：</p>
+<ul>
+<li>引导控制块（boot control block）：可以包含从该卷引导操作系统的所需信息。如果磁盘不包含操作系统，这块内容为空，一般为卷的第一块</li>
+<li>卷控制块(volume control block)：包括卷（或者分区）的详细信息，如分区的块的数量、块的大小、空闲块的数量和指针、空闲的FCB数量以及FCB指针等</li>
+<li>目录结构用于组织文件</li>
+<li>每个文件的FCB</li>
+</ul>
+<p>内存中的结构类型：</p>
+<ul>
+<li>内存中的<strong>安装表</strong></li>
+</ul>
+
         </div>
-        <img width="150" height="150" src="https://static.2heng.xin/wp-content/uploads//2019/02/wallhaven-672007-1-1024x576.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" >
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/posts/186f70d4.html">
-    Hexo-Theme-Sakura</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2018-12-12</div>
-    <p>
-    hexo-sakura主题使用教程</p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/posts/186f70d4.html">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/posts/abb872f7.html" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1608722950005.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1608722950005.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Java期末复习保命提纲</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "4J4QsQiplQJNaKmI1bCeXEEt-MdYXbMMI",
+        appKey: "SsbBIz5kdle24zr3aoWvBcMW",
+        path: window.location.pathname,
+        placeholder: "此生不相见，动如参与商"
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    <!--  -->
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="fallensue.cc" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/custom/avatar.jpg" itemprop="image" alt="LuoSue" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="fallensue.cc" itemprop="url" rel="author">LuoSue</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>行百里者半九十</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
