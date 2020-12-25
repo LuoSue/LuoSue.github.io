@@ -413,8 +413,7 @@
           <h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><p>线程是什么:</p>
 <p>一个进程内的多个独立工作的任务流</p>
 <p>操作系统能进行运算调度的最小单位</p>
-<p>线程共享进程的代码、数据和文件,但有自己独立的</p>
-<p>堆栈和使用的CPU寄存器</p>
+<p>线程共享进程的代码、数据和文件,但有自己独立的堆栈和使用的CPU寄存器</p>
 <p>线程也有自己的TCB(thread control block)</p>
 <p>线程的状态:</p>
 <ul>
@@ -432,30 +431,30 @@
 <ul>
 <li>由操作系统直接支持和管理</li>
 </ul>
-<p>多线程编程的三个模型:</p>
-<p>多对一：</p>
+<p><strong>多线程编程的三个模型:</strong></p>
+<p><strong>多对一：</strong></p>
 <ul>
 <li>多个用户及线程-&gt;一个内核线程</li>
 <li>无法利用多核，所以几乎已经被淘汰</li>
 </ul>
-<p>一对一：</p>
+<p><strong>一对一：</strong></p>
 <ul>
 <li>一个用户线程，有一个内核线程对接管理</li>
 <li>内核负责调度这一系列线程</li>
 </ul>
-<p>多对多：</p>
+<p><strong>多对多：</strong></p>
 <ul>
 <li>多个内核线程负责多个用户线程</li>
 <li>内核一次只能调度一个线程，所以并发性和一对一一样，但可以灵活调度的线程更多，更适合多核处理器</li>
 </ul>
-<p>结合一对一和多对多的模型</p>
+<p><strong>结合一对一和多对多的模型</strong></p>
 <p>线程池：在os开始运行时创立一系列空的线程，等待为用户线程而工作，这些线程统称为线程池</p>
 <p>优点：</p>
 <ul>
 <li>当用户需要线程时，一般取一个空线程即用比再创建新的线程快</li>
 <li>允许用户程序支持的最大线程数增长到线程池的容量</li>
 </ul>
-<p>多线程的优点：</p>
+<p><strong>多线程的优点：</strong></p>
 <ul>
 <li>响应性</li>
 <li>资源共享</li>
@@ -638,7 +637,7 @@
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.3k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.7k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>

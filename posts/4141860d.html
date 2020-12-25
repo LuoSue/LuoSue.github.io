@@ -414,26 +414,26 @@
 <blockquote>
 <p>竞争条件race condition:多个进程并发访问且要求修改同一个变量的情况</p>
 </blockquote>
-<p>解决方法：保护临界区</p>
+<p>解决方法：<strong>保护临界区</strong></p>
 <ul>
-<li>临界区critical section:进程在执行某一段代码时可能涉及修改公共变量、读写内存表和文件的操作，则该代码段被称为临界区</li>
+<li>临界区(critical section):进程在执行某一段代码时可能涉及修改公共变量、读写内存表和文件的操作，则该代码段被称为临界区</li>
 </ul>
 <p>因此，进程和线程代码必须通过设计来保护临界区，由此可以定义:</p>
 <ul>
-<li>进入区entry section:进程在执行临界区代码前请求权限的代码段</li>
-<li>退出区exit section:进程在结束临界区代码执行后释放权限的代码段</li>
-<li>剩余区remainder section:进程在结束区后还要执行的其他代码</li>
+<li>进入区(entry section):进程在执行临界区代码前请求权限的代码段</li>
+<li>退出区(exit section):进程在结束临界区代码执行后释放权限的代码段</li>
+<li>剩余区(remainder section):进程在结束区后还要执行的其他代码</li>
 </ul>
-<p>临界区问题解决原则:</p>
+<p><strong>临界区问题解决原则:</strong></p>
 <ul>
-<li>互斥(mutual exclusion) :一旦有进程在临界区执行代码，那么任何进程不得进入临界区</li>
-<li>进步(progress) :如果临界区没有进程在执行，则在执行完剩余区的进程中选择一个进程下一次进入临界区</li>
-<li>有限等待(bound waiting) :不能使某个进程在进入区的请求无限被拒绝</li>
+<li><strong>互斥(mutual exclusion)</strong> :一旦有进程在临界区执行代码，那么任何进程不得进入临界区</li>
+<li><strong>进步(progress) </strong>:如果临界区没有进程在执行，则在执行完剩余区的进程中选择一个进程下一次进入临界区</li>
+<li><strong>有限等待(bound waiting) </strong>:不能使某个进程在进入区的请求无限被拒绝</li>
 </ul>
 <p>在操作系统内核中即存在临界区问题，主要分为:</p>
 <ul>
-<li>非抢占式内核non-preemptive kernel:内核模式的进程不允许被抢占，几乎没有竞争条件发生，但不适用于实时编程</li>
-<li>抢占式内核preemptive kernel:内核模式的进程允许被抢占，内核响应更快，但需要更精密的策略来防止临界区问题</li>
+<li><strong>非抢占式内核(non-preemptive kernel)</strong>:内核模式的进程不允许被抢占，几乎没有竞争条件发生，但不适用于实时编程</li>
+<li><strong>抢占式内核(preemptive kernel)</strong>:内核模式的进程允许被抢占，内核响应更快，但需要更精密的策略来防止临界区问题</li>
 </ul>
 <h1 id="临界区问题解决方案：锁🔒-locking"><a href="#临界区问题解决方案：锁🔒-locking" class="headerlink" title="临界区问题解决方案：锁🔒(locking)"></a>临界区问题解决方案：锁🔒(locking)</h1><h2 id="方案一-软件锁"><a href="#方案一-软件锁" class="headerlink" title="方案一:软件锁"></a>方案一:软件锁</h2><p>为临界区设置布尔变量(锁)，并且每个进程都要有一个waiting变量, 只有这些所有变量都正确时进程才能进入临界区，进程退出时修改锁的布尔变量和自己的waiting变量</p>
 <p>缺点:复杂，浪费时间和空间，无法封装为函数复用</p>
@@ -457,6 +457,7 @@ release(lock)
 /*remainder section*/
 }while (true);
 </code></pre>
+<p>两个函数的调用必须原子地执行，这种类型的互斥锁一般也被称为<strong>自旋锁(spinlock)</strong></p>
 <p>优点:进程等待时，无需上下文切换;简单容易实现</p>
 <p>缺点:进程在进入区时要不断地调用acquire()请求权限， 这会导致忙碌等待(busy waiting):</p>
 <ul>
@@ -497,13 +498,14 @@ semaphore s =初始化值
     }while (true);
 
 </code></pre>
-<p>s可以是任意整数，此时称信号量为计数信号量</p>
-<p>s只能为0或1,此时称信号量为二进制信号量，此时S类似于互斥锁</p>
-<p>注意:因为wait和signal必须 原子进行，即在运行这两个函数时CPU不能中断，否则就可能有多个进程同时执行它们(换句话说，信号量的两个函数本身就是一个临界区问题)</p>
+<p>s可以是任意整数，此时称信号量为<strong>计数信号量</strong></p>
+<p>s只能为0或1,此时称信号量为<strong>二进制信号量</strong>，此时S类似于<strong>互斥锁</strong></p>
+<p>信号量的值可以是负数，具有忙等待的信号量经典定义下，信号量的值不能够为负，如果值为负，那么它的绝对值就是等待它的进程数</p>
+<p>注意:因为wait()和signal()必须 原子进行，即在运行这两个函数时CPU不能中断，否则就可能有多个进程同时执行它们(换句话说，信号量的两个函数本身就是一个临界区问题)</p>
 <p>在单核系统中，可以简单的不允许在执行它们时中断</p>
-<p>但在多核系统(SMP) 中，这是做不到的，因此多核系统中执行wait和signal也要加锁,比如加上一个互斥锁</p>
-<p>优点:基本避免了忙碌等待，可以适用于非互斥的情况(比如生产者消费者问题的仓库)</p>
-<p>缺点:不能完全消除忙碌等待(在临界区执行时可能还要等待) ;如果用户错误的使用了wait和signal (或是因为不能确定的函数执行顺序(时序) )，那么会导致死锁和饥饿</p>
+<p>但在多核系统(SMP) 中，这是做不到的，因此多核系统中执行wait()和signal()也要加锁,比如加上一个互斥锁</p>
+<p><strong>优点:</strong>基本避免了忙碌等待，可以适用于非互斥的情况(比如生产者消费者问题的仓库)</p>
+<p><strong>缺点:</strong>不能完全消除忙碌等待(在临界区执行时可能还要等待) ;如果用户错误的使用了wait()和signal() (或是因为不能确定的函数执行顺序(时序) )，那么会导致死锁和饥饿</p>
 <p>怎么解决问题:将互斥锁的功能(S) 和调度队列链表的功能(wait函数等)分开</p>
 <h2 id="方案四-管程-monitor"><a href="#方案四-管程-monitor" class="headerlink" title="方案四:管程(monitor) :"></a>方案四:管程(monitor) :</h2><p>管程可以视为一种数据结构,有一个自己的ADT (抽象数据类型)</p>
 <p>管程 = 一个互斥锁+ n个条件变量</p>
@@ -524,9 +526,9 @@ semaphore s =初始化值
 </ul>
 <p>管程最大限度的防止了错位调用调度函数导致的同步失败问题</p>
 <p>但程序员依旧要小心在程序中不能胡乱调用管程，否则依然有可能调度失败</p>
-<h1 id="解决死锁问题："><a href="#解决死锁问题：" class="headerlink" title="解决死锁问题："></a>解决死锁问题：</h1><p>死锁deadlock :</p>
+<h1 id="解决死锁问题："><a href="#解决死锁问题：" class="headerlink" title="解决死锁问题："></a>解决死锁问题：</h1><p><strong>死锁(deadlock)</strong>:</p>
 <p>在系统的某一部分中， 所有进程都在等待其他进程释放资源而陷入的无尽循环的等待过程</p>
-<p>形成死锁的四个条件:</p>
+<p><strong>形成死锁的四个条件</strong>:</p>
 <ol>
 <li>互斥(mutual exclusion) :至少有一个资源是被互斥控制的</li>
 <li>占有并等待(hold and wait):每个进程都至少占有了一个资源， 并在等待其他资源</li>
@@ -539,13 +541,13 @@ semaphore s =初始化值
 <p>如果有环：</p>
 <ul>
 <li><strong>如果每种类型的资源只有一个实例，则系统已经产生了死锁</strong></li>
-<li>如果有类型的资源不止一个实例，则系统不一定死锁</li>
+<li><strong>如果有类型的资源不止一个实例，则系统不一定死锁</strong></li>
 </ul>
 <blockquote>
 <p>判断资源图是否死锁的方法(待验证) :</p>
 <ul>
 <li>找到图中所有的环(如找到n个环)</li>
-<li>做n次去除，每次单独去除一 一个环，步骤是:</li>
+<li>做n次去除，每次单独去除一个环，步骤是:</li>
 <li>去掉不属于公共环的申请边和分配边</li>
 <li>去掉这些边连接的实例</li>
 </ul>
@@ -757,7 +759,7 @@ semaphore s =初始化值
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.3k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.7k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>

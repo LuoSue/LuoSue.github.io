@@ -413,7 +413,11 @@
           <h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程：一系列CPU活动的总称</p>
 <ul>
 <li>进程是活动的程序实体</li>
+<li>进程是程序的一次执行</li>
+<li>进程是一个数据结构及能在其上进行操作的一个程序</li>
+<li>进程是程序在一个数据集合上的运行过程，是系统进行资源分配以及调度的一个单位</li>
 <li>进程可以套娃：进程是用于执行其他程序的程序活动(JVM)</li>
+<li>程序不是进程，程序是被动的，进程是活动的</li>
 </ul>
 <h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>定义进程的状态：</p>
 <table>
@@ -442,8 +446,9 @@
 </tr>
 </tbody>
 </table>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/vre8v4e98.PNG" alt></p>
 <h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><p>在操作系统中如何表示进程：</p>
-<p>PCB=</p>
+<p>用加以区分PCB</p>
 <ul>
 <li>进程状态：(同上)</li>
 <li>程序计数器：存储下一个要执行的指令地址</li>
@@ -453,19 +458,19 @@
 <li>记帐信息：CPU时间、实际使用的CPU时间等记录数据</li>
 <li>I/O状态信息：分配给进程的I/O设备、文件等信息</li>
 </ul>
-<p><strong>注意：PCB可以被用来支持以线程为核心替代进程的系统，只需要增加一些信息</strong></p>
+<p><strong>注意：PCB可以被用来支持以线程为核心替代进程的系统，只需要增加一些信息（即包括每个线程的信息）</strong></p>
 <p>按照进程的功能给进程分类：</p>
 <p>I/O密集型进程(I/O-bound process):以执行I/O操作为主</p>
 <p>CPU密集型进程(CPU-bound process):以执行CPU计算操作为主</p>
 <h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><h3 id="调度队列"><a href="#调度队列" class="headerlink" title="调度队列"></a>调度队列</h3><p>进程在进入系统时，会被加到<strong>作业队列(包括系统内的所有进程)</strong>。</p>
-<p>驻留在内存中的、就绪的、等待运行的进程保存在<strong>就绪队列</strong>上。</p>
+<p>驻留在内存中的、就绪的、等待运行的进程保存在<strong>就绪队列</strong>上（直到被选中执行或被<strong>分派</strong>）。</p>
 <p>等待特定I/O设备的进程列表，称为<strong>设备队列</strong>。</p>
 <h3 id="调度程序"><a href="#调度程序" class="headerlink" title="调度程序"></a>调度程序</h3><p>操作系统通过调度器/调度程序来从调度队列中选择进程</p>
 <p>调度程序的区分：</p>
 <ul>
-<li>长期调度程序/作业调度程序</li>
-<li>中期调度程序</li>
-<li>短期调度程序/CPU调度程序</li>
+<li>长期调度程序/作业调度程序（从磁盘的缓冲池中选择进程）</li>
+<li>中期调度程序（根据需要中断进程，从内存或者是CPU中移出）</li>
+<li>短期调度程序/CPU调度程序（从准备执行的进程中选择进程）</li>
 </ul>
 <p>怎么调度：</p>
 <ul>
@@ -475,13 +480,15 @@
 <li>进程开始运行</li>
 <li>根据需要中断进程，从内存或者是CPU中移出-&gt;中期调度</li>
 </ul>
+<p>中期调度这种方案称为<strong>交换</strong>，进程可以<strong>换入</strong>，或者<strong>换出</strong></p>
 <p>一个指标：<strong>多道程序程度</strong>表示内存中的进程数量，长期调度必须保证该值稳定，即进程的进出速度几乎一致。</p>
 <h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p>CPU进行进程换出或者是中断时都需要进行<strong>上下文切换</strong>：</p>
 <ul>
-<li>CPU状态保存(内核/用户模式)</li>
+<li>CPU<strong>状态保存(内核/用户模式)</strong></li>
 <li>保存该进程PCB-&gt;读入新进程PCB-&gt;转换进程</li>
-<li>CPU状态恢复</li>
+<li>CPU<strong>状态恢复</strong></li>
 </ul>
+<p>进程的上下文一般采用PCB来表示</p>
 <h3 id="CPU调度"><a href="#CPU调度" class="headerlink" title="CPU调度"></a>CPU调度</h3><p>发生的情况：</p>
 <ol>
 <li><p>进程running-&gt;waiting</p>
@@ -495,34 +502,42 @@
 <p>以上情况均发生时都进行调度的调度方案：<strong>抢占式调度</strong></p>
 <p>只有1和2发生时进行调度的调度方案：<strong>非抢占式调度</strong></p>
 <p>非抢占式意味着一旦一个进程进入CPU运行，它一定会占用CPU，直到终止才退出。</p>
-<p>换入，换出。</p>
-<h5 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h5><h6 id="先到先服务-FIFO-FCFS-调度"><a href="#先到先服务-FIFO-FCFS-调度" class="headerlink" title="先到先服务(FIFO/FCFS)调度"></a>先到先服务(FIFO/FCFS)调度</h6><ul>
+<p><strong>调度准则：</strong></p>
+<ul>
+<li>CPU使用率</li>
+<li>吞吐量</li>
+<li>周转时间</li>
+<li>等待时间</li>
+<li>响应时间</li>
+</ul>
+<h5 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h5><h5 id="先到先服务-FIFO-FCFS-调度"><a href="#先到先服务-FIFO-FCFS-调度" class="headerlink" title="先到先服务(FIFO/FCFS)调度"></a>先到先服务(FIFO/FCFS)调度</h5><ul>
 <li>非抢占式</li>
 <li>先到的进程先执行</li>
 </ul>
 <p>优点：算法简单</p>
-<p>缺点：短运行时间的任务需要长时间的等待</p>
-<h6 id="最短时间优先-SJF"><a href="#最短时间优先-SJF" class="headerlink" title="最短时间优先(SJF)"></a>最短时间优先(SJF)</h6><ul>
+<p>缺点：短运行时间的任务需要长时间的等待（平均等待时间一般很长）</p>
+<h5 id="最短时间优先-SJF"><a href="#最短时间优先-SJF" class="headerlink" title="最短时间优先(SJF)"></a>最短时间优先(SJF)</h5><ul>
 <li>非抢占式</li>
 <li>运行时间短的进程优先执行</li>
 </ul>
-<p>优点：效率最优</p>
+<p>优点：效率最优（平均等待时间最小）</p>
 <p>缺点：系统难以预测后到达的进程的运行时间</p>
 <p>一个预测的方法：<br>$$<br>Tn+1=a(Tn)+(1-a)Qn<br>$$<br>预计下一次进程的运行时间=a*(本次运行时间)+(1-a)预计的本次运行时间</p>
-<h6 id="最短剩余时间优先-SRTF"><a href="#最短剩余时间优先-SRTF" class="headerlink" title="最短剩余时间优先(SRTF)"></a>最短剩余时间优先(SRTF)</h6><ul>
+<h5 id="最短剩余时间优先-SRTF"><a href="#最短剩余时间优先-SRTF" class="headerlink" title="最短剩余时间优先(SRTF)"></a>最短剩余时间优先(SRTF)</h5><ul>
 <li>抢占机制的SJF</li>
 <li>每当进程进入/进程运行结束的时候，计算所有队列的进程的剩余运行时间</li>
 <li>剩余运行时间最短的进程可以抢占当前进程开始运行</li>
 </ul>
 <p>SRTF的缺点：如果不停的有短时间进程到达，则长时间任务会陷入饥饿</p>
 <p>饥饿：进程超级长时间在等待而得不到运行</p>
-<h6 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h6><ul>
+<h5 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h5><ul>
 <li>SJF是优先级调度的特例</li>
 <li>非抢占式或抢占式</li>
 <li>为每个进程设置优先级，优先级高的进程先运行</li>
 </ul>
 <p>优缺点与SJF相似</p>
-<h6 id="轮转调度-RR"><a href="#轮转调度-RR" class="headerlink" title="轮转调度(RR)"></a>轮转调度(RR)</h6><ul>
+<p>解决方案之一是<strong>老化(aging):</strong>逐渐增加在系统中等待很长时间的进程的优先级</p>
+<h5 id="轮转调度-RR"><a href="#轮转调度-RR" class="headerlink" title="轮转调度(RR)"></a>轮转调度(RR)</h5><ul>
 <li>抢占式，分时系统</li>
 <li>设定一个时间量单元(又称时间片)</li>
 <li>每个进程的执行时间都不能长于时间片</li>
@@ -530,15 +545,15 @@
 <li>就绪队列里的进程遵循FCFS,即被抢占的进程回到队尾</li>
 </ul>
 <p>优点：短时间进程多的情况效率高</p>
-<p>缺点：长时间进程多时，频繁切换上下文会使效率降低，且RR调度的效率取决于时间片的大小，时间片越大时，其效率越接近FCFS</p>
-<h6 id="多级队列-多级反馈队列调度"><a href="#多级队列-多级反馈队列调度" class="headerlink" title="多级队列/多级反馈队列调度"></a>多级队列/多级反馈队列调度</h6><ul>
+<p>缺点：长时间进程多时，频繁切换上下文会使效率降低，且RR调度的效率取决于时间片的大小，时间片越大时，其效率越接近FCFS，而且时间片的大小应该远大于上下文切换时间</p>
+<h5 id="多级队列-多级反馈队列调度"><a href="#多级队列-多级反馈队列调度" class="headerlink" title="多级队列/多级反馈队列调度"></a>多级队列/多级反馈队列调度</h5><ul>
 <li>将就绪队列分成不同的n个队列，每个队列按照特定的规则调度进程(比如一个用FCFS，一个用SJF)</li>
 <li>队列之间可以进行反馈，使得进程在不同队列之间迁移</li>
 <li>如长时间占用CPU的进程可能会被移到优先级更低的队列</li>
 </ul>
 <p>优点：优化短时间进程和I/O密集型进程的运行效率</p>
 <p>缺点：仍然难以解决长时间进程的饥饿(又被称为老化，aging的问题)</p>
-<h6 id="彩票调度"><a href="#彩票调度" class="headerlink" title="彩票调度"></a>彩票调度</h6><ul>
+<h5 id="彩票调度"><a href="#彩票调度" class="headerlink" title="彩票调度"></a>彩票调度</h5><ul>
 <li>在RR或多级队列的基础上进行优化</li>
 <li>给每个进程发一些彩票，在每个时间片开始之前，抽奖选出幸运进程</li>
 <li>为了防止饥饿，每个进程至少有一张彩票</li>
@@ -633,23 +648,26 @@
 <li>据此，每个进程可以使用*100%的CPU时间</li>
 </ul>
 <p>如果分配完后剩下的T值不够新进程的请求，准入算法会拒绝新的进程加入</p>
-<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>不影响其他进程，也不受其他进程影响的进程：独立进程与其他进程进行数据共享的进程：协作进程</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>不影响其他进程，也不受其他进程影响的进程：独立进程</p>
+<p>与其他进程进行数据共享的进程：协作进程</p>
 <p>协作进程的好处：</p>
 <ul>
-<li>信息共享information sharing</li>
-<li>计算加速computeration speedup</li>
-<li>模块化modularity</li>
-<li>便捷convenience</li>
+<li>信息共享(information sharing)</li>
+<li>计算加速(computeration speedup)</li>
+<li>模块化(modularity)</li>
+<li>方便(convenience)</li>
 </ul>
-<p>进程间通信的两种方法:<br>1、共享内存:</p>
-<p>建立一块内存区域，可以供所有进程共享，进程从内存中读写数据，要保证不会由多个进程同时读写数据(进程同步会解决这个问题)</p>
+<p><strong>进程间通信的两种方法:</strong></p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/ytftdteswr59844.PNG" alt></p>
+<p>1、<strong>共享内存</strong>:</p>
+<p>建立一块内存区域，可以供协作进程共享，进程从内存中读写数据，要保证不会由多个进程同时读写数据(进程同步会解决这个问题)</p>
 <p>建立共享内存时需要系统调用，但使用时无需</p>
 <p>优点:速度快(单核系统）</p>
 <p>缺点:在多核系统中有高速缓存一致性等问题，会使性能下降</p>
-<p>2、消息传递:<br>操作系统提供机制:进程可以进行两种操作:send(mes)发送消息，receive(mes)接受消息，进程可以通过一种方式互相发送消息，称为<br>通信链路communication link<br>不断进行系统调用才能实现</p>
+<p>2、<strong>消息传递</strong>:<br>操作系统提供机制:进程可以进行两种操作:send(mes)发送消息，receive(mes)接受消息，进程可以通过一种方式互相发送消息，称为<br>通信链路communication link<br>不断进行系统调用才能实现</p>
 <p>优点:无需避免冲突(同步问题)，多核系统中效率高</p>
 <p>缺点:某些情况下系统调用要更慢</p>
-<p>实现通信链路的三个问题：</p>
+<p><strong>实现通信链路的三个问题：</strong></p>
 <p>如何找到对方:直接/间接通信:</p>
 <p>直接通信：</p>
 <ul>
@@ -869,7 +887,7 @@
           <span class="badge-subject">PV</span><span class="badge-value bg-orange" id="busuanzi_value_site_pv" target="_blank" title="本站浏览量"></span>
         </div>
         <div class="github-badge">
-          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.3k</span></span>
+          <span class="badge-subject">WordCount</span><span class="badge-value bg-blueviolet" target="_blank" title="全站字数"><span class="post-count">86.7k</span></span>
         </div>
     </div>
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>
