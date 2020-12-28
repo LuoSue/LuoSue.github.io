@@ -411,29 +411,29 @@
         
         <div class="entry-content">
           <h1 id="操作系统结构"><a href="#操作系统结构" class="headerlink" title="操作系统结构"></a>操作系统结构</h1><h2 id="操作系统服务"><a href="#操作系统服务" class="headerlink" title="操作系统服务"></a>操作系统服务</h2><ul>
-<li>用户界面：UI 命令行界面(CLI) 图形用户界面(GUI)</li>
-<li>程序执行</li>
-<li>I/O操作</li>
-<li>文件系统操作</li>
-<li>通信</li>
-<li>错误检测</li>
+<li><strong>用户界面</strong>：UI 命令行界面(CLI) 图形用户界面(GUI)</li>
+<li><strong>程序执行</strong></li>
+<li><strong>I/O操作</strong></li>
+<li><strong>文件系统操作</strong></li>
+<li><strong>通信</strong></li>
+<li><strong>错误检测</strong></li>
 </ul>
 <p>内部功能：</p>
 <ul>
-<li>资源分配</li>
-<li>记账</li>
-<li>保护与安全</li>
+<li><strong>资源分配</strong></li>
+<li><strong>记账</strong></li>
+<li><strong>保护与安全</strong></li>
 </ul>
-<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>提供操作系统服务接口，这些调用通常以C或者C++编写。</p>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p><strong>提供操作系统服务接口</strong>，这些调用通常以C或者C++编写。</p>
 <p>通常，应用开发人员根据应用编程接口(API)来设计程序(可以看成是一系列包装好的系统调用函数)</p>
 <h3 id="系统调用接口"><a href="#系统调用接口" class="headerlink" title="系统调用接口"></a>系统调用接口</h3><p>获得API中要进行的系统调用，然后统筹安排调用的顺序(建立一个索引表以找到对应的系统调用)</p>
 <h3 id="系统调用的类型"><a href="#系统调用的类型" class="headerlink" title="系统调用的类型"></a>系统调用的类型</h3><ul>
-<li>进程控制</li>
-<li>文件管理</li>
-<li>设备管理</li>
-<li>信息维护</li>
-<li>通信</li>
-<li>保护</li>
+<li><strong>进程控制</strong></li>
+<li><strong>文件管理</strong></li>
+<li><strong>设备管理</strong></li>
+<li><strong>信息维护</strong></li>
+<li><strong>通信</strong></li>
+<li><strong>保护</strong></li>
 </ul>
 <h2 id="系统程序"><a href="#系统程序" class="headerlink" title="系统程序"></a>系统程序</h2><p>操作系统自带的应用程序，又称系统工具，主要分类有：</p>
 <ul>
@@ -446,29 +446,30 @@
 <li>后台服务</li>
 <li>其他软件(网页浏览器、文字处理器、游戏软件、绘图软件)</li>
 </ul>
-<h2 id="操作系统的设计与实现"><a href="#操作系统的设计与实现" class="headerlink" title="操作系统的设计与实现"></a>操作系统的设计与实现</h2><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><p>基本两个大类：用户目标与系统目标</p>
+<h2 id="操作系统的设计与实现"><a href="#操作系统的设计与实现" class="headerlink" title="操作系统的设计与实现"></a>操作系统的设计与实现</h2><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><p>基本两个大类：<strong>用户目标与系统目标</strong></p>
 <h3 id="机制与策略"><a href="#机制与策略" class="headerlink" title="机制与策略"></a>机制与策略</h3><p>策略与机制需要相分离，机制决定<strong>如何做</strong>，策略决定<strong>做什么</strong>。</p>
-<p>对于灵活性，策略与机制的分离至关重要(微内核成功做到了机制与策略的分离)</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>采用高级语言编写操作系统的缺点：降低os处理的速度和增加存储需求。但对现在的硬件水平来说，这些缺点可以忽略不计。</p>
+<p>对于灵活性，策略与机制的分离至关重要(<strong>微内核成功做到了机制与策略的分离</strong>)</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><strong>采用高级语言编写操作系统的缺点</strong>：降低os处理的速度和增加存储需求。</p>
+<p>但对现在的硬件水平来说，这些缺点可以忽略不计。</p>
 <h2 id="操作系统的结构"><a href="#操作系统的结构" class="headerlink" title="操作系统的结构"></a>操作系统的结构</h2><h4 id="简单结构：用户-系统调用-硬件"><a href="#简单结构：用户-系统调用-硬件" class="headerlink" title="简单结构：用户-系统调用-硬件"></a>简单结构：用户-系统调用-硬件</h4><ul>
 <li>早期的操作系统采用这种方法</li>
-<li>优点：内核通信和系统调用的开销非常小</li>
-<li>缺点：用户程序崩溃可能导致系统崩溃</li>
+<li><strong>优点</strong>：内核通信和系统调用的开销非常小</li>
+<li><strong>缺点</strong>：用户程序崩溃可能导致系统崩溃</li>
 </ul>
 <h4 id="分层方法：用户接口-层n-1-层n-2-层1-层0-硬件"><a href="#分层方法：用户接口-层n-1-层n-2-层1-层0-硬件" class="headerlink" title="分层方法：用户接口-层n-1-层n-2-层1-层0(硬件)"></a>分层方法：用户接口-层n-1-层n-2-层1-层0(硬件)</h4><ul>
 <li>每一层实现的内容：接受上一层的数据，并使用下一层的操作处理，再返回数据。</li>
-<li>优点：快速定义错误，可以从低层向高层调试:如果程序在这一层出错，则证明是这一层的问题</li>
-<li>缺点：效率较其它方法更差，难于合理定义各层</li>
+<li><strong>优点</strong>：快速定义错误，可以从低层向高层调试:如果程序在这一层出错，则证明是这一层的问题</li>
+<li><strong>缺点</strong>：效率较其它方法更差，难于合理定义各层</li>
 </ul>
 <h4 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h4><p>尽量删除内核模式中不必要的功能，把它们封装到用户程序里，需要使用的时候再将二者结合起来</p>
 <ul>
 <li>微内核里一般都有CPU调度和内存管理，其他系统调用通过进程间通信模块和外部用户程序进行消息传递实现</li>
-<li>优点：内核小，可扩展性强</li>
-<li>缺点：系统需要的功能越多，微内核性能越差</li>
+<li><strong>优点</strong>：内核小，可扩展性强</li>
+<li><strong>缺点</strong>：系统需要的功能越多，微内核性能越差</li>
 </ul>
 <h4 id="可加载的内核模块"><a href="#可加载的内核模块" class="headerlink" title="可加载的内核模块"></a>可加载的内核模块</h4><p>内核只提供核心服务，其他服务通过”动态链接”外部服务模块</p>
 <ul>
-<li>优点：灵活，不需要在每次添加功能时重新编译内核程序</li>
+<li><strong>优点</strong>：灵活，不需要在每次添加功能时重新编译内核程序</li>
 </ul>
 <p>目前的最优方法之一</p>
 <h4 id="混合以上结构的操作系统"><a href="#混合以上结构的操作系统" class="headerlink" title="混合以上结构的操作系统"></a>混合以上结构的操作系统</h4><p>MacOS,Windows,Linux</p>
