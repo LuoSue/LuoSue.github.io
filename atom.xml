@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fallensue.cc/"/>
-  <updated>2020-12-25T14:21:22.987Z</updated>
+  <updated>2020-12-31T14:25:10.815Z</updated>
   <id>https://fallensue.cc/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你好2021,再见2020</title>
+    <link href="https://fallensue.cc/posts/5a4e32c4.html"/>
+    <id>https://fallensue.cc/posts/5a4e32c4.html</id>
+    <published>2020-12-31T13:55:03.000Z</published>
+    <updated>2020-12-31T14:25:10.815Z</updated>
+    
+    <summary type="html">
+    
+      新年总结(简单版)
+    
+    </summary>
+    
+      <category term="随想" scheme="https://fallensue.cc/categories/%E9%9A%8F%E6%83%B3/"/>
+    
+    
+      <category term="随想" scheme="https://fallensue.cc/tags/%E9%9A%8F%E6%83%B3/"/>
+    
+  </entry>
   
   <entry>
     <title>OS文件系统实现</title>
@@ -393,26 +413,6 @@
     
     
       <category term="OS" scheme="https://fallensue.cc/tags/OS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构-图的关键路径分析</title>
-    <link href="https://fallensue.cc/posts/bfa3aab2.html"/>
-    <id>https://fallensue.cc/posts/bfa3aab2.html</id>
-    <published>2020-11-19T12:16:21.000Z</published>
-    <updated>2020-12-20T03:20:57.370Z</updated>
-    
-    <summary type="html">
-    
-      数据结构图关键路径分析
-    
-    </summary>
-    
-      <category term="学习" scheme="https://fallensue.cc/categories/%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="DataStructure" scheme="https://fallensue.cc/tags/DataStructure/"/>
     
   </entry>
   
