@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">数据结构查找 | LuoSue&#39;s Blog</title>
+  <title itemprop="name">《猎人笔记-霍里和卡利内奇》读书笔记 | LuoSue&#39;s Blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/aubergine.ico">
   
@@ -380,11 +380,11 @@
 
   <div class="pattern-center single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSSearch.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSSearch.png">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/eruigher.png);" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/eruigher.png">
     </div>
     <header class="pattern-header single-header">
       <h1 class="entry-title">
-      数据结构查找</h1>
+      《猎人笔记-霍里和卡利内奇》读书笔记</h1>
       <p class="entry-census">
         <span>
           <a href="fallensue.cc">
@@ -396,7 +396,7 @@
         </span>
         <span class="bull">
         ·</span>
-        2020-12-01 22:16:13<span class="bull">
+        2021-01-13 16:44:13<span class="bull">
         ·</span>
       <span id="busuanzi_value_page_pv"></span>次阅读</p>
     </header>
@@ -410,313 +410,22 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h1><p>按一定的顺序检查数组中每一个元素，直到找到所要找的特定值为止</p>
-<ul>
-<li>优点：十分简单</li>
-<li>缺点：如果要寻找的特定值不在这个数组或者是数组里的最后一个元素，这就需要进行n次比较，浪费时间</li>
-</ul>
-<p>设置哨兵：把要查找的值添加到数组的首位置或者最后一个位置，之后从添加的另一端开始逐个比较</p>
-<p>算法C代码实现:</p>
-<pre><code class="c">int S_search(int S[],int key){
-    S[0] = key;/*哨兵*/
-    for(int i = n;S[i] != key;i--)
-        return i;/*返回0或者是找到的位置*/
-}
-</code></pre>
-<ul>
-<li><p>最好的时间复杂度:O(1)</p>
-</li>
-<li><p>最坏的时间复杂度:O(n)</p>
-</li>
-<li><p>平均查找次数:(n+1)/2</p>
-</li>
-</ul>
-<p>顺序查找一般用于数组以及链表</p>
-<h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><p>二分查找适用于<strong>有序的</strong>顺序表</p>
-<p>基本思路：</p>
-<ol>
-<li>首先找到表两个端点(最大值与最小值),分别记为high和low</li>
-<li>求中间端点mid=[(low+high)/2]；如果key = array[mid],则查找成功</li>
-<li>若key&lt;array[mid],则下一个查找范围设置成[low,mid-1]</li>
-<li>若key&gt;array[mid],则下一个查找范围设置成[mid+1,high]</li>
-<li>重复如上直到查找成功，但当low&gt;high时或者是根本不存在时查找失败</li>
-</ol>
-<p>算法时间复杂度：O(logn)(n为表长)</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSBinarySearch.JPG" alt></p>
-<p>算法C代码实现:</p>
-<pre><code class="c">/*递归实现*/
-int binary_search(const int arr[], int start, int end, int khey) {
-    if (start &gt; end)
-        return -1;
-
-    int mid = start + (end - start) / 2;    //直接平均可能会溢位，所以用此算法
-    if (arr[mid] &gt; khey)
-        return binary_search(arr, start, mid - 1, khey);
-    else if (arr[mid] &lt; khey)
-        return binary_search(arr, mid + 1, end, khey);
-    else
-        return mid;        //最后检测相等是因为多数搜寻状况不是大于要不就小于
-}
-
-/*while循环实现*/
-int binary_search(const int arr[], int start, int end, int key) {
-    int ret = -1;       // 未搜索到数据返回-1下标
-
-    int mid;
-    while (start &lt;= end) {
-        mid = start + (end - start) / 2; //直接平均可能会溢位，所以用此算法
-        if (arr[mid] &lt; key)
-            start = mid + 1;
-        else if (arr[mid] &gt; key)
-            end = mid - 1;
-        else {            // 最后检测相等是为多数搜寻状况不是大于要不就小于
-            ret = mid;  
-            break;
-        }
-    }
-
-    return ret;     // 单一出口
-}
-</code></pre>
-<h1 id="索引查找"><a href="#索引查找" class="headerlink" title="索引查找"></a>索引查找</h1><p>将一个搜索列表R[n]分成b个子列表。每个子列表可以不按数据大小排序，但是前子列表中的最大数据必须低于下一个后继列表中的最小数据。</p>
-<p>建立一个索引表ID[b].ID[i]存储的是第i个表中的最大数据，索引表ID[b]是一个有序表</p>
-<p>查找方法：</p>
-<ul>
-<li>在ID[]中查找确定可能需要的子列表(二分查找或顺序查找均可)</li>
-<li>在ID[k]中查找只能用顺序查找</li>
-</ul>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSIndexingSearch.JPG" alt></p>
-<h1 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h1><p><strong>二叉查找树</strong>（Binary Search Tree），也称为<strong>二叉搜索树</strong>、<strong>有序二叉树</strong>（ordered binary tree）或<strong>排序二叉树</strong>（sorted binary tree），是指一棵空树或者具有下列性质的二叉树</p>
-<ol>
-<li>若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；</li>
-<li>若任意节点的右子树不空，则右子树上所有节点的值均大于或等于它的根节点的值；</li>
-<li>任意节点的左、右子树也分别为二叉查找树；</li>
-</ol>
-<p>二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低。为O(logn).</p>
-<p>中序遍历二叉查找树可得到一个关键字的有序序列，一个无序序列可以透过建构一棵二叉查找树变成一个有序序列，建构树的过程即为对无序序列进行查找的过程。</p>
-<p>每次插入的新的结点都是二叉查找树上新的叶子结点，在进行插入操作时，不必移动其它结点，只需改动某个结点的指针，由空变为非空即可。</p>
-<p>搜索、插入、删除的复杂度等于树高，期望O(logn)，最坏O(n)（数列有序，树退化成线性表）。</p>
-<h2 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h2><p>在二叉查找树b中要查找一个值x的过程为:</p>
-<ol>
-<li>如果b是空树，则查找失败，否则:</li>
-<li>若是x等于b的根节点的数据域的值，则查找成功；否则：</li>
-<li>若是x小于b的根节点的数据域的值，则在左子树中查找；否则在右子树中查找</li>
-</ol>
-<pre><code class="c">Status SearchBST(BiTree T, KeyType key, BiTree f, BiTree &amp;p) {
-    /*在根指针T所指二叉查找树中递归地查找其关键字等于key的数据元素，若查找成功，则指针p指向该数据元素结点，并返回TRUE，否則指针指向查找路径上访问的最后一个节点并返回FALSE，指针f指向T的双亲，其初始调用值为NULL*/
-    if (!T) { // 查找不成功
-        p = f;
-        return false;
-    } else if (key == T-&gt;data.key) { // 查找成功
-        p = T;
-        return true;
-    } else if (key &lt; T-&gt;data.key) // 在左子树中继续查找
-        return SearchBST(T-&gt;lchild, key, T, p);
-    else // 在右子樹中继续查找
-        return SearchBST(T-&gt;rchild, key, T, p);
-}
-</code></pre>
-<h2 id="插入算法"><a href="#插入算法" class="headerlink" title="插入算法"></a>插入算法</h2><p>向一个二叉查找树b中插入一个节点s的算法，过程为：</p>
-<ol>
-<li>若b是空树，则将s所指节点作为根节点插入，否则：</li>
-<li>若s-&gt;data等于b的根节点的数据域之值，则返回，否则：</li>
-<li>若s-&gt;data小于b的根节点的数据域之值，则把s所指节点插入到左子树中，否则把s所指节点插入到右子树中。（新插入节点总是叶子节点）</li>
-</ol>
-<pre><code class="c++">/* 当二叉查找树T中不存在关键字等于e.key的数据元素时，插入e并返回TRUE，否则返回 FALSE */
-Status InsertBST(BiTree *&amp;T, ElemType e) {
-    if (!T) {
-        s = new BiTNode;
-        s-&gt;data = e;
-        s-&gt;lchild = s-&gt;rchild = NULL;
-        T = s; // 被插节点*s为新的根结点
-    } else if (e.key == T-&gt;data.key)
-        return false;// 关键字等于e.key的数据元素，返回错误
-    if (e.key &lt; T-&gt;data.key)
-        InsertBST(T-&gt;lchild, e);  // 将e插入左子树
-    else
-        InsertBST(T-&gt;rchild, e);  // 将e插入右子树
-    return true;
-}
-</code></pre>
-<h2 id="删除算法"><a href="#删除算法" class="headerlink" title="删除算法"></a>删除算法</h2><p>在二叉查找树删去一个结点，分三种情况讨论：</p>
-<ol>
-<li>若*p结点为叶子结点，即PL（左子树）和PR（右子树）均为空树。由于删去叶子结点不破坏整棵树的结构，则只需修改其双亲结点的指针即可。</li>
-<li>若<em>p结点只有左子树PL或右子树PR，此时只要令PL或PR直接成为其双亲结点</em>f的左子树（当<em>p是左子树）或右子树（当</em>p是右子树）即可，作此修改也不破坏二叉查找树的特性。</li>
-<li>若<em>p结点的左子树和右子树均不空。在删去</em>p之后，为保持其它元素之间的相对位置不变，可按中序遍历保持有序进行调整，可以有两种做法：其一是令<em>p的左子树为</em>f的左/右（依<em>p是</em>f的左子树还是右子树而定）子树，<em>s为</em>p左子树的最右下的结点，而<em>p的右子树为</em>s的右子树；其二是令<em>p的直接前驱（in-order predecessor）或直接后继（in-order successor）替代</em>p，然后再从二叉查找树中删去它的直接前驱（或直接后继）。</li>
-</ol>
-<pre><code class="c">//第一种算法删除元素
-void deleteNode1(BSTree &amp;p){
-    BSTree q,s;
-    if(!p-&gt;lchild){
-        //如果左子树为空，则只需重接其右子树
-        //这里包含了左右子树均为空的情况
-        q=p;
-        p=p-&gt;rchild;
-        free(q);
-    }
-    else if(!p-&gt;rchild){
-        //如果右子树为空，则只需重接其左子树
-        q = p;
-        p=p-&gt;lchild;
-        free(q);
-    }
-    else{
-        //如果左右子树均不为空，我们采用第一种方法来重接
-        //我们修改左子树，也可以修改右子树，效果类似
-        s=p-&gt;lchild; //取待删结点的左节点
-        //一直向右，直到s为待删结点的前驱节点
-        //如果将各个元素按从小到大的顺序排列
-        //如果将各节点元素按从小到大顺序排列成一个序列，
-        //则某节点的前驱节点即为序列中该节点的前面一个节点
-        while(s-&gt;rchild)
-            s = s-&gt;rchild;
-        s-&gt;rchild = p-&gt;rchild;    //将p的右子树接为s的右子树
-        q = p;
-        p = p-&gt;lchild;        //将p的左子树直接接到其父节点的左子树上
-        free(q);
-
-    }
-}
-
-//第二种算法删除元素
-void deleteNode2(BSTree &amp;p)
-{
-    BSTree q,s;        
-    if(!p-&gt;lchild)    
-    {    //如果左子树为空，则只需重接其右子树
-        //这里包含了左右子树均为空的情况
-        q = p;
-        p = p-&gt;rchild ;
-        free(q);
-    }
-    else if(!p-&gt;rchild)
-    {    //如果右子树为空，则只需重接其左子树
-        q = p;
-        p = p-&gt;lchild;
-        free(q);
-    }
-    else
-    {    //如果左右子树都不为空，我们采取第二种方法来重接左右子树，
-        //我们这里采取修改左子树的方法，也可以修改右子树，方法类似
-        q = p;
-        s = p-&gt;lchild;        //取待删节点的左节点
-        while(s-&gt;rchild)        
-        {    //一直向右，最终s为待删节点的前驱节点。
-            //如果将各节点元素按从小到大顺序排列成一个序列，
-            //则某节点的前驱节点即为序列中该节点的前面一个节点
-            q = s;
-            s = s-&gt;rchild;
-        }
-        //用s来替换待删节点p
-        p-&gt;data = s-&gt;data;  
-        //根据情况，将s的左子树重接到q上
-        if(p != q)
-            q-&gt;rchild = s-&gt;lchild;
-        else
-            q-&gt;lchild = s-&gt;lchild;
-        free(s);
-    }
-}
-
-/*
-若pTree所指向的二叉排序树中查找到关键字为key的数据元素，
-则删除该元素对应的节点，并返回true，否则返回false
-如果要删除的恰好是根节点，则会改变根节点的值，因此要传入引用
-*/
-bool deleteBSTree(BSTree &amp;pTree,int key)
-{
-    //不存在关键字为key的节点
-    if(!pTree)
-        return false;
-    else
-    {    
-        if(key == pTree-&gt;data)       //查找到关键字为key的节点
-        {
-            deleteNode1(pTree);
-//            deleteNode2(pTree);
-            return true;            
-        }
-        else if(key &lt; pTree-&gt;data)  //继续查找左子树
-            return deleteBSTree(pTree-&gt;lchild,key);
-        else                        //继续查找右子树
-            return deleteBSTree(pTree-&gt;rchild,key);
-    }
-
-</code></pre>
-<h1 id="二叉判定树的画法"><a href="#二叉判定树的画法" class="headerlink" title="二叉判定树的画法"></a>二叉判定树的画法</h1><p>思路分析：由于在计算mid值的时候，使用的mid=(low+high)/2。这里因为mid为int类型，所以向下取整。因此对一个长度为n的序列进行划分之后的序列为(0,1,2,……,mid-1) mid (mid+1,mid+2,……n-1)。这时候会发生两种情况：</p>
-<ul>
-<li>左边长度=右边长度(n=2m+1,m∈Z)</li>
-<li>左边长度=右边长度-1(n=2m,m∈Z)</li>
-</ul>
-<p>所以由此得知，折半查找的二叉判定树对于所有结点，左子树的结点个数&lt;=右子树的结点的个数.即：</p>
-<ul>
-<li>若某个序列总长度n为奇数,左右子树结点的个数相等</li>
-<li>若某个序列总长度n为偶数，左子树个数=右子树结点的个数-1</li>
-</ul>
-<p>所以对于一个给定的序列，构建折半查找的判定树一共有以下几步：</p>
-<ol>
-<li>按照二叉树每层最大结点数为2^（h-1）依次由上至下构建满二叉树至最底层不够形成满二叉树为止。</li>
-<li>根据上述规律再将剩下的结点逐个插入最底层</li>
-<li>按照中序遍历的顺序依次填入各结点值</li>
-</ol>
-<p>具体的例子如下：</p>
-<p><strong>画出对长度为10的有序表进行折半查找的判定树，并求其等概率时查找成功的平均查找长度。表的关键字序列为 1,2,3,4,5,6,7,8,9,10</strong></p>
-<p>(1) 序列总长度为10&gt;2^3-1，二叉判定树为4层，但是第四层不满</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.08.png" alt></p>
-<p>(2) 剩余三个结点。当第四层有一个叶结点时，结点总数n=8为偶数，因此对于a来说，应加在a的右子树，即c的子树中；对于c来说，结点总数n=4为偶数，应加在c的右子树中，即g的子树中；对于g来说，结点总数n=2为偶数，应加在g的右子树，即</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.11.png" alt></p>
-<p>（3）在第四层加入第二个结点时，结点总数n=9为奇数，因此对于a来说，应加在a的左子树使左右子树结点个数相等，即加在b的子树中；对于b来说，结点总数n=4为偶数，应加在b的右子树，即e的子树中；对于e来说，结点总数n=2为偶数，应加在e的右子树，即</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.12.png" alt></p>
-<p>(4) 同理分析，第三个结点应加在a的右孩子的左孩子的右子树，即</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/20201207-16.19.14.png" alt></p>
-<p>结束啦！</p>
-<h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><p>平衡二叉树又被称为AVL树，具有以下性质：它是一棵空的树或它的左右两个子树的高度差的绝对值不超过1，并且两个子树均是一棵平衡二叉树</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/900px-Unbalanced_binary_tree.svg.png" alt></p>
-<p>上图为一个AVL树</p>
-<p>AVL树的平衡因子：节点x的平衡因子是x的左子树的高度减去它的右子树的高度。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLfactor.JPG" alt></p>
-<p>AVL树中的每个节点的平衡因子为0,1或是-1</p>
-<p>当往AVL树中插入一个节点之后，AVL树可能会不平衡，所以需要重新平衡</p>
-<h2 id="LL-右旋"><a href="#LL-右旋" class="headerlink" title="LL(右旋)"></a>LL(右旋)</h2><p>LL的意思是向左子树（L）的左孩子（L）中插入新节点后导致不平衡，这种情况下需要右旋操作，而不是说LL的意思是右旋，后面的也是一样。</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSLL.JPG" alt></p>
-<h2 id="RR-左旋"><a href="#RR-左旋" class="headerlink" title="RR(左旋)"></a>RR(左旋)</h2><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSRR.JPG" alt></p>
-<h2 id="LR-左右旋"><a href="#LR-左右旋" class="headerlink" title="LR(左右旋)"></a>LR(左右旋)</h2><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSLR.JPG" alt></p>
-<h2 id="RL-右左旋"><a href="#RL-右左旋" class="headerlink" title="RL(右左旋)"></a>RL(右左旋)</h2><p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSRL.JPG" alt></p>
-<p>例子：</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample1.JPG" alt></p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample2.JPG" alt></p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSAVLexample3.JPG" alt></p>
-<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><p>概念：来自于维基百科</p>
-<blockquote>
-<p><strong>散列表</strong>（<strong>Hash table</strong>，也叫<strong>哈希表</strong>），是根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做散列函数，存放记录的数组称做<strong>散列表</strong></p>
-</blockquote>
-<p>根据上文得知，实际上哈希表的本质是一个数组。</p>
-<p>一个通俗易懂的例子用于解释哈希表：我们假定你有一个电话簿，它的样子是下面这样的：</p>
-<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/DSHashPhone.jpg" alt></p>
-<p>显然目前你要找到郭七，李八，王二这些人都是非常容易的，因为你的电话簿的页数不够多，所以你用顺序查找很快啊，就能够找着了。但是，问题来了，如果你社交广泛，人气出众。你的电话簿越来越厚，这时候你再想随便查找一个人名，若还是用顺序查找，未免也太累。</p>
-<p>所以我们有一个办法，那就是把按照人名按照首字母顺序排列再创建一个表，如果这时候你再想查找“郭”姓的电话号码，你可以在首字母为G的表中找到它，显然比顺序查找不知道高到哪里去了。</p>
-<p>这里我们将人名作为关键字，“取首字母”是这个例子中的散列函数的函数法则F()，存放首字母的表对应的是散列表。关键字与函数的法则理论上你想咋定就咋定。</p>
-<p>如果一个关键字为k,那么它的值存放在f(k)的存储位置上。因此，不需要比较也能能够直接取得所查的记录。称这个对应关系f为散列(哈希)函数，根据这个函数建立成的表叫做散列(哈希)表</p>
-<p>散列冲突：<strong>对于不同的关键字能够得到同一个散列地址，即k1≠k2,但是f(k1)=f(k2)</strong>。这种现象叫做冲突。怎么理解冲突呢？比方说上述电话簿已经存储了一个叫做王二的人，但是若我们要再向电话簿中插入一个叫做王三的人，那么由于W已经被王二占据，所以这时候王三进不去了，出现了冲突。具有相同函数值的关键字对该散列函数来说称作<strong>同义词</strong>。</p>
-<p>散列函数能使对一个数据序列的访问过程更加迅速有效，通过散列函数，数据元素将被更快定位。</p>
-<p>构造散列函数方法：</p>
-<ol>
-<li>直接定址法：取关键字或关键字的某个线性函数值为散列地址。即<strong>hash(k)=k或hash(k)=ak+b</strong>，其中a,b为常数（这种散列函数叫做自身函数）</li>
-<li>数字分析法：假设关键字是以<em>r</em>为基的数，并且哈希表中可能出现的关键字都是事先知道的，则可取关键字的若干数位组成哈希地址。</li>
-<li>平方取中法：取关键字平方后的中间几位为哈希地址。通常在选定哈希函数时不一定能知道关键字的全部情况，取其中的哪几位也不一定合适，而一个数平方后的中间几位数和数的每一位都相关，由此使随机分布的关键字得到的哈希地址也是随机的。取的位数由表长决定。</li>
-<li>折叠法：将关键字分割成位数相同的几部分（最后一部分的位数可以不同），然后取这几部分的叠加和（舍去进位）作为哈希地址。</li>
-<li>随机数法:纯看运气</li>
-<li>除留余数法：取关键字被某个不大于散列表表长m的数p除后所得的余数为散列地址。即<strong>hash(k)=k mod p,p&lt;=m</strong>。不仅可以对关键字直接取模，也可在折叠法、平方取中法等运算之后取模。对p的选择很重要，一般取素数或m，若p选择不好，容易产生冲突。</li>
-</ol>
-<p>哈希冲突的解决方案：无论hash函数设计得再怎么巧妙，也永远避不开哈希冲突，解决冲突的方法以下几个比较常用。</p>
-<ul>
-<li>开放定址法(open addressing):hash(i)=(hash(key)+d(i)) mod m, i = 1,2,…k(k≤m-1)。其中hash(key)为散列函数，m为散列表长，d(i)为增量序列，i为已经发生冲突的次数。增量序列可以如下取：</li>
-<li>d(i)=1,2,3,4…(m-1)称之为<strong>线性探测</strong>，即d(i)=i，或是其它的线性函数。相当于逐个探测存放地址的表，直到查找到一个空的单元，然后插入</li>
-<li>d(i)=±1²,±2²,±3²,…±k²(k≤m/2)称之为<strong>平方探测</strong>。和线性探测差不多</li>
-<li>d(i)=伪随机数序列，称为<strong>伪随机探测</strong></li>
-</ul>
-<p>链地址法</p>
-<p>产生哈希冲突之后在存储数据之后加一个指针，指向后面冲突的数据，类似于链表</p>
+          <p> 这是《猎人笔记》故事集里的第一个故事，简单的概括一下这个故事，摘抄分析一些句子。</p>
+<p> 开篇第一段引出了这个故事发生的地点：奥廖尔省和卡卢加省。接下来的两个“奥廖尔省的……;卡卢家的就不然……”简单精炼地概括了两个省的异同以及优劣。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/uguggyu.png" alt></p>
+<p>接下来讲的是作者的一个地主朋友——波卢特金，这个小故事便是围绕“我”和波卢特金来展开叙述的，波卢特金是一个很爱打猎的人，“我”称之为出色的人，但波卢特金也有一些弱点，他曾经向富豪小姐求婚，被拒后仍然给小姐的父母送礼物，他总喜欢讲不好笑的笑话……等等</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/tfytfcrtsr.png" alt></p>
+<p>接下来，介绍了本书的一个主角——霍里，霍里是波卢特金的一个佃农，他的家是一个几间小屋子组成的，并且屋内装修虽不算豪华但也简洁。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/grbry45m.png" alt></p>
+<p>霍里是个比较精明的人，俄语中“霍里”与“黄鼠狼”同音，霍里十分有钱。波卢特金评价他是一个滑头，他子孙满堂，有好几个儿媳与儿子，快快乐乐，穿牛皮鞋。</p>
+<p>而卡利内奇身材又高又瘦，每天陪着主人波卢特金打猎，穿着草鞋，没有儿女。</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/gerger8747.png" alt></p>
+<p> 波卢特金称卡利内奇善良，勤恳且殷勤的庄稼汉，但是因为他每天都陪地主打猎，所以没法务农。</p>
+<p> 霍里即使如此有钱，但也没有解除和地主的契约。接下来是和“我”的谈话</p>
+<p><img data-action="zoom" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/gergegrexc.png" alt></p>
+<p>没有胡子的人——指的是官吏。</p>
+<p>霍里和卡利内奇，这两个人性格迥异，霍里是一个积极有为、讲求实际的人，有办事的头脑，是纯理性的人；卡利内奇同他相反，是属于理想家、浪漫主义者、富有热情而好幻想的人物之类的。</p>
+<p>这两个人对地主的忠诚我是无法理解的，或许和时代背景相关？</p>
 
         </div>
         <!-- .entry-content -->
@@ -745,36 +454,19 @@ bool deleteBSTree(BSTree &amp;pTree,int key)
       <div class="toc" style="background: none;"></div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/posts/f442ae61.html" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@master/img/leetcodelinklist.png">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                leetcode链表题解(简单)</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/posts/129f2172.html" rel="next">
+            <a href="/posts/5a4e32c4.html" rel="next">
               <div class="background">
-                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/luosuecdn@main/img/OSFileSystem.png">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/LuoSue/cdn/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1609424662368.png " style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/LuoSue/sscdn@master/img/1609424662368.png ">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                OS文件系统</h3>
+                你好2021,再见2020</h3>
                 <hr>
               </div>
             </a>
